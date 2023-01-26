@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'user_auth',
 ]
 
 MIDDLEWARE = [
@@ -101,6 +102,14 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+# Custom user settings
+AUTH_USER_MODEL = 'user_auth.MyUser'
+
+AUTHENTICATION_BACKENDS = [
+    'user_auth.backends.MyUserBackend',
+]
+# Password recovery settings
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 # Internationalization
