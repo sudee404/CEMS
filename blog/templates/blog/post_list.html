@@ -1,0 +1,152 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block nav %}
+<a class="nav-link  py-1 px-0" href="{% url 'index' %}">HOME</a>
+<a class="nav-link  py-1 px-0" href="{% url 'party-list' %}">PARTIES</a>
+<a class="nav-link  py-1 px-0" href="{% url 'venue-list' %}">VENUES</a>
+<a class="nav-link  py-1 px-0 active" aria-current="page" href="{% url 'post-list' %}">BLOG</a>
+<a class="nav-link  py-1 px-0" href="{% url 'about' %}">ABOUT</a>
+
+{% endblock nav %}
+{% block main %}
+<style>
+    .icon::before {
+        content: "\00BB";
+        padding-right: 5px;
+    }
+    .icon:hover {
+        color: #666666;
+    }
+</style>
+<div class="hidden-image" style="background-image: url({% static 'img/img1.jpg' %});">
+
+    <div class="p-lg-5 cover text-light">
+        <div class="pt-5"></div>
+        <div class="container text-center  py-5">
+            <h1 class="display-4 fw-bold">OUR BLOG</h1>
+            <p class="lead">We have a great blogging platform for all your needs right here</p>
+            <p>Welcome</p>
+            <p class="text-center">Find a post below</p>
+        </div>
+    </div>
+</div>
+<div class="py-5"></div>
+<div class="row mx-0 ps-lg-5">
+    <div class="col-lg-8 col-sm-12 row mx-0">
+        {% for post in page_obj %}
+        {% include 'blog/post_col.html' %}
+        {% endfor %}
+        <div class="col-12 ">
+            <nav aria-label="Page navigation">
+                <ul class="pagination ps-3">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link text-dark"
+                            href="?page={{ page_obj.previous_page_number }}&search={{keyword}}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="visually-hidden">Previous</span>
+                        </a>
+                    </li>
+
+                    <li class="page-item">
+                        <a class="page-link text-dark" href="?page=1&search={{keyword}}">first</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link text-dark"
+                            href="?page={{ page_obj.previous_page_number }}&search={{keyword}}">{{page_obj.previous_page_number}}</a>
+                    </li>
+                    {% else %}
+
+                    {% endif %}
+                    <span class="current">
+                        <li class="page-item">
+                            <a class="page-link text-success"
+                                href="?page={{ page_obj.number }}&search={{keyword}}">{{page_obj.number}}</a>
+                        </li>
+
+                    </span>
+                    {% if page_obj.has_next %}
+                    <li class="page-item"><a class="page-link text-dark"
+                            href="?page={{ page_obj.next_page_number }}&search={{keyword}}">{{page_obj.next_page_number}}</a>
+                    </li>
+
+                    <li class="page-item"><a class="page-link text-dark"
+                            href="?page={{ page_obj.paginator.num_pages }}&search={{keyword}}">last</a></li>
+                    <li class="page-item">
+                        <a class="page-link text-dark" href="?page={{ page_obj.next_page_number }}&search={{keyword}}"
+                            aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="visually-hidden">Next</span>
+                        </a>
+                    </li>
+                    {% endif %}
+
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <div class="col-lg-4 col-sm-12 ">
+        <div class="position-sticky container-fluid" style="top: 6rem;">
+            <form method="GET">
+                <div class="my-3 input-group">
+                    <input type="text" class="form-control" name="search" id="Label" placeholder="Search"
+                        value="{{keyword|default:''}}">
+                    <button type="submit" class="btn btn-primary btn-sm input-group-text"
+                        id="inputGroupPrepend">Find</button>
+                </div>
+            </form>
+            <div>
+                <p class="lead"><span class="text-success">{{page_obj.paginator.count}}</span> Records found</p>
+                <p>Page <span class="text-primary">{{page_obj.number}}</span> / <span
+                        class="text-primary">{{page_obj.paginator.num_pages}}</span></p>
+            </div>
+            {% if categories %}
+            <div class="text-start">
+                <h6 class="lead fw-bold">Categories</h6>
+                <hr class="my-2">
+                {% for category in categories %}
+                    <a href="#" class="icon td-none">{{category}} - {{category.post_count.count}}</a><br>
+                {% endfor %}
+                    
+            </div>
+            {% endif %}
+            {% if popular %}
+            <div class="row row-cols-1 auto justify-content-md-center mt-3">
+                <h6 class="lead fw-bold">Popular</h6>
+                {% for post in popular %}
+
+                <div class="col row">
+                    <hr>
+                    <div class="col-3 py-2">
+                        <a href="{{post.get_absolute_url}}">
+                            <img src="{{post.image.url}}" alt="Bootstrap" width="50" height="50" class="img mx-auto ">
+                        </a>
+                    </div>
+                    <div class="col-9">
+                        <p class="my-0 py-0 fw-bold text-center">
+                            <a href="{{post.get_absolute_url}}" style="text-decoration: none;color:black;">
+                                {{post.title}}
+                            </a>
+                        </p>
+                        <p class="float-start">
+                            <a href="{{post.author.get_absolute_url}}" style="text-decoration: none;">
+                                <span class="text-danger">@</span>{{post.author}}
+                            </a>
+                        </p>
+                        <p class="float-end">
+                            {{post.publish_date|date}}
+                        </p>
+                    </div>
+                </div>
+
+                {% endfor %}
+            </div>
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+</div>
+{% endblock main %}

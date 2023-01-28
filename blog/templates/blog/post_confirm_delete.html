@@ -1,0 +1,30 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block main %}
+<br>
+<br>
+<br>
+<br>
+<div class="container">
+    <div class="jumbotron jumbotron-fluid text-center">
+        <div class="container">
+            <h1 class="display-3">Confirm Delete Action</h1>
+            <p class="lead">You are trying to delete the post - {{object}}</p>
+            <hr class="my-2">
+            <p>Click below to <span class="text-success">Confirm</span> or to <span class="text-danger">Cancel</span></p>
+            <p class="lead row">
+                <form action="" method="post" >
+                    {% csrf_token %}
+                <input class='btn btn-success btn-lg mr-3' type="submit" value="Confirm" />
+                <a class='btn btn-danger btn-lg ml-3' href="{%url 'stories'%}" type="button" >Cancel</a>
+            </form>
+            
+            </p>
+        </div>
+    </div>
+</div>
+{%endblock%}
+
+{% block footer %}
+<footer id="contacts"class="container fixed-bottom">
+    {% endblock footer %}

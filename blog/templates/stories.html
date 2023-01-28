@@ -1,0 +1,253 @@
+{% extends 'base.html' %} {% load static %} {% block main %}
+<main>
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container text-center">
+            <h1 class="display-4 text-warning">My Stories</h1>
+            <p class="lead">Browse through your posts.</p>
+            <p class="lead">or</p>
+            <p class="lead">
+                <a
+                    class="btn btn-warning btn-lg"
+                    href="{% url 'post-form' %}"
+                    role="button"
+                    >Post a Story</a
+                >
+            </p>
+        </div>
+    </div>
+    <br />
+    {% if posts %}
+    <div class="container">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a
+                    class="nav-link active"
+                    id="home-tab"
+                    data-toggle="tab"
+                    href="#home"
+                    role="tab"
+                    aria-controls="home"
+                    aria-selected="true"
+                >
+                    Drafts
+                </a>
+            </li>
+            <li class="nav-item">
+                <a
+                    class="nav-link"
+                    id="profile-tab"
+                    data-toggle="tab"
+                    href="#profile"
+                    role="tab"
+                    aria-controls="profile"
+                    aria-selected="false"
+                >
+                    Published
+                </a>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div
+                class="tab-pane fade show active"
+                id="home"
+                role="tabpanel"
+                aria-labelledby="home-tab"
+            >
+                {% if drafts %} {% for post in drafts %}
+                <div class="jumbotron pl-3 my-3">
+                    <div class="row px-3 mx-auto">
+                        <div class="col-lg-9 col-sm-12 row">
+                            <div class="col-lg-12">
+                                <p>
+                                    <span class="text-light">Created</span>
+                                    &nbsp; &middot; &nbsp;
+                                    <span class="text-primary"
+                                        >{{ post.create_date }}</span
+                                    >
+                                </p>
+                                <p class="lead" style="font-weight: bolder">
+                                    <a
+                                        href="{{  post.get_absolute_url  }}"
+                                        class="text-warning img-fluid rounded-circle hd"
+                                        style="text-decoration: none"
+                                        >{{ post.title }}</a
+                                    >
+                                </p>
+                                <p>{{ post.content|truncatewords:50 }}</p>
+                                <p class="lead mb-0">
+                                    <a
+                                        type="button"
+                                        href="{% url 'post-publish' pk=post.pk %}"
+                                        class="btn btn-info btn-sm rounded-pill mx-auto mr-4"
+                                    ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal-bookmark mb-1" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M6 8V1h1v6.117L8.743 6.07a.5.5 0 0 1 .514 0L11 7.117V1h1v7a.5.5 0 0 1-.757.429L9 7.083 6.757 8.43A.5.5 0 0 1 6 8z"/>
+                                        <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/>
+                                        <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/>
+                                      </svg>
+                                        Publish
+                                    </a>
+                                    <a
+                                        type="button"
+                                        href="{% url 'post-edit' pk=post.pk %}"
+                                        class="btn btn-warning btn-sm rounded-pill mx-auto mr-4"
+                                    ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill mb-1" viewBox="0 0 16 16">
+                                        <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+                                      </svg>
+                                        Edit
+                                    </a>
+                                    <a
+                                        type="button"
+                                        href="{% url 'post-remove' pk=post.pk %}"
+                                        class="btn btn-danger btn-sm rounded-pill mx-auto"
+                                    ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash mb-1" viewBox="0 0 16 16">
+                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                      </svg>
+                                        Delete
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                        {% if post.image %}
+                        <div
+                            class="col-3 justify-content-center mx-auto d-none d-lg-block"
+                        >
+                            <img
+                                src="{{ post.image.url }}"
+                                class="img-fluid h-100 rounded-top"
+                                alt=""
+                                width="90%"
+                            />
+                        </div>
+                        {% endif %}
+                    </div>
+                    <hr class="my-2" />
+                </div>
+                {% endfor %} {% else %}
+                <div class="jumbotron jumbotron-fluid mt-5">
+                    <div class="container">
+                        <h3 class="display-5">No drafts</h3>
+                        <p class="lead">create a new post to have a draft</p>
+                        <hr class="my-2" />
+                        <p>
+                            Drafts are saved stories that are only visible to
+                            the author
+                        </p>
+                        <p class="lead">
+                            <a
+                                class="btn btn-primary btn-lg"
+                                href="{% url 'post-form' %}"
+                                role="button"
+                                >Create Post</a
+                            >
+                        </p>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            <div
+                class="tab-pane fade"
+                id="profile"
+                role="tabpanel"
+                aria-labelledby="profile-tab"
+            >
+                {% if published %} {% for post in published %}
+                <div class="jumbotron pl-3 my-3">
+                    <div class="row px-3 mx-auto">
+                        <div class="col-lg-9 col-sm-12 row">
+                            <div class="col-lg-12">
+                                <p>
+                                    <span class="text-light">Published</span>
+                                    &nbsp; &middot; &nbsp;
+                                    <span class="text-primary"
+                                        >{{ post.publish_date }}</span
+                                    >
+                                </p>
+                                <p class="lead" style="font-weight: bolder">
+                                    <a
+                                        href="{{  post.get_absolute_url  }}"
+                                        class="text-warning img-fluid rounded-circle hd"
+                                        style="text-decoration: none"
+                                        >{{ post.title }}</a
+                                    >
+                                </p>
+                                <p>{{ post.content|truncatewords:50 }}</p>
+                                <p class="lead mb-0">
+                                    
+                                    <a
+                                        type="button"
+                                        href="{% url 'post-edit' pk=post.pk %}"
+                                        class="btn btn-warning btn-sm rounded-pill mx-auto mr-4"
+                                    ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill mb-1" viewBox="0 0 16 16">
+                                        <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+                                      </svg>
+                                        Edit
+                                    </a>
+                                    <a
+                                        type="button"
+                                        href="{% url 'post-remove' pk=post.pk %}"
+                                        class="btn btn-danger btn-sm rounded-pill mx-auto"
+                                    ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash mb-1" viewBox="0 0 16 16">
+                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                      </svg>
+                                        Delete
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                        {% if post.image %}
+                        <div
+                            class="col-3 justify-content-center mx-auto d-none d-lg-block"
+                        >
+                            <img
+                                src="{{ post.image.url }}"
+                                class="img-fluid h-100 rounded-top"
+                                alt=""
+                                width="90%"
+                            />
+                        </div>
+                        {% endif %}
+                    </div>
+                    <hr class="my-2" />
+                </div>
+                {% endfor %} {% else %}
+                <div class="jumbotron jumbotron-fluid mt-5">
+                    <div class="container">
+                        <h3 class="display-5">No Posts Published yet</h3>
+                        <p class="lead">
+                            Create a draft then publish it to see it here
+                        </p>
+                        <hr class="my-2" />
+                        <p>Published posts are visible to the public</p>
+                        <p class="lead">
+                            <a
+                                class="btn btn-primary btn-lg"
+                                href="{% url 'post-form' %}"
+                                role="button"
+                                >Create Post</a
+                            >
+                        </p>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="container">
+        <div class="container">
+            <div class="jumbotron text-center">
+                <p class="lead">You haven't posted anything yet</p>
+                <hr class="my-4" />
+                <p>Click above to make your first post.</p>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</main>
+{% endblock %} 
+{% block footer %}
+<footer id="contacts" class="container static-bottom">
+    {% endblock footer %}
+</footer>

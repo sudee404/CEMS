@@ -1,0 +1,261 @@
+{% extends "base.html" %}
+{% load static %}
+{% block cover %}
+<section id="cover" class="cover-section" style="background-image: url({% static 'images/image-001.jpg' %});">
+	<div class="cover-background-image" style="background-image: url({% static 'images/image-001.jpg' %});">
+	</div>
+	<div class="cover-text-container text-dark">
+		<p class="cover-message" style="font-variant:small-caps;">Easily create and manage events, track
+			attendance, and generate reports</p>
+	</div>
+	<div class="text-center">
+		<a href="#next-section" class="scroll-down smooth-scroll text-dark">
+			<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor"
+				class="bi bi-chevron-double-down" viewBox="0 0 16 16">
+				<path fill-rule="evenodd"
+					d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+				<path fill-rule="evenodd"
+					d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+			</svg>
+		</a>
+	</div>
+</section>
+{% endblock cover %}
+{% block main %}
+<!-- About Section -->
+<section>
+	<div class="p-5 mb-4 bg-light rounded-3">
+		<div class="container-fluid py-5">
+			<h1 class="display-5 fw-bold text-center">CEMS - Event Management Simplified</h1>
+		</div>
+	</div>
+	<div class="row justify-content-evenly align-items-center h-100 mx-0">
+		<div class="col-lg-7">
+			<p class="lead text-muted p-lg-5 p-1">
+				CEMS is a web-based event management system designed for use by universities and colleges. It
+				allows
+				event organizers to easily create and manage events, track attendance, and generate reports. It
+				also
+				allows students to find and rsvp for events and get reminders.
+			</p>
+			<div class="px-5">
+				<button class="btn btn-primary">
+					Join Us <i class="fa fa-arrow-right mx-1 " aria-hidden="true"></i>
+				</button>
+			</div>
+		</div>
+		<div class="col-lg-5"><img src="{% static 'images/image-01.png' %}" class="img-fluid rounded" alt="CEMS">
+		</div>
+	</div>
+</section>
+<!-- Services section -->
+<section>
+	<div class="p-5 mb-4 bg-light rounded-3 mt-5">
+		<div class="container-fluid py-5">
+			<h1 class="display-5 fw-bold text-center">Services</h1>
+		</div>
+	</div>
+	<div class="row mx-0 p-3 text-center h-100 g-5">
+		<div class="col-lg-4 col-md-6 col-sm-12">
+			<div class="card border-0">
+				<div class="card-header shadow-lg">
+					<img src="{% static 'images/image-08.png' %}" alt="Easy Event Creation" class="img img-fluid"
+						style="height: 200px;">
+				</div>
+				<div class="card-body">
+					<h5 class="card-title" style="color: #771414e1;">Easy Event Creation</h5>
+					<p class="card-text">CEMS simplifies the event creation process, making it easy for organizers
+						to create and manage events.</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-4 col-md-6 col-sm-12">
+			<div class="card border-0">
+				<div class="card-header shadow-lg">
+					<img src="{% static 'images/image-13.png' %}" alt="Attendance Tracking" class="img img-fluid"
+						style="height: 200px;">
+				</div>
+				<div class="card-body">
+					<h5 class="card-title" style="color: #771414e1;">Attendance Tracking</h5>
+					<p class="card-text">CEMS allows organizers to track attendance and generate reports on event
+						participation.</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-4 col-md-6 col-sm-12">
+			<div class="card border-0">
+				<div class="card-header shadow-lg">
+					<img src="{% static 'images/image-16.png' %}" alt="Student Engagement" class="img img-fluid"
+						style="height: 200px;">
+				</div>
+				<div class="card-body">
+					<h5 class="card-title" style="color: #771414e1;">Student Engagement</h5>
+					<p class="card-text">CEMS helps students find and RSVP for events and receive reminders, leading
+						to increased student engagement.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="text-center">
+		<a href="#" class="btn btn-dark btn-outline-light my-2 shadow">Add Event</a>
+	</div>
+</section>
+<!-- Upcoming section -->
+<section>
+	<div class="p-5 mb-4 bg-light rounded-3 mt-5">
+		<div class="container-fluid py-5">
+			<h1 class="display-5 fw-bold text-center">Event Calendar <span style="color: #771414e1;"><i
+						class="fa fa-calendar mx-2" aria-hidden="true"></i></span> </h1>
+			<p class="lead text-center">
+				Check out the top 10 upcoming events below
+			</p>
+		</div>
+	</div>
+	<div class="owl-carousel owl-theme">
+		<div class="item p-2 px-lg-5">
+			<div class="card shadow-sm">
+				<svg class="bd-placeholder-img card-img-top" width="100%" height="225"
+					xmlns="http://www.w3.org/2000/svg" aria-label="Placeholder: Thumbnail"
+					preserveAspectRatio="xMidYMid slice" role="img" focusable="false">
+					<title>Placeholder</title>
+					<rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef"
+						dy=".3em">Thumbnail</text>
+				</svg>
+
+				<div class="card-body">
+					<p class="card-text">This is a wider card with supporting text below as a natural
+						lead-in to additional
+						content. This content is a little bit longer.</p>
+					<div class="d-flex justify-content-between align-items-center">
+						<div class="btn-group">
+							<button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+							<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+						</div>
+						<small class="text-muted">9 mins</small>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="item p-2 px-lg-5">
+			<div class="card shadow-sm">
+				<svg class="bd-placeholder-img card-img-top" width="100%" height="225"
+					xmlns="http://www.w3.org/2000/svg" aria-label="Placeholder: Thumbnail"
+					preserveAspectRatio="xMidYMid slice" role="img" focusable="false">
+					<title>Placeholder</title>
+					<rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef"
+						dy=".3em">Thumbnail</text>
+				</svg>
+
+				<div class="card-body">
+					<p class="card-text">This is a wider card with supporting text below as a natural
+						lead-in to additional
+						content. This content is a little bit longer.</p>
+					<div class="d-flex justify-content-between align-items-center">
+						<div class="btn-group">
+							<button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+							<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+						</div>
+						<small class="text-muted">9 mins</small>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="item p-2 px-lg-5">
+			<div class="card shadow-sm">
+				<svg class="bd-placeholder-img card-img-top" width="100%" height="225"
+					xmlns="http://www.w3.org/2000/svg" aria-label="Placeholder: Thumbnail"
+					preserveAspectRatio="xMidYMid slice" role="img" focusable="false">
+					<title>Placeholder</title>
+					<rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef"
+						dy=".3em">Thumbnail</text>
+				</svg>
+
+				<div class="card-body">
+					<p class="card-text">This is a wider card with supporting text below as a natural
+						lead-in to additional
+						content. This content is a little bit longer.</p>
+					<div class="d-flex justify-content-between align-items-center">
+						<div class="btn-group">
+							<button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+							<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+						</div>
+						<small class="text-muted">9 mins</small>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="item p-2 px-lg-5">
+			<div class="card shadow-sm">
+				<svg class="bd-placeholder-img card-img-top" width="100%" height="225"
+					xmlns="http://www.w3.org/2000/svg" aria-label="Placeholder: Thumbnail"
+					preserveAspectRatio="xMidYMid slice" role="img" focusable="false">
+					<title>Placeholder</title>
+					<rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef"
+						dy=".3em">Thumbnail</text>
+				</svg>
+
+				<div class="card-body">
+					<p class="card-text">This is a wider card with supporting text below as a natural
+						lead-in to additional
+						content. This content is a little bit longer.</p>
+					<div class="d-flex justify-content-between align-items-center">
+						<div class="btn-group">
+							<button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+							<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+						</div>
+						<small class="text-muted">9 mins</small>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="item p-2 px-lg-5">
+			<div class="card shadow-sm">
+				<svg class="bd-placeholder-img card-img-top" width="100%" height="225"
+					xmlns="http://www.w3.org/2000/svg" aria-label="Placeholder: Thumbnail"
+					preserveAspectRatio="xMidYMid slice" role="img" focusable="false">
+					<title>Placeholder</title>
+					<rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef"
+						dy=".3em">Thumbnail</text>
+				</svg>
+
+				<div class="card-body">
+					<p class="card-text">This is a wider card with supporting text below as a natural
+						lead-in to additional
+						content. This content is a little bit longer.</p>
+					<div class="d-flex justify-content-between align-items-center">
+						<div class="btn-group">
+							<button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+							<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+						</div>
+						<small class="text-muted">9 mins</small>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="text-center">
+		<a href="#" class="btn btn-dark btn-outline-light my-2 shadow">Go To Events</a>
+	</div>
+</section>
+
+<!-- Schools section -->
+
+<section>
+	<div class="container-fluid py-5 my-2 text-center">
+		<h1 class="display-5 fw-bold">Sponsors</h1>
+		<p class="fs-4 mb-5">Add your organisation below for CEMS to seamlessly integrate with your events and users</p>
+		<div class="row mx-0 justify-content-center align-items-center">
+
+			<div class="col-lg-3 ">
+				<img src="{% static 'images/image-18.png' %}" class="img-fluid rounded-top" alt="" style="height:100px">
+			</div>
+			<div class="col-lg-3 ">
+				<img src="{% static 'images/image-20.png' %}" class="img-fluid rounded-top" alt="" style="height:100px">
+			</div>
+			<div class="col-lg-3 ">
+				<img src="{% static 'images/image-17.png' %}" class="img-fluid rounded-top" alt="" style="height:100px">
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock main %}

@@ -1,0 +1,233 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block main %}
+<div class="py-5"></div>
+<div class="row container-fluid">
+
+    <div class="col-lg-8 col-md-12 px-lg-5">
+        {% if user.is_authenticated %}
+        <div class="shadow rounded bg-light p-2 mb-2 col-12">
+            {% if starred %}
+            <p class="lead text-start p-3 pb-0">
+                <a type="button" class="btn btn-sm" style="text-decoration: none;"
+                    href="{% url 'unstar-post' post.id %}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                        class="bi bi-save2-fill text-success" viewBox="0 0 16 16">
+                        <path
+                            d="M8.5 1.5A1.5 1.5 0 0 1 10 0h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h6c-.314.418-.5.937-.5 1.5v6h-2a.5.5 0 0 0-.354.854l2.5 2.5a.5.5 0 0 0 .708 0l2.5-2.5A.5.5 0 0 0 10.5 7.5h-2v-6z" />
+                    </svg>
+                </a>
+                <span class="fw-bold lead">
+                    Archived
+                </span>
+            </p>
+            {% else %}
+            <p class="lead text-start p-3 pb-0">
+                <a type="button" class="btn btn-sm" style="text-decoration: none;" href="{% url 'star-post' post.id %}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                        class="bi bi-save2 text-primary" viewBox="0 0 16 16">
+                        <path
+                            d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v4.5h2a.5.5 0 0 1 .354.854l-2.5 2.5a.5.5 0 0 1-.708 0l-2.5-2.5A.5.5 0 0 1 5.5 6.5h2V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z" />
+                    </svg>
+                </a>
+                <span class="fw-bold lead">
+                    Archive
+                </span>
+            </p>
+            {% endif %}
+        </div>
+        {% endif %}
+        <img src="{{post.image.url}}" class="img-fluid rounded-top" alt="" width="100%">
+
+        <div>
+            <p class="lead fw-bold mt-1">{{post.title|upper}}</p>
+            <p>
+                <span class="text-muted">BY</span>
+                <span>{{post.author|upper}}</span>
+                <span class="text-muted"> | {{post.publish_date|date|upper}} | <span
+                        class="text-dark">{{comments.count}}</span> COMMENT{{comments.count|pluralize|upper}}
+                    | <a href="?category={{ post.category|default_if_none:'Others' }}"
+                        style="text-decoration:none;">{{post.category|default_if_none:'Others'|upper}}</a></span>
+
+            </p>
+            <hr class="my-2">
+            <p class="text-muted">
+                {{post.content|safe}}
+            </p>
+            <div class="p-lg-5">
+                <form method="post" action="{% url 'add-comment' post.pk %}">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <textarea class="form-control" name="content" id="" rows="3"
+                            placeholder="ADD YOUR COMMENT HERE"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <input type="name" name="name" class="form-control" id="exampleInputEmail1"
+                            aria-describedby="emailHelp" placeholder="NAME">
+                        <small id="emailHelp" class="form-text text-muted">Leave blank if you wish stay
+                            anonymous</small>
+                    </div>
+
+                    {% if user.is_authenticated %}
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" name="check" id="exampleCheck1" checked>
+                        <label class="form-check-label text-success" for="exampleCheck1">Use Profile</label>
+                    </div>
+                    {% endif %}
+
+                    <button type="submit" class="btn btn-secondary text-light">Post Comment</button>
+                </form>
+            </div>
+            {% if comments %}
+            <div>
+                <p class="fw-bold lead text-muted mt-2">Comments</p>
+                <hr class="my-2">
+
+                {% for comment in comments %}
+                <div class="row ">
+                    <div class="col-2  align-items-center ">
+                        <img src="{% static 'img/img5.jpg' %}" alt="Bootstrap" width="32" height="32"
+                            class="rounded-circle border border-white">
+                    </div>
+                    <div class="col-10">
+                        <div>
+
+                            {% if comment.author %}
+                            <p class="lead">@{{comment.author|slugify}}</p>
+                            {% else %}
+                            <p class="lead">@{{comment.author_name|default:'Anonymous'|slugify}}</p>
+                            {% endif %}
+
+                            <p>{{comment.text|truncatewords_html:10|safe}} <br>
+                                <span class="text-success">
+                                    <small>{{comment.created_at|date:"M d"|upper}}</small>
+                                </span>,
+                                <span class="text-danger mx-2">
+                                    <small>{{comment.created_at|time:"H:i" }} </small>
+                                </span>
+                                <a data-bs-toggle="collapse" href="#replies{{comment.id}}" role="button"
+                                    aria-expanded="false" aria-controls="replies{{comment.id}}"
+                                    class="tw-none text-secondary mx-2"><small>{{comment.reply_set.count}} REPL{{comment.reply_set.all|pluralize:'y,ies'|upper}}</small></a>
+                                <a data-bs-toggle="collapse" href="#comment{{comment.id}}" role="button"
+                                    aria-expanded="false" aria-controls="comment{{comment.id}}"
+                                    class="tw-none"><small>REPLY</small></a>
+
+
+
+                            </p>
+                            <div class="collapse" id="comment{{comment.id}}">
+                                <form action="{% url 'add-reply' comment.id %}" method="post">
+                                    {% csrf_token %}
+                                    <div class="mb-3">
+                                        <textarea class="form-control" name="text" rows="3"
+                                            placeholder="REPLY"></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Post</button>
+                                </form>
+                            </div>
+
+                            <hr class="my-2">
+                            <div class="collapse" id="replies{{comment.id}}">
+                                {% if comment.reply_set.all %}
+                                {% for comment in comment.reply_set.all %}
+                                <div class="row ">
+                                    <div class="col-2  align-items-center ">
+
+                                    </div>
+                                    <div class="col-10">
+                                        <div>
+
+                                            {% if comment.author %}
+                                            <p class="lead">{{comment.author|slugify}}</p>
+                                            {% endif %}
+
+                                            <p>{{comment.text|truncatewords_html:10|safe}} <br>
+                                                <span class="text-success">
+                                                    <small>{{comment.created_at|date:"M d"|upper}}</small>
+                                                </span>,
+                                                <span class="text-danger mx-2">
+                                                    <small>{{comment.created_at|time:"H:i" }} </small>
+                                                </span>
+
+                                            </p>
+
+                                            <hr class="my-2">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                                {% endif %}
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+            {% endif %}
+
+        </div>
+
+    </div>
+    <div class="col-lg-4 col-md-12 mt-4">
+
+        <div class="card position-sticky px-0 rounded shadow-lg mb-2" style="top: 5rem;">
+            <img src="{{post.author.profile_pic.url}}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <div>
+
+                    {% if author %}
+                    <p class="lead">
+                        <span>{{post.author}}</span><br>
+                        <span>Following : {{post.author.userinstance_set.count}}</span><br>
+                        <span>Followers : 26</span><br>
+                        <span>Posts : {{post.author.post_set.count}}</span><br>
+                    </p>
+                    <hr class="my-2">
+                    <p>This post belongs to you</p>
+                    <p class="lead">
+                        <a class="btn btn-primary btn-md" href="{% url 'follow' post.author.user.pk %}"
+                            role="button">Follow</a>
+                        <a class="btn btn-primary btn-md" href="{{post.author.get_absolute_url}}"
+                            role="button">Profile</a>
+
+                    </p>
+                    {% else %}
+                    <p class="lead">
+                        <span class="fw-bold">{{post.author|slugify|upper}}</span><br>
+                        <span>Following : {{post.author.get_following.count}}</span><br>
+                        <span>Followers : {{post.author.get_followers.count}}</span><br>
+                        <span>Posts : {{post.author.post_set.count}}</span><br>
+                    </p>
+                    <hr class="my-2">
+                    <p>Follow for more content</p>
+                    <p class="lead">
+                        {% if following %}
+                    <form action="{% url 'un-follow' post.author.user.pk %}" method="get" class="form-inline">
+                        <input type="hidden" name="next" id="inputnext" class="form-control" value="{{request.path}}">
+                        <button type="submit" class="btn btn-danger">Unfollow</button>
+                        <a class="btn btn-primary btn-md" href="{{post.author.get_absolute_url}}"
+                            role="button">Profile</a>
+                    </form>
+                    {% else %}
+                    <form action="{% url 'follow' post.author.user.pk %}" method="get" class="form-inline">
+                        <input type="hidden" name="next" id="inputnext" class="form-control" value="{{request.path}}">
+                        <button type="submit" class="btn btn-success">Follow</button>
+                        <a class="btn btn-primary btn-md" href="{{post.author.get_absolute_url}}"
+                            role="button">Profile</a>
+                    </form>
+
+                    {% endif %}
+
+
+                    </p>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main %}

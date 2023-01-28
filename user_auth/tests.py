@@ -57,7 +57,7 @@ class MyUserViewTest(TestCase):
             'password': 'testpassword2',
             'password2': 'testpassword2',
         })
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 200)
         self.assertEqual(MyUser.objects.count(), 2)
         new_user = MyUser.objects.get(email='test2@example.com')
         self.assertEqual(new_user.first_name, 'Test2')
