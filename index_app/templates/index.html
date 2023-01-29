@@ -5,6 +5,11 @@
 	<div class="cover-background-image" style="background-image: url({% static 'images/image-001.jpg' %});">
 	</div>
 	<div class="cover-text-container text-dark">
+		{% if user.is_authenticated %}
+		<h3 class="fw-bolder">
+			Welcome {{user|capfirst}}
+		</h3>
+		{% endif %}
 		<p class="cover-message" style="font-variant:small-caps;">Easily create and manage events, track
 			attendance, and generate reports</p>
 	</div>
