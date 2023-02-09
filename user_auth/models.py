@@ -1,5 +1,6 @@
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser,Group,Permission
 from django.db import models
+from django.urls import reverse
 
 
 class MyUserManager(BaseUserManager):
@@ -63,6 +64,10 @@ class MyUser(AbstractBaseUser):
 
     def get_full_name(self):
         return f'{self.first_name} {self.last_name}'
+    
+    def get_absolute_url(self):
+        return reverse("user-profile", kwargs={"pk": self.pk})
+    
     
     def __str__(self):
         return self.username

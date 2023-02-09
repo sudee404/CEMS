@@ -1,266 +1,666 @@
-{% extends "base.html" %}
-{% load static %}
-{% block cover %}
-<section id="cover" class="cover-section" style="background-image: url({% static 'images/image-001.jpg' %});">
-	<div class="cover-background-image" style="background-image: url({% static 'images/image-001.jpg' %});">
-	</div>
-	<div class="cover-text-container text-dark">
-		{% if user.is_authenticated %}
-		<h3 class="fw-bolder">
-			Welcome {{user|capfirst}}
-		</h3>
-		{% endif %}
-		<p class="cover-message" style="font-variant:small-caps;">Easily create and manage events, track
-			attendance, and generate reports</p>
-	</div>
-	<div class="text-center">
-		<a href="#next-section" class="scroll-down smooth-scroll text-dark">
-			<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor"
-				class="bi bi-chevron-double-down" viewBox="0 0 16 16">
-				<path fill-rule="evenodd"
-					d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
-				<path fill-rule="evenodd"
-					d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
-			</svg>
-		</a>
-	</div>
-</section>
-{% endblock cover %}
-{% block main %}
-<!-- About Section -->
-<section>
-	<div class="p-5 mb-4 bg-light rounded-3">
-		<div class="container-fluid py-5">
-			<h1 class="display-5 fw-bold text-center">CEMS - Event Management Simplified</h1>
-		</div>
-	</div>
-	<div class="row justify-content-evenly align-items-center h-100 mx-0">
-		<div class="col-lg-7">
-			<p class="lead text-muted p-lg-5 p-1">
-				CEMS is a web-based event management system designed for use by universities and colleges. It
-				allows
-				event organizers to easily create and manage events, track attendance, and generate reports. It
-				also
-				allows students to find and rsvp for events and get reminders.
-			</p>
-			<div class="px-5">
-				<button class="btn btn-primary">
-					Join Us <i class="fa fa-arrow-right mx-1 " aria-hidden="true"></i>
-				</button>
-			</div>
-		</div>
-		<div class="col-lg-5"><img src="{% static 'images/image-01.png' %}" class="img-fluid rounded" alt="CEMS">
-		</div>
-	</div>
-</section>
-<!-- Services section -->
-<section>
-	<div class="p-5 mb-4 bg-light rounded-3 mt-5">
-		<div class="container-fluid py-5">
-			<h1 class="display-5 fw-bold text-center">Services</h1>
-		</div>
-	</div>
-	<div class="row mx-0 p-3 text-center h-100 g-5">
-		<div class="col-lg-4 col-md-6 col-sm-12">
-			<div class="card border-0">
-				<div class="card-header shadow-lg">
-					<img src="{% static 'images/image-08.png' %}" alt="Easy Event Creation" class="img img-fluid"
-						style="height: 200px;">
-				</div>
-				<div class="card-body">
-					<h5 class="card-title" style="color: #771414e1;">Easy Event Creation</h5>
-					<p class="card-text">CEMS simplifies the event creation process, making it easy for organizers
-						to create and manage events.</p>
+{% extends 'base_generic.html' %} {% load static %} {% block main %}
+
+<header class="bg-dark">
+	<div class="container py-4 py-xl-5">
+		<div class="row gy-4 gy-md-0">
+			<div class="col-md-6">
+				<div class="p-xl-5 m-xl-5">
+					<img
+						class="rounded img-fluid w-100 fit-cover"
+						style="min-height: 300px"
+						src="{% static 'assets/img/trans/pngegg%20(4).png' %}"
+						loading="lazy"
+					/>
 				</div>
 			</div>
-		</div>
-		<div class="col-lg-4 col-md-6 col-sm-12">
-			<div class="card border-0">
-				<div class="card-header shadow-lg">
-					<img src="{% static 'images/image-13.png' %}" alt="Attendance Tracking" class="img img-fluid"
-						style="height: 200px;">
-				</div>
-				<div class="card-body">
-					<h5 class="card-title" style="color: #771414e1;">Attendance Tracking</h5>
-					<p class="card-text">CEMS allows organizers to track attendance and generate reports on event
-						participation.</p>
-				</div>
-			</div>
-		</div>
-		<div class="col-lg-4 col-md-6 col-sm-12">
-			<div class="card border-0">
-				<div class="card-header shadow-lg">
-					<img src="{% static 'images/image-16.png' %}" alt="Student Engagement" class="img img-fluid"
-						style="height: 200px;">
-				</div>
-				<div class="card-body">
-					<h5 class="card-title" style="color: #771414e1;">Student Engagement</h5>
-					<p class="card-text">CEMS helps students find and RSVP for events and receive reminders, leading
-						to increased student engagement.</p>
+			<div class="col-md-6 d-md-flex align-items-md-center">
+				<div class="text-center" style="max-width: 350px">
+					<h2 class="text-uppercase fw-bold text-center">
+						Make every event a success&nbsp;
+					</h2>
+					<p class="my-3">
+						Centralized platform for universities and colleges to
+						efficiently manage their events. From event creation to
+						attendance CEMS has you covered.
+					</p>
+					<a
+						class="btn btn-primary btn-lg me-2"
+						role="button"
+						href="event_form.html"
+						>Host</a
+					><a
+						class="btn btn-outline-primary btn-lg"
+						role="button"
+						href="events.html"
+						>Find</a
+					>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="text-center">
-		<a href="#" class="btn btn-dark btn-outline-light my-2 shadow">Add Event</a>
-	</div>
-</section>
-<!-- Upcoming section -->
-<section>
-	<div class="p-5 mb-4 bg-light rounded-3 mt-5">
-		<div class="container-fluid py-5">
-			<h1 class="display-5 fw-bold text-center">Event Calendar <span style="color: #771414e1;"><i
-						class="fa fa-calendar mx-2" aria-hidden="true"></i></span> </h1>
-			<p class="lead text-center">
-				Check out the top 10 upcoming events below
+</header>
+<section class="py-5">
+	<div class="row text-light" style="margin: 0">
+		<div class="col-md-8 col-xl-6 text-center mx-auto">
+			<p class="fw-bold text-success mb-2">Our Services</p>
+			<h3 class="fw-bold">What can CEMS&nbsp;do for you ?</h3>
+			<p class="text-light">
+				Whether you're an event organizer or a general user, CEMS makes
+				it easy to plan, attend, and keep track of events. It offers the
+				following services:&nbsp;
 			</p>
 		</div>
 	</div>
-	<div class="owl-carousel owl-theme">
-		<div class="item p-2 px-lg-5">
-			<div class="card shadow-sm">
-				<svg class="bd-placeholder-img card-img-top" width="100%" height="225"
-					xmlns="http://www.w3.org/2000/svg" aria-label="Placeholder: Thumbnail"
-					preserveAspectRatio="xMidYMid slice" role="img" focusable="false">
-					<title>Placeholder</title>
-					<rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef"
-						dy=".3em">Thumbnail</text>
-				</svg>
-
-				<div class="card-body">
-					<p class="card-text">This is a wider card with supporting text below as a natural
-						lead-in to additional
-						content. This content is a little bit longer.</p>
-					<div class="d-flex justify-content-between align-items-center">
-						<div class="btn-group">
-							<button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-							<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-						</div>
-						<small class="text-muted">9 mins</small>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="item p-2 px-lg-5">
-			<div class="card shadow-sm">
-				<svg class="bd-placeholder-img card-img-top" width="100%" height="225"
-					xmlns="http://www.w3.org/2000/svg" aria-label="Placeholder: Thumbnail"
-					preserveAspectRatio="xMidYMid slice" role="img" focusable="false">
-					<title>Placeholder</title>
-					<rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef"
-						dy=".3em">Thumbnail</text>
-				</svg>
-
-				<div class="card-body">
-					<p class="card-text">This is a wider card with supporting text below as a natural
-						lead-in to additional
-						content. This content is a little bit longer.</p>
-					<div class="d-flex justify-content-between align-items-center">
-						<div class="btn-group">
-							<button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-							<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-						</div>
-						<small class="text-muted">9 mins</small>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="item p-2 px-lg-5">
-			<div class="card shadow-sm">
-				<svg class="bd-placeholder-img card-img-top" width="100%" height="225"
-					xmlns="http://www.w3.org/2000/svg" aria-label="Placeholder: Thumbnail"
-					preserveAspectRatio="xMidYMid slice" role="img" focusable="false">
-					<title>Placeholder</title>
-					<rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef"
-						dy=".3em">Thumbnail</text>
-				</svg>
-
-				<div class="card-body">
-					<p class="card-text">This is a wider card with supporting text below as a natural
-						lead-in to additional
-						content. This content is a little bit longer.</p>
-					<div class="d-flex justify-content-between align-items-center">
-						<div class="btn-group">
-							<button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-							<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-						</div>
-						<small class="text-muted">9 mins</small>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="item p-2 px-lg-5">
-			<div class="card shadow-sm">
-				<svg class="bd-placeholder-img card-img-top" width="100%" height="225"
-					xmlns="http://www.w3.org/2000/svg" aria-label="Placeholder: Thumbnail"
-					preserveAspectRatio="xMidYMid slice" role="img" focusable="false">
-					<title>Placeholder</title>
-					<rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef"
-						dy=".3em">Thumbnail</text>
-				</svg>
-
-				<div class="card-body">
-					<p class="card-text">This is a wider card with supporting text below as a natural
-						lead-in to additional
-						content. This content is a little bit longer.</p>
-					<div class="d-flex justify-content-between align-items-center">
-						<div class="btn-group">
-							<button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-							<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-						</div>
-						<small class="text-muted">9 mins</small>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="item p-2 px-lg-5">
-			<div class="card shadow-sm">
-				<svg class="bd-placeholder-img card-img-top" width="100%" height="225"
-					xmlns="http://www.w3.org/2000/svg" aria-label="Placeholder: Thumbnail"
-					preserveAspectRatio="xMidYMid slice" role="img" focusable="false">
-					<title>Placeholder</title>
-					<rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef"
-						dy=".3em">Thumbnail</text>
-				</svg>
-
-				<div class="card-body">
-					<p class="card-text">This is a wider card with supporting text below as a natural
-						lead-in to additional
-						content. This content is a little bit longer.</p>
-					<div class="d-flex justify-content-between align-items-center">
-						<div class="btn-group">
-							<button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-							<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-						</div>
-						<small class="text-muted">9 mins</small>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="text-center">
-		<a href="#" class="btn btn-dark btn-outline-light my-2 shadow">Go To Events</a>
-	</div>
 </section>
-
-<!-- Schools section -->
-
 <section>
-	<div class="container-fluid py-5 my-2 text-center">
-		<h1 class="display-5 fw-bold">Sponsors</h1>
-		<p class="fs-4 mb-5">Add your organisation below for CEMS to seamlessly integrate with your events and users</p>
-		<div class="row mx-0 justify-content-center align-items-center">
-
-			<div class="col-lg-3 ">
-				<img src="{% static 'images/image-18.png' %}" class="img-fluid rounded-top" alt="" style="height:100px">
+	<div
+		class="row row-cols-1 row-cols-md-2 d-flex justify-content-center"
+		style="margin: 0; padding: 10px; filter: sepia(26%)"
+	>
+		<div class="col mb-4">
+			<div
+				class="card bg-primary-light bg-secondary bg-gradient border rounded shadow"
+			>
+				<div class="card-body text-center px-4 py-5 px-md-5">
+					<p class="fw-bold text-primary card-text mb-2">Organize</p>
+					<h5 class="fw-bold card-title mb-3">
+						Create, manage, and update events with ease.
+					</h5>
+					<button class="btn btn-primary btn-sm" type="button">
+						Learn more
+					</button>
+				</div>
 			</div>
-			<div class="col-lg-3 ">
-				<img src="{% static 'images/image-20.png' %}" class="img-fluid rounded-top" alt="" style="height:100px">
+		</div>
+		<div class="col mb-4">
+			<div
+				class="card bg-secondary-light bg-secondary bg-gradient border rounded shadow"
+			>
+				<div class="card-body text-center px-4 py-5 px-md-5">
+					<p class="fw-bold text-secondary card-text mb-2">Manage</p>
+					<h5 class="fw-bold card-title mb-3">
+						Manage all aspects of an event and easily make changes.
+					</h5>
+					<button class="btn btn-secondary btn-sm" type="button">
+						Learn more
+					</button>
+				</div>
 			</div>
-			<div class="col-lg-3 ">
-				<img src="{% static 'images/image-17.png' %}" class="img-fluid rounded-top" alt="" style="height:100px">
+		</div>
+		<div class="col mb-4">
+			<div
+				class="card bg-info-light bg-secondary bg-gradient border rounded shadow"
+			>
+				<div class="card-body text-center px-4 py-5 px-md-5">
+					<p class="fw-bold text-info card-text mb-2">Report</p>
+					<h5 class="fw-bold card-title mb-3">
+						Generate detailed reports on attendance, RSVPs, and
+						other important information.
+					</h5>
+					<button class="btn btn-info btn-sm" type="button">
+						Learn more
+					</button>
+				</div>
 			</div>
 		</div>
 	</div>
 </section>
+<section>
+	<div class="container py-4 py-xl-5">
+		<div class="row mb-5">
+			<div class="col-md-8 col-xl-6 text-center mx-auto">
+				<p class="fw-bold text-success mb-2">Popular</p>
+				<h2 class="fw-bold"><strong>Upcoming Events</strong></h2>
+				<p class="text-muted">
+					Checkout events you wouldn't wanna miss down below
+				</p>
+			</div>
+		</div>
+		<section
+			class="d-flex justify-content-lg-center align-items-lg-center min-vh-100"
+			data-bss-disabled-mobile="true"
+			data-aos="fade-up"
+			data-aos-duration="400"
+			style="
+				padding-top: 30px;
+				padding-bottom: 30px;
+				min-height: 50vh !important;
+			"
+		>
+			<div class="container" style="min-width: 90vw">
+				<div
+					data-aos="fade-up"
+					data-aos-duration="400"
+					data-aos-delay="200"
+					data-aos-once="true"
+					class="owl-slider"
+				>
+					<div
+						id="carousel"
+						class="owl-carousel"
+						style="padding: 10px"
+					>
+						<div class="item height-350" style="height: auto">
+							<div class="blog-card blog-card-blog">
+								<div class="blog-card-image">
+									<a href="#"
+										><img
+											class="img-fluid img"
+											src="{% static 'assets/img/NBA%20YoungBoy.png' %}"
+									/></a>
+									<div class="ripple-cont"></div>
+								</div>
+								<div class="blog-table">
+									<h6
+										class="blog-category blog-text-success"
+										style="
+											font-family: 'Playfair Display',
+												serif;
+										"
+									>
+										<i
+											class="fab fa-windows"
+											style="font-size: 17px"
+										></i
+										>&nbsp;Mobile App Design &amp;
+										Development
+									</h6>
+									<p
+										class="blog-card-description"
+										style="
+											font-family: 'Playfair Display',
+												serif;
+										"
+									>
+										4-in-1 Telecom Xamarin project.
+									</p>
+									<div class="ftr">
+										<div class="author">
+											<a
+												href="https://github.com/DesignofCp"
+												target="_blank"
+												><i
+													class="fas fa-cloud-download-alt"
+												></i
+												><span
+													style="
+														font-family: 'Playfair Display',
+															serif;
+													"
+													>&nbsp;Downloads</span
+												></a
+											>
+										</div>
+										<div class="stats">
+											<span>4,887</span>
+										</div>
+									</div>
+									<div class="ftr">
+										<div class="author">
+											<a
+												href="https://github.com/DesignofCp"
+												target="_blank"
+												><i
+													class="far fa-arrow-alt-circle-up"
+												></i
+												><span
+													style="
+														font-family: 'Playfair Display',
+															serif;
+													"
+													>&nbsp; Version</span
+												></a
+											>
+										</div>
+										<div class="stats">
+											<span>3.1.2</span>
+										</div>
+									</div>
+									<div class="ftr">
+										<div class="author">
+											<a
+												href="https://github.com/DesignofCp"
+												target="_blank"
+												><i class="fas fa-list-ul"></i
+												><span
+													style="
+														font-family: 'Playfair Display',
+															serif;
+													"
+													>&nbsp; License</span
+												></a
+											>
+										</div>
+										<div class="stats">
+											<span>MIT</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="item height-350" style="height: auto">
+							<div class="blog-card blog-card-blog">
+								<div class="blog-card-image">
+									<a href="#"
+										><img
+											class="img-fluid img"
+											src="{% static 'assets/img/NBA%20YoungBoy.png' %}"
+									/></a>
+									<div class="ripple-cont"></div>
+								</div>
+								<div class="blog-table">
+									<h6
+										class="blog-category blog-text-success"
+										style="
+											font-family: 'Playfair Display',
+												serif;
+										"
+									>
+										<i
+											class="fab fa-windows"
+											style="font-size: 17px"
+										></i
+										>&nbsp;Mobile App Design &amp;
+										Development
+									</h6>
+									<p
+										class="blog-card-description"
+										style="
+											font-family: 'Playfair Display',
+												serif;
+										"
+									>
+										4-in-1 Telecom Xamarin project.
+									</p>
+									<div class="ftr">
+										<div class="author">
+											<a
+												href="https://github.com/DesignofCp"
+												target="_blank"
+												><i
+													class="fas fa-cloud-download-alt"
+												></i
+												><span
+													style="
+														font-family: 'Playfair Display',
+															serif;
+													"
+													>&nbsp;Downloads</span
+												></a
+											>
+										</div>
+										<div class="stats">
+											<span>4,887</span>
+										</div>
+									</div>
+									<div class="ftr">
+										<div class="author">
+											<a
+												href="https://github.com/DesignofCp"
+												target="_blank"
+												><i
+													class="far fa-arrow-alt-circle-up"
+												></i
+												><span
+													style="
+														font-family: 'Playfair Display',
+															serif;
+													"
+													>&nbsp; Version</span
+												></a
+											>
+										</div>
+										<div class="stats">
+											<span>3.1.2</span>
+										</div>
+									</div>
+									<div class="ftr">
+										<div class="author">
+											<a
+												href="https://github.com/DesignofCp"
+												target="_blank"
+												><i class="fas fa-list-ul"></i
+												><span
+													style="
+														font-family: 'Playfair Display',
+															serif;
+													"
+													>&nbsp; License</span
+												></a
+											>
+										</div>
+										<div class="stats">
+											<span>MIT</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="item height-350" style="height: auto">
+							<div class="blog-card blog-card-blog">
+								<div class="blog-card-image">
+									<a href="#"
+										><img
+											class="img-fluid img"
+											src="{% static 'assets/img/NBA%20YoungBoy.png' %}"
+									/></a>
+									<div class="ripple-cont"></div>
+								</div>
+								<div class="blog-table">
+									<h6
+										class="blog-category blog-text-success"
+										style="
+											font-family: 'Playfair Display',
+												serif;
+										"
+									>
+										<i
+											class="fab fa-windows"
+											style="font-size: 17px"
+										></i
+										>&nbsp;Mobile App Design &amp;
+										Development
+									</h6>
+									<p
+										class="blog-card-description"
+										style="
+											font-family: 'Playfair Display',
+												serif;
+										"
+									>
+										4-in-1 Telecom Xamarin project.
+									</p>
+									<div class="ftr">
+										<div class="author">
+											<a
+												href="https://github.com/DesignofCp"
+												target="_blank"
+												><i
+													class="fas fa-cloud-download-alt"
+												></i
+												><span
+													style="
+														font-family: 'Playfair Display',
+															serif;
+													"
+													>&nbsp;Downloads</span
+												></a
+											>
+										</div>
+										<div class="stats">
+											<span>4,887</span>
+										</div>
+									</div>
+									<div class="ftr">
+										<div class="author">
+											<a
+												href="https://github.com/DesignofCp"
+												target="_blank"
+												><i
+													class="far fa-arrow-alt-circle-up"
+												></i
+												><span
+													style="
+														font-family: 'Playfair Display',
+															serif;
+													"
+													>&nbsp; Version</span
+												></a
+											>
+										</div>
+										<div class="stats">
+											<span>3.1.2</span>
+										</div>
+									</div>
+									<div class="ftr">
+										<div class="author">
+											<a
+												href="https://github.com/DesignofCp"
+												target="_blank"
+												><i class="fas fa-list-ul"></i
+												><span
+													style="
+														font-family: 'Playfair Display',
+															serif;
+													"
+													>&nbsp; License</span
+												></a
+											>
+										</div>
+										<div class="stats">
+											<span>MIT</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="item height-350" style="height: auto">
+							<div class="blog-card blog-card-blog">
+								<div class="blog-card-image">
+									<a href="#"
+										><img
+											class="img-fluid img"
+											src="{% static 'assets/img/NBA%20YoungBoy.png' %}"
+									/></a>
+									<div class="ripple-cont"></div>
+								</div>
+								<div class="blog-table">
+									<h6
+										class="blog-category blog-text-success"
+										style="
+											font-family: 'Playfair Display',
+												serif;
+										"
+									>
+										<i
+											class="fab fa-windows"
+											style="font-size: 17px"
+										></i
+										>&nbsp;Mobile App Design &amp;
+										Development
+									</h6>
+									<p
+										class="blog-card-description"
+										style="
+											font-family: 'Playfair Display',
+												serif;
+										"
+									>
+										4-in-1 Telecom Xamarin project.
+									</p>
+									<div class="ftr">
+										<div class="author">
+											<a
+												href="https://github.com/DesignofCp"
+												target="_blank"
+												><i
+													class="fas fa-cloud-download-alt"
+												></i
+												><span
+													style="
+														font-family: 'Playfair Display',
+															serif;
+													"
+													>&nbsp;Downloads</span
+												></a
+											>
+										</div>
+										<div class="stats">
+											<span>4,887</span>
+										</div>
+									</div>
+									<div class="ftr">
+										<div class="author">
+											<a
+												href="https://github.com/DesignofCp"
+												target="_blank"
+												><i
+													class="far fa-arrow-alt-circle-up"
+												></i
+												><span
+													style="
+														font-family: 'Playfair Display',
+															serif;
+													"
+													>&nbsp; Version</span
+												></a
+											>
+										</div>
+										<div class="stats">
+											<span>3.1.2</span>
+										</div>
+									</div>
+									<div class="ftr">
+										<div class="author">
+											<a
+												href="https://github.com/DesignofCp"
+												target="_blank"
+												><i class="fas fa-list-ul"></i
+												><span
+													style="
+														font-family: 'Playfair Display',
+															serif;
+													"
+													>&nbsp; License</span
+												></a
+											>
+										</div>
+										<div class="stats">
+											<span>MIT</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+</section>
+<section class="py-5 mt-5">
+	<div class="container py-5" style="margin-top: -184px">
+		<div class="row mb-5">
+			<div class="col-md-8 col-xl-6 text-center mx-auto">
+				<p class="fw-bold text-success mb-2">Testimonials</p>
+				<h2 class="fw-bold">
+					<strong>What People Say About us</strong>
+				</h2>
+				<p class="text-muted">
+					No matter the project, our team can handle it.&nbsp;
+				</p>
+			</div>
+		</div>
+		<div
+			class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 d-sm-flex justify-content-sm-center"
+		>
+			<div class="col mb-4">
+				<div
+					class="d-flex flex-column align-items-center align-items-sm-start"
+				>
+					<p
+						class="text-light bg-dark border rounded border-dark p-4"
+					>
+						Nisi sit justo faucibus nec ornare amet, tortor
+						torquent. Blandit class dapibus, aliquet morbi.
+					</p>
+					<div class="d-flex">
+						<img
+							class="rounded-circle flex-shrink-0 me-3 fit-cover"
+							width="50"
+							height="50"
+							src="{% static 'assets/img/team/avatar2.jpg' %}"
+						/>
+						<div>
+							<p class="fw-bold text-success mb-0">John Smith</p>
+							<p class="text-muted mb-0">Erat netus</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col mb-4">
+				<div
+					class="d-flex flex-column align-items-center align-items-sm-start"
+				>
+					<p
+						class="text-light bg-dark border rounded border-dark p-4"
+					>
+						Nisi sit justo faucibus nec ornare amet, tortor
+						torquent. Blandit class dapibus, aliquet morbi.
+					</p>
+					<div class="d-flex">
+						<img
+							class="rounded-circle flex-shrink-0 me-3 fit-cover"
+							width="50"
+							height="50"
+							src="{% static 'assets/img/team/avatar4.jpg' %}"
+						/>
+						<div>
+							<p class="fw-bold text-success mb-0">John Smith</p>
+							<p class="text-muted mb-0">Erat netus</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col mb-4">
+				<div
+					class="d-flex flex-column align-items-center align-items-sm-start"
+				>
+					<p
+						class="text-light bg-dark border rounded border-dark p-4"
+					>
+						Nisi sit justo faucibus nec ornare amet, tortor
+						torquent. Blandit class dapibus, aliquet morbi.
+					</p>
+					<div class="d-flex">
+						<img
+							class="rounded-circle flex-shrink-0 me-3 fit-cover"
+							width="50"
+							height="50"
+							src="{% static 'assets/img/team/avatar5.jpg' %}"
+						/>
+						<div>
+							<p class="fw-bold text-success mb-0">John Smith</p>
+							<p class="text-muted mb-0">Erat netus</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="py-5">
+	<div class="container">
+		<div
+			class="bg-dark border rounded border-dark d-flex flex-column justify-content-between align-items-center flex-lg-row p-4 p-lg-5"
+		>
+			<div class="text-center text-lg-start py-3 py-lg-1">
+				<h2 class="fw-bold mb-2">Subscribe to our newsletter</h2>
+				<p class="mb-0">
+					Join our mailing list by providing your email&nbsp;
+				</p>
+			</div>
+			<form
+				class="d-flex justify-content-center align-items-baseline flex-wrap flex-lg-nowrap align-items-xl-center"
+				method="post"
+				style="border-style: none"
+			>
+				<div class="my-2">
+					<input
+						class="border rounded-pill shadow-sm form-control"
+						type="email"
+						name="email"
+						placeholder="Your Email"
+					/>
+				</div>
+				<div class="my-2">
+					<button class="btn btn-primary shadow ms-2" type="submit">
+						Subscribe
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</section>
+
 {% endblock main %}

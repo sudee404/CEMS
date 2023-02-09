@@ -1,0 +1,54 @@
+{% extends "base_generic.html" %}
+{% load static %}
+
+{% block main %}
+<section class="py-5">
+    <div class="row mb-5" style="width: auto;margin: 0;">
+        <div class="col-md-8 col-xl-6 text-center mx-auto">
+            <p class="fw-bold text-success mb-2">Add Event</p>
+            <h2 class="fw-bold">Fill in the details below</h2>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <form class="border-0">
+            <div class="card border rounded shadow mb-3">
+                <div class="card-body text-dark">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-8 col-lg-8">
+                            <div class="mb-3"><label class="form-label" for="service_name"><strong>Title
+                                        *</strong></label><input class="bg-light bg-gradient form-control" type="text"
+                                    id="service_name" placeholder="Name service" name="service_name" required=""></div>
+                        </div>
+                        <div class="col-sm-12 col-md-4 col-lg-4">
+                            <div class="mb-3"><label class="form-label" for="service_price"><strong>Max Guests
+                                        *</strong></label><input class="form-control" type="text" id="service_price"
+                                    placeholder="10" name="client_phone" required=""></div>
+                        </div>
+                    </div>
+                    <div class="mb-3"><label class="form-label" for="client_description"><strong>Description
+                                *</strong><br></label><textarea class="bg-light bg-gradient form-control"
+                            id="service_description" rows="4" name="description" placeholder="Describe the event..."
+                            required=""></textarea></div>
+                    <div class="row mb-2">
+                        <div class="col">
+                            <div class="mb-3"><label class="form-label" for="service_client_start_date"><strong>Start
+                                        date *</strong></label><input class="form-control"
+                                    id="service_client_start_date" type="datetime-local" name="start_date" required="">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3"><label class="form-label" for="service_client_end_date"><strong>End date
+                                        *</strong><br></label><input class="form-control" id="service_client_end_date"
+                                    type="datetime-local" name="end_date" required=""></div>
+                        </div>
+                    </div>
+                    <div class="mb-3"><label class="form-label" for="service_client_payment_validated"><strong>Event
+                                Poster*</strong></label><input class="bg-light bg-gradient form-control" type="file"
+                            accept="image/*" required=""></div>
+                </div>
+            </div>
+            <div class="text-end mb-3"><button class="btn btn-primary" type="submit">Save</button></div>
+        </form>
+    </div>
+</section>
+{% endblock main %}

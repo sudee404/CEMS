@@ -1,0 +1,177 @@
+{% extends 'base_generic.html' %}
+{% load static %}
+{% block main %}
+    <section class="py-5">
+    <div class="container border rounded border-0 shadow py-5"
+        style="background: url(&quot;assets/img/blob.svg&quot;) center / cover no-repeat, linear-gradient(-172deg, black, var(--bs-border-color-translucent) 37%), var(--bs-border-color-translucent);padding: 5px;height: auto;">
+        <div class="row mb-4 mb-lg-5" style="margin: 0;">
+            <div class="col-md-8 col-xl-6 text-center mx-auto">
+                <h2 class="fw-bold">Events</h2>
+                <p class="text-muted">Find an event suitable for you below, you can filter it as you please&nbsp;</p>
+            </div>
+        </div>
+        <div class="d-lg-flex justify-content-lg-center align-items-lg-center"><a class="btn btn-success btn-sm"
+                role="button" data-bss-hover-animate="rubberBand" href="{% url 'add-event' %}" target="_blank">Host an
+                Event</a></div>
+    </div>
+    <section data-aos="fade-up" data-aos-duration="400" data-aos-once="true" class="min-vh-100"
+        style="padding-top: 30px;padding-bottom: 30px;min-height: 50vh !important;">
+        <div class="container" style="min-width: 90vw;">
+            <div data-aos="fade-up" data-aos-duration="400" data-aos-delay="200" data-aos-once="true"
+                class="owl-slider">
+                <div id="carousel" class="owl-carousel">
+                    <div class="item height-350" style="height: auto;padding: 5px;">
+                        <div class="text-start p-4 text-center shadow-lg m-5 rounded-5" id="cardEntrada-2"
+                            style="background: linear-gradient(171deg, var(--bs-pink) 0%, var(--bs-indigo) 100%), var(--bs-purple);width: 280px;">
+                            <img class="pt-2 w-50" src="{% static 'assets/img/swiftui.png' %}">
+                            <h3 class="text-white text-center pt-2">Title</h3>
+                            <p class="fw-bold pt-1 text-white p-0 m-0">Subtitle</p>
+                            <p class="fw-light text-white m-0">Description</p>
+                            <hr class="text-white">
+                            <div class="col-12"><a class="btn btn-primary" role="button">Button</a></div>
+                        </div>
+                    </div>
+                    <div class="item height-350" style="height: auto;padding: 5px;">
+                        <div id="cardEntrada-1" class="p-4 text-center shadow-lg m-5 rounded-5"
+                            style="background: linear-gradient(171deg, var(--bs-pink) 0%, var(--bs-indigo) 100%), var(--bs-purple);width: 280px;">
+                            <img class="pt-2 w-50" src="{% static 'assets/img/swiftui.png' %}">
+                            <h3 class="text-white text-center pt-2">Title</h3>
+                            <p class="fw-bold pt-1 text-white p-0 m-0">Subtitle</p>
+                            <p class="fw-light text-white m-0">Description</p>
+                            <hr class="text-white">
+                            <div class="col-12"><a class="btn btn-primary" role="button">Button</a></div>
+                        </div>
+                    </div>
+                    <div class="item height-350" style="height: auto;padding: 5px;">
+                        <div id="cardEntrada-3" class="p-4 text-center shadow-lg m-5 rounded-5"
+                            style="background: linear-gradient(171deg, var(--bs-pink) 0%, var(--bs-indigo) 100%), var(--bs-purple);width: 280px;">
+                            <img class="pt-2 w-50" src="{% static 'assets/img/swiftui.png' %}">
+                            <h3 class="text-white text-center pt-2">Title</h3>
+                            <p class="fw-bold pt-1 text-white p-0 m-0">Subtitle</p>
+                            <p class="fw-light text-white m-0">Description</p>
+                            <hr class="text-white">
+                            <div class="col-12"><a class="btn btn-primary" role="button">Button</a></div>
+                        </div>
+                    </div>
+                    <div class="item height-350" style="height: auto;padding: 5px;">
+                        <div id="cardEntrada-4" class="p-4 text-center shadow-lg m-5 rounded-5"
+                            style="background: linear-gradient(171deg, var(--bs-pink) 0%, var(--bs-indigo) 100%), var(--bs-purple);width: 280px;">
+                            <img class="pt-2 w-50" src="{% static 'assets/img/swiftui.png' %}">
+                            <h3 class="text-white text-center pt-2">Title</h3>
+                            <p class="fw-bold pt-1 text-white p-0 m-0">Subtitle</p>
+                            <p class="fw-light text-white m-0">Description</p>
+                            <hr class="text-white">
+                            <div class="col-12"><a class="btn btn-primary" role="button">Button</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="row mb-4 mb-lg-5" style="margin: 0;">
+        <div class="col-md-8 col-xl-6 text-center mx-auto">
+            <form class="d-flex justify-content-center flex-wrap my-2 align-items-center" data-bs-toggle="tooltip"
+                data-bss-tooltip="" method="post" style="border-style: none;" title="Enter keyword to search for">
+                <div class="my-2"><input class="form-control form-control-sm" type="search" name="email"
+                        placeholder="Search" style="border-radius: 32px;"></div>
+                <div class="my-2"><button class="btn btn-primary btn-sm ms-sm-2" type="button">Search</button></div>
+                <div></div>
+            </form>
+        </div>
+    </div>
+    <div class="container py-4 py-xl-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="blog-card blog-card-blog">
+                        <div class="blog-card-image">
+                            <a href="#"> <img class="img" src="{% static 'assets/img/big_sean.png' %}"> </a>
+                            <div class="ripple-cont"></div>
+                        </div>
+                        <div class="blog-table">
+                            <h6 class="blog-category blog-text-success"><i class="far fa-newspaper"></i> News</h6>
+                            <h4 class="blog-card-caption">
+                                <a href="#">Lorem Ipsum is simply dummy text of the printing and</a>
+                            </h4>
+                            <p class="blog-card-description">Lorem Ipsum is simply dummy text of the printing and
+                                typesetting industry.</p>
+                            <div class="ftr">
+                                <div class="author">
+                                    <a href="#"> <img src="{% static 'assets/img/big_sean.png' %}" alt="..."
+                                            class="avatar img-raised"> <span>Lorem</span> </a>
+                                </div>
+                                <div class="stats"> <i class="far fa-clock"></i> 10 min </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-4">
+                    <div class="blog-card blog-card-blog">
+                        <div class="blog-card-image">
+                            <a href="#"> <img class="img" src="{% static 'assets/img/big_sean.png' %}"> </a>
+                            <div class="ripple-cont"></div>
+                        </div>
+                        <div class="blog-table">
+                            <h6 class="blog-category blog-text-success"><i class="fas fa-blog"></i> News</h6>
+                            <h4 class="blog-card-caption">
+                                <a href="#">Lorem Ipsum is simply dummy text of the printing and</a>
+                            </h4>
+                            <p class="blog-card-description">Lorem Ipsum is simply dummy text of the printing and
+                                typesetting industry.</p>
+                            <div class="ftr">
+                                <div class="author">
+                                    <a href="#"> <img src="{% static 'assets/img/big_sean.png' %}" alt="..."
+                                            class="avatar img-raised"> <span>Lorem</span> </a>
+                                </div>
+                                <div class="stats"> <i class="far fa-clock"></i> 10 min </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="blog-card blog-card-blog">
+                        <div class="blog-card-image">
+                            <a href="#"> <img class="img" src="{% static 'assets/img/big_sean.png' %}"> </a>
+                            <div class="ripple-cont"></div>
+                        </div>
+                        <div class="blog-table">
+                            <h6 class="blog-category blog-text-success"><i class="far fa-newspaper"></i> News</h6>
+                            <h4 class="blog-card-caption">
+                                <a href="#">Lorem Ipsum is simply dummy text of the printing and</a>
+                            </h4>
+                            <p class="blog-card-description">Lorem Ipsum is simply dummy text of the printing and
+                                typesetting industry.</p>
+                            <div class="ftr">
+                                <div class="author">
+                                    <a href="#"> <img src="{% static 'assets/img/big_sean.png' %}" alt="..."
+                                            class="avatar img-raised"> <span>Lorem</span> </a>
+                                </div>
+                                <div class="stats"> <i class="far fa-clock"></i> 10 min </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <nav class="d-flex justify-content-center" style="text-align: center;">
+            <ul class="pagination">
+                <li class="page-item"><a class="page-link" aria-label="Previous" href="#"><span
+                            aria-hidden="true">«</span></a></li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">4</a></li>
+                <li class="page-item"><a class="page-link" href="#">5</a></li>
+                <li class="page-item"><a class="page-link" aria-label="Next" href="#"><span
+                            aria-hidden="true">»</span></a></li>
+            </ul>
+        </nav>
+    </div>
+</section>
+{% endblock main %}
+    
