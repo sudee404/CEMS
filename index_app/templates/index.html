@@ -5,12 +5,8 @@
 		<div class="row gy-4 gy-md-0">
 			<div class="col-md-6">
 				<div class="p-xl-5 m-xl-5">
-					<img
-						class="rounded img-fluid w-100 fit-cover"
-						style="min-height: 300px"
-						src="{% static 'assets/img/trans/pngegg%20(4).png' %}"
-						loading="lazy"
-					/>
+					<img class="rounded img-fluid w-100 fit-cover" style="min-height: 300px"
+						src="{% static 'assets/img/trans/pngegg%20(4).png' %}" loading="lazy" />
 				</div>
 			</div>
 			<div class="col-md-6 d-md-flex align-items-md-center">
@@ -23,17 +19,8 @@
 						efficiently manage their events. From event creation to
 						attendance CEMS has you covered.
 					</p>
-					<a
-						class="btn btn-primary btn-lg me-2"
-						role="button"
-						href="event_form.html"
-						>Host</a
-					><a
-						class="btn btn-outline-primary btn-lg"
-						role="button"
-						href="events.html"
-						>Find</a
-					>
+					<a class="btn btn-primary btn-lg me-2" role="button" href="event_form.html">Host</a><a
+						class="btn btn-outline-primary btn-lg" role="button" href="events.html">Find</a>
 				</div>
 			</div>
 		</div>
@@ -53,14 +40,10 @@
 	</div>
 </section>
 <section>
-	<div
-		class="row row-cols-1 row-cols-md-2 d-flex justify-content-center"
-		style="margin: 0; padding: 10px; filter: sepia(26%)"
-	>
+	<div class="row row-cols-1 row-cols-md-2 d-flex justify-content-center"
+		style="margin: 0; padding: 10px; filter: sepia(26%)">
 		<div class="col mb-4">
-			<div
-				class="card bg-primary-light bg-secondary bg-gradient border rounded shadow"
-			>
+			<div class="card bg-primary-light bg-secondary bg-gradient border rounded shadow">
 				<div class="card-body text-center px-4 py-5 px-md-5">
 					<p class="fw-bold text-primary card-text mb-2">Organize</p>
 					<h5 class="fw-bold card-title mb-3">
@@ -73,9 +56,7 @@
 			</div>
 		</div>
 		<div class="col mb-4">
-			<div
-				class="card bg-secondary-light bg-secondary bg-gradient border rounded shadow"
-			>
+			<div class="card bg-secondary-light bg-secondary bg-gradient border rounded shadow">
 				<div class="card-body text-center px-4 py-5 px-md-5">
 					<p class="fw-bold text-secondary card-text mb-2">Manage</p>
 					<h5 class="fw-bold card-title mb-3">
@@ -88,9 +69,7 @@
 			</div>
 		</div>
 		<div class="col mb-4">
-			<div
-				class="card bg-info-light bg-secondary bg-gradient border rounded shadow"
-			>
+			<div class="card bg-info-light bg-secondary bg-gradient border rounded shadow">
 				<div class="card-body text-center px-4 py-5 px-md-5">
 					<p class="fw-bold text-info card-text mb-2">Report</p>
 					<h5 class="fw-bold card-title mb-3">
@@ -107,6 +86,7 @@
 </section>
 <section>
 	<div class="container py-4 py-xl-5">
+		{% if upcoming %}
 		<div class="row mb-5">
 			<div class="col-md-8 col-xl-6 text-center mx-auto">
 				<p class="fw-bold text-success mb-2">Popular</p>
@@ -116,426 +96,41 @@
 				</p>
 			</div>
 		</div>
-		<section
-			class="d-flex justify-content-lg-center align-items-lg-center min-vh-100"
-			data-bss-disabled-mobile="true"
-			data-aos="fade-up"
-			data-aos-duration="400"
-			style="
-				padding-top: 30px;
-				padding-bottom: 30px;
-				min-height: 50vh !important;
-			"
-		>
+		<section class="d-flex justify-content-lg-center align-items-lg-center min-vh-100"
+			data-bss-disabled-mobile="true" data-aos="fade-up" data-aos-duration="400" style="
+						padding-top: 30px;
+						padding-bottom: 30px;
+						min-height: 50vh !important;
+					">
 			<div class="container" style="min-width: 90vw">
-				<div
-					data-aos="fade-up"
-					data-aos-duration="400"
-					data-aos-delay="200"
-					data-aos-once="true"
-					class="owl-slider"
-				>
-					<div
-						id="carousel"
-						class="owl-carousel"
-						style="padding: 10px"
-					>
-						<div class="item height-350" style="height: auto">
-							<div class="blog-card blog-card-blog">
-								<div class="blog-card-image">
-									<a href="#"
-										><img
-											class="img-fluid img"
-											src="{% static 'assets/img/NBA%20YoungBoy.png' %}"
-									/></a>
-									<div class="ripple-cont"></div>
-								</div>
-								<div class="blog-table">
-									<h6
-										class="blog-category blog-text-success"
-										style="
-											font-family: 'Playfair Display',
-												serif;
-										"
-									>
-										<i
-											class="fab fa-windows"
-											style="font-size: 17px"
-										></i
-										>&nbsp;Mobile App Design &amp;
-										Development
-									</h6>
-									<p
-										class="blog-card-description"
-										style="
-											font-family: 'Playfair Display',
-												serif;
-										"
-									>
-										4-in-1 Telecom Xamarin project.
-									</p>
-									<div class="ftr">
-										<div class="author">
-											<a
-												href="https://github.com/DesignofCp"
-												target="_blank"
-												><i
-													class="fas fa-cloud-download-alt"
-												></i
-												><span
-													style="
-														font-family: 'Playfair Display',
-															serif;
-													"
-													>&nbsp;Downloads</span
-												></a
-											>
-										</div>
-										<div class="stats">
-											<span>4,887</span>
-										</div>
-									</div>
-									<div class="ftr">
-										<div class="author">
-											<a
-												href="https://github.com/DesignofCp"
-												target="_blank"
-												><i
-													class="far fa-arrow-alt-circle-up"
-												></i
-												><span
-													style="
-														font-family: 'Playfair Display',
-															serif;
-													"
-													>&nbsp; Version</span
-												></a
-											>
-										</div>
-										<div class="stats">
-											<span>3.1.2</span>
-										</div>
-									</div>
-									<div class="ftr">
-										<div class="author">
-											<a
-												href="https://github.com/DesignofCp"
-												target="_blank"
-												><i class="fas fa-list-ul"></i
-												><span
-													style="
-														font-family: 'Playfair Display',
-															serif;
-													"
-													>&nbsp; License</span
-												></a
-											>
-										</div>
-										<div class="stats">
-											<span>MIT</span>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="item height-350" style="height: auto">
-							<div class="blog-card blog-card-blog">
-								<div class="blog-card-image">
-									<a href="#"
-										><img
-											class="img-fluid img"
-											src="{% static 'assets/img/NBA%20YoungBoy.png' %}"
-									/></a>
-									<div class="ripple-cont"></div>
-								</div>
-								<div class="blog-table">
-									<h6
-										class="blog-category blog-text-success"
-										style="
-											font-family: 'Playfair Display',
-												serif;
-										"
-									>
-										<i
-											class="fab fa-windows"
-											style="font-size: 17px"
-										></i
-										>&nbsp;Mobile App Design &amp;
-										Development
-									</h6>
-									<p
-										class="blog-card-description"
-										style="
-											font-family: 'Playfair Display',
-												serif;
-										"
-									>
-										4-in-1 Telecom Xamarin project.
-									</p>
-									<div class="ftr">
-										<div class="author">
-											<a
-												href="https://github.com/DesignofCp"
-												target="_blank"
-												><i
-													class="fas fa-cloud-download-alt"
-												></i
-												><span
-													style="
-														font-family: 'Playfair Display',
-															serif;
-													"
-													>&nbsp;Downloads</span
-												></a
-											>
-										</div>
-										<div class="stats">
-											<span>4,887</span>
-										</div>
-									</div>
-									<div class="ftr">
-										<div class="author">
-											<a
-												href="https://github.com/DesignofCp"
-												target="_blank"
-												><i
-													class="far fa-arrow-alt-circle-up"
-												></i
-												><span
-													style="
-														font-family: 'Playfair Display',
-															serif;
-													"
-													>&nbsp; Version</span
-												></a
-											>
-										</div>
-										<div class="stats">
-											<span>3.1.2</span>
-										</div>
-									</div>
-									<div class="ftr">
-										<div class="author">
-											<a
-												href="https://github.com/DesignofCp"
-												target="_blank"
-												><i class="fas fa-list-ul"></i
-												><span
-													style="
-														font-family: 'Playfair Display',
-															serif;
-													"
-													>&nbsp; License</span
-												></a
-											>
-										</div>
-										<div class="stats">
-											<span>MIT</span>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="item height-350" style="height: auto">
-							<div class="blog-card blog-card-blog">
-								<div class="blog-card-image">
-									<a href="#"
-										><img
-											class="img-fluid img"
-											src="{% static 'assets/img/NBA%20YoungBoy.png' %}"
-									/></a>
-									<div class="ripple-cont"></div>
-								</div>
-								<div class="blog-table">
-									<h6
-										class="blog-category blog-text-success"
-										style="
-											font-family: 'Playfair Display',
-												serif;
-										"
-									>
-										<i
-											class="fab fa-windows"
-											style="font-size: 17px"
-										></i
-										>&nbsp;Mobile App Design &amp;
-										Development
-									</h6>
-									<p
-										class="blog-card-description"
-										style="
-											font-family: 'Playfair Display',
-												serif;
-										"
-									>
-										4-in-1 Telecom Xamarin project.
-									</p>
-									<div class="ftr">
-										<div class="author">
-											<a
-												href="https://github.com/DesignofCp"
-												target="_blank"
-												><i
-													class="fas fa-cloud-download-alt"
-												></i
-												><span
-													style="
-														font-family: 'Playfair Display',
-															serif;
-													"
-													>&nbsp;Downloads</span
-												></a
-											>
-										</div>
-										<div class="stats">
-											<span>4,887</span>
-										</div>
-									</div>
-									<div class="ftr">
-										<div class="author">
-											<a
-												href="https://github.com/DesignofCp"
-												target="_blank"
-												><i
-													class="far fa-arrow-alt-circle-up"
-												></i
-												><span
-													style="
-														font-family: 'Playfair Display',
-															serif;
-													"
-													>&nbsp; Version</span
-												></a
-											>
-										</div>
-										<div class="stats">
-											<span>3.1.2</span>
-										</div>
-									</div>
-									<div class="ftr">
-										<div class="author">
-											<a
-												href="https://github.com/DesignofCp"
-												target="_blank"
-												><i class="fas fa-list-ul"></i
-												><span
-													style="
-														font-family: 'Playfair Display',
-															serif;
-													"
-													>&nbsp; License</span
-												></a
-											>
-										</div>
-										<div class="stats">
-											<span>MIT</span>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="item height-350" style="height: auto">
-							<div class="blog-card blog-card-blog">
-								<div class="blog-card-image">
-									<a href="#"
-										><img
-											class="img-fluid img"
-											src="{% static 'assets/img/NBA%20YoungBoy.png' %}"
-									/></a>
-									<div class="ripple-cont"></div>
-								</div>
-								<div class="blog-table">
-									<h6
-										class="blog-category blog-text-success"
-										style="
-											font-family: 'Playfair Display',
-												serif;
-										"
-									>
-										<i
-											class="fab fa-windows"
-											style="font-size: 17px"
-										></i
-										>&nbsp;Mobile App Design &amp;
-										Development
-									</h6>
-									<p
-										class="blog-card-description"
-										style="
-											font-family: 'Playfair Display',
-												serif;
-										"
-									>
-										4-in-1 Telecom Xamarin project.
-									</p>
-									<div class="ftr">
-										<div class="author">
-											<a
-												href="https://github.com/DesignofCp"
-												target="_blank"
-												><i
-													class="fas fa-cloud-download-alt"
-												></i
-												><span
-													style="
-														font-family: 'Playfair Display',
-															serif;
-													"
-													>&nbsp;Downloads</span
-												></a
-											>
-										</div>
-										<div class="stats">
-											<span>4,887</span>
-										</div>
-									</div>
-									<div class="ftr">
-										<div class="author">
-											<a
-												href="https://github.com/DesignofCp"
-												target="_blank"
-												><i
-													class="far fa-arrow-alt-circle-up"
-												></i
-												><span
-													style="
-														font-family: 'Playfair Display',
-															serif;
-													"
-													>&nbsp; Version</span
-												></a
-											>
-										</div>
-										<div class="stats">
-											<span>3.1.2</span>
-										</div>
-									</div>
-									<div class="ftr">
-										<div class="author">
-											<a
-												href="https://github.com/DesignofCp"
-												target="_blank"
-												><i class="fas fa-list-ul"></i
-												><span
-													style="
-														font-family: 'Playfair Display',
-															serif;
-													"
-													>&nbsp; License</span
-												></a
-											>
-										</div>
-										<div class="stats">
-											<span>MIT</span>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+				<div data-aos="fade-up" data-aos-duration="400" data-aos-delay="200" data-aos-once="true"
+					class="owl-slider">
+					<div id="carousel" class="owl-carousel d-flex justify-content-center" style="padding: 10px">
+
+
+						{% for upcoming_event in upcoming %}
+						{% include "components/upcoming_card.html" with event=upcoming_event %}
+						{% endfor %}
+
 					</div>
 				</div>
 			</div>
 		</section>
+		{% else %}
+		<div class="row mb-5">
+			<div class="col-md-8 col-xl-6 text-center mx-auto">
+				<p class="fw-bold text-success mb-2">Sorry</p>
+				<h2 class="fw-bold"><strong>No Events Found</strong></h2>
+				<p class="text-muted">
+					Be the first one to add an event below
+				</p>
+				<div class="d-lg-flex justify-content-lg-center align-items-lg-center"><a class="btn btn-success btn-sm"
+						role="button" data-bss-hover-animate="rubberBand" href="{% url 'add-event' %}"
+						target="_blank">Host an
+						Event</a></div>
+			</div>
+		</div>
+		{% endif %}
 	</div>
 </section>
 <section class="py-5 mt-5">
@@ -551,26 +146,16 @@
 				</p>
 			</div>
 		</div>
-		<div
-			class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 d-sm-flex justify-content-sm-center"
-		>
+		<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 d-sm-flex justify-content-sm-center">
 			<div class="col mb-4">
-				<div
-					class="d-flex flex-column align-items-center align-items-sm-start"
-				>
-					<p
-						class="text-light bg-dark border rounded border-dark p-4"
-					>
+				<div class="d-flex flex-column align-items-center align-items-sm-start">
+					<p class="text-light bg-dark border rounded border-dark p-4">
 						Nisi sit justo faucibus nec ornare amet, tortor
 						torquent. Blandit class dapibus, aliquet morbi.
 					</p>
 					<div class="d-flex">
-						<img
-							class="rounded-circle flex-shrink-0 me-3 fit-cover"
-							width="50"
-							height="50"
-							src="{% static 'assets/img/team/avatar2.jpg' %}"
-						/>
+						<img class="rounded-circle flex-shrink-0 me-3 fit-cover" width="50" height="50"
+							src="{% static 'assets/img/team/avatar2.jpg' %}" />
 						<div>
 							<p class="fw-bold text-success mb-0">John Smith</p>
 							<p class="text-muted mb-0">Erat netus</p>
@@ -579,22 +164,14 @@
 				</div>
 			</div>
 			<div class="col mb-4">
-				<div
-					class="d-flex flex-column align-items-center align-items-sm-start"
-				>
-					<p
-						class="text-light bg-dark border rounded border-dark p-4"
-					>
+				<div class="d-flex flex-column align-items-center align-items-sm-start">
+					<p class="text-light bg-dark border rounded border-dark p-4">
 						Nisi sit justo faucibus nec ornare amet, tortor
 						torquent. Blandit class dapibus, aliquet morbi.
 					</p>
 					<div class="d-flex">
-						<img
-							class="rounded-circle flex-shrink-0 me-3 fit-cover"
-							width="50"
-							height="50"
-							src="{% static 'assets/img/team/avatar4.jpg' %}"
-						/>
+						<img class="rounded-circle flex-shrink-0 me-3 fit-cover" width="50" height="50"
+							src="{% static 'assets/img/team/avatar4.jpg' %}" />
 						<div>
 							<p class="fw-bold text-success mb-0">John Smith</p>
 							<p class="text-muted mb-0">Erat netus</p>
@@ -603,22 +180,14 @@
 				</div>
 			</div>
 			<div class="col mb-4">
-				<div
-					class="d-flex flex-column align-items-center align-items-sm-start"
-				>
-					<p
-						class="text-light bg-dark border rounded border-dark p-4"
-					>
+				<div class="d-flex flex-column align-items-center align-items-sm-start">
+					<p class="text-light bg-dark border rounded border-dark p-4">
 						Nisi sit justo faucibus nec ornare amet, tortor
 						torquent. Blandit class dapibus, aliquet morbi.
 					</p>
 					<div class="d-flex">
-						<img
-							class="rounded-circle flex-shrink-0 me-3 fit-cover"
-							width="50"
-							height="50"
-							src="{% static 'assets/img/team/avatar5.jpg' %}"
-						/>
+						<img class="rounded-circle flex-shrink-0 me-3 fit-cover" width="50" height="50"
+							src="{% static 'assets/img/team/avatar5.jpg' %}" />
 						<div>
 							<p class="fw-bold text-success mb-0">John Smith</p>
 							<p class="text-muted mb-0">Erat netus</p>
@@ -632,8 +201,7 @@
 <section class="py-5">
 	<div class="container">
 		<div
-			class="bg-dark border rounded border-dark d-flex flex-column justify-content-between align-items-center flex-lg-row p-4 p-lg-5"
-		>
+			class="bg-dark border rounded border-dark d-flex flex-column justify-content-between align-items-center flex-lg-row p-4 p-lg-5">
 			<div class="text-center text-lg-start py-3 py-lg-1">
 				<h2 class="fw-bold mb-2">Subscribe to our newsletter</h2>
 				<p class="mb-0">
@@ -642,16 +210,10 @@
 			</div>
 			<form
 				class="d-flex justify-content-center align-items-baseline flex-wrap flex-lg-nowrap align-items-xl-center"
-				method="post"
-				style="border-style: none"
-			>
+				method="post" style="border-style: none">
 				<div class="my-2">
-					<input
-						class="border rounded-pill shadow-sm form-control"
-						type="email"
-						name="email"
-						placeholder="Your Email"
-					/>
+					<input class="border rounded-pill shadow-sm form-control" type="email" name="email"
+						placeholder="Your Email" />
 				</div>
 				<div class="my-2">
 					<button class="btn btn-primary shadow ms-2" type="submit">

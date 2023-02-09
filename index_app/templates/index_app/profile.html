@@ -26,12 +26,12 @@
     <section class="text-light py-5"
         style="backdrop-filter: brightness(158%);-webkit-backdrop-filter: brightness(158%);padding: 20px 0;">
         <div class="container-fluid">
-            <h2 class="fw-bold text-start text-light mb-4" style="--bs-body-font-weight: bolder;">John Doe</h2>
+            <h2 class="fw-bold text-start text-light mb-4" style="--bs-body-font-weight: bolder;">{{myuser}}</h2>
             <div class="row mb-3">
                 <div class="col-lg-4">
                     <div class="card text-dark bg-light bg-gradient border rounded shadow-sm mb-3">
                         <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4"
-                                src="assets/img/dogs/image2.jpeg" width="160" height="160">
+                                src="{% static 'assets/img/dogs/image2.jpeg' %}" width="160" height="160">
                             <div class="mb-3"><button class="btn btn-primary btn-sm" type="button" data-bs-target="#modal-1"
                                     data-bs-toggle="modal">Change Photo</button></div>
                         </div>
@@ -115,14 +115,14 @@
                                                 <div class="mb-3"><label class="form-label"
                                                         for="username"><strong>Username</strong></label><input
                                                         class="form-control" type="text" id="username"
-                                                        placeholder="username" name="username"
+                                                        placeholder="{{myuser.username|default:'Not set'}}" name="username"
                                                         style="height: auto;background: rgb(241, 241, 241);"></div>
                                             </div>
                                             <div class="col">
                                                 <div class="mb-3"><label class="form-label"
                                                         for="username"><strong>Email</strong></label><input
                                                         class="border-0 form-control" type="email" id="username-1"
-                                                        placeholder="email address" name="username"
+                                                        placeholder="{{myuser.email}}" name="email"
                                                         style="height: auto;margin: 5px 0 22px;padding: 15px;background: rgb(241,241,241);filter: brightness(100%);">
                                                 </div>
                                             </div>
@@ -131,12 +131,12 @@
                                             <div class="col">
                                                 <div class="mb-3"><label class="form-label" for="first_name"><strong>First
                                                             Name</strong></label><input class="form-control" type="text"
-                                                        id="first_name" placeholder="John" name="first_name"></div>
+                                                        id="first_name" placeholder={{myuser.first_name}} name="first_name"></div>
                                             </div>
                                             <div class="col">
                                                 <div class="mb-3"><label class="form-label" for="last_name"><strong>Last
                                                             Name</strong></label><input class="form-control" type="text"
-                                                        id="last_name" placeholder="Doe" name="last_name"></div>
+                                                        id="last_name" placeholder={{myuser.last_name}} name="last_name"></div>
                                             </div>
                                         </div>
                                         <div class="mb-3"><button class="btn btn-primary btn-sm" type="submit">Save

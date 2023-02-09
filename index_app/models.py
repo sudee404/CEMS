@@ -1,24 +1,49 @@
 from django.db import models
-
+from django.urls import reverse
 # Create your models here.
 
+
 class Event(models.Model):
-	"""Model definition for Event."""
+    """Model definition for Event."""
+    category = models.ForeignKey(
+        "Category", null=True, on_delete=models.SET_NULL)
+    title = models.CharField(max_length=250)
+    description = models.TextField()
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField()
+    guests = models.PositiveIntegerField(null=True)
+    poster = models.ImageField(
+        upload_to='poster',default='default.png')
 
-	title = models.CharField(max_length=50)
-	description = models.TextField()
-	start_date = models.DateTimeField()
-	end_date = models.DateTimeField()
-	guests = models.PositiveIntegerField()
-	poster = models.ImageField(upload_to='poster', height_field=1400, width_field=700, max_length=800)
+    class Meta:
+        """Meta definition for Event."""
+
+        verbose_name = 'Event'
+        verbose_name_plural = 'Events'
+
+    def get_absolute_url(self):
+        return reverse("event-detail", kwargs={"pk": self.pk})
+    
+
+    def __str__(self):
+        """Unicode representation of Event."""
+        return self.title
 
 
-	class Meta:
-		"""Meta definition for Event."""
+class Category(models.Model):
+    """Model definition for Category."""
 
-		verbose_name = 'Event'
-		verbose_name_plural = 'Events'
+    name = models.CharField(max_length=250)
+    image = models.ImageField(
+        upload_to='images',default='default.png')
+    description = models.TextField()
 
-	def __str__(self):
-		"""Unicode representation of Event."""
-		self.title
+    class Meta:
+        """Meta definition for Category."""
+
+        verbose_name = 'Category'
+        verbose_name_plural = 'Categories'
+
+    def __str__(self):
+        """Unicode representation of Category."""
+        return self.name

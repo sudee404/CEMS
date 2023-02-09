@@ -26,13 +26,9 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 	<link rel="stylesheet" href="{% static 'assets/css/Articles-Cards-images.css' %}">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css">
-	<link rel="stylesheet"
-		href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.2/css/theme.bootstrap_4.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
 	<link rel="stylesheet" href="{% static 'assets/css/Lightbox-Gallery-baguetteBox.min.css' %}">
-	<link rel="stylesheet" href="{% static 'assets/css/Ludens---1-Dark-mode-Index-Table-with-Search-Filters.css' %}">
-	<link rel="stylesheet" href="{% static 'assets/css/Ludens---1-Index-Table-with-Search--Sort-Filters-v20.css' %}">
 	<link rel="stylesheet" href="{% static 'assets/css/Notes-Dashboard.css' %}">
 	<link rel="stylesheet" href="{% static 'assets/css/OwlCarousel-2.css' %}">
 	<link rel="stylesheet" href="{% static 'assets/css/Responsive-Open-Source-CardBS5.css' %}">
@@ -40,10 +36,10 @@
 	<link rel="stylesheet" href="{% static 'assets/css/Sign-Up-Form---Gabriela-Carvalho.css' %}">
 	<link rel="stylesheet" href="{% static 'assets/css/Stats-icons.css' %}">
 	{% block styles %}
-	
+
 	{% endblock styles %}
 	<link rel="stylesheet" href="{% static 'assets/css/styles.css' %}">
-		
+
 </head>
 
 <body>
@@ -58,12 +54,17 @@
 							href="{% url 'index' %}">Home</a></li>
 					<li class="nav-item"><a class="nav-link" data-bss-hover-animate="pulse"
 							href="{% url 'event-list' %}">Events</a></li>
-					<li class="nav-item"><a class="nav-link" data-bss-hover-animate="pulse" href="{% url 'login' %}">Login</a>
-					</li>
-					<li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
-					<li class="nav-item"><a class="nav-link" href="profile.html">Profile</a></li>
-					<li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
-				</ul><a class="btn btn-primary shadow" role="button" href="{% url 'register' %}">Sign up</a>
+					<li class="nav-item"><a class="nav-link" href="{% url 'gallery' %}">Gallery</a></li>
+					<li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
+					{% if user.is_authenticated %}
+					<li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
+					{% endif %}
+				</ul>
+				{% if user.is_authenticated %}
+				<a class="btn btn-success shadow" role="button" href="{{user.get_to_dashboard}}">Dashboard</a>
+				{% else %}
+				<a class="btn btn-primary shadow" role="button" href="{% url 'login' %}">Sign In</a>
+				{% endif %}
 			</div>
 		</div>
 	</nav>
@@ -145,28 +146,18 @@
 	<script src="{% static 'assets/js/bs-init.js' %}"></script>
 	<script src="{% static 'assets/js/bold-and-dark.js' %}"></script>
 	<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.2/js/jquery.tablesorter.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.2/js/widgets/widget-filter.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.2/js/widgets/widget-storage.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 	<script src="{% static 'assets/js/Lightbox-Gallery-baguetteBox.min.js' %}"></script>
 	<script src="{% static 'assets/js/Lightbox-Gallery.js' %}"></script>
-	<script src="{% static 'assets/js/Ludens---1-Dark-mode-Index-Table-with-Search-Filters-main.js' %}"></script>
-	<script
-		src="{% static 'assets/js/Ludens---1-Index-Table-with-Search--Sort-Filters-v20-Ludens---1-Index-Table-with-Search--Sort-Filters.js' %}"></script>
-	<script
-		src="{% static 'assets/js/Ludens---1-Index-Table-with-Search--Sort-Filters-v20-Ludens---Material-UI-Actions.js' %}"></script>
 	<script src="{% static 'assets/js/mini-card-items-theme.js' %}"></script>
 	<script src="{% static 'assets/js/OwlCarousel-2-OwlCarousel.js' %}"></script>
-	
+
 	{% block scripts %}
-		
+
 	{% endblock scripts %}
-		
+
 </body>
 
 </html>

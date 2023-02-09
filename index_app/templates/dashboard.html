@@ -1,0 +1,817 @@
+{% extends "base_generic.html" %} {% load static %} {% block main %}
+
+<section class="text-light bg-light py-5">
+	<div class="container-fluid">
+		<div class="d-sm-flex justify-content-between align-items-center mb-4" style="padding: 0 100px">
+			<h3 class="text-dark mb-0">Dashboard</h3>
+			<a type="button" class="btn btn-primary" href="{{user.get_absolute_url}}">Profile</a>
+		</div>
+	</div>
+	<div class="row" style="margin: 10px">
+		<div class="col-md-6 col-xl-3 mb-4">
+			<div class="card border rounded shadow border-start-primary py-2" style="margin: 10px">
+				<div class="card-body" style="padding-bottom: 0px; padding-top: 0px">
+					<div class="row align-items-center no-gutters">
+						<div class="col me-2">
+							<div class="text-uppercase text-primary fw-bold text-xs mb-1">
+								<span style="
+										font-size: 12px;
+										color: var(--bs-primary);
+									">Attendance</span>
+							</div>
+							<div class="text-dark fw-bold h5 mb-0" style="margin-top: -6px">
+								<span style="font-size: 14px"><i class="fas fa-caret-up" style="
+											margin-right: 6px;
+											color: var(--bs-success);
+											font-size: 16px;
+										"></i></span><span style="font-size: 14px">221 ème</span><span style="
+										font-size: 10px;
+										margin-left: 12px;
+										color: var(--bs-gray-600);
+									">1325 points</span>
+							</div>
+						</div>
+						<div class="col-auto">
+							<i class="fas fa-trophy fa-2x" data-bs-toggle="tooltip" data-bss-tooltip="" style="
+									color: var(--bs-yellow);
+									font-size: 28px;
+									margin-top: 4px;
+								" title="Votre position dans le classement général est définie en fonction de vos statistiques de pronostiqueur"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6 col-xl-3 mb-4">
+			<div class="card border rounded shadow border-start-primary py-2" style="margin: 10px">
+				<div class="card-body" style="padding-bottom: 0px; padding-top: 0px">
+					<div class="row align-items-center no-gutters">
+						<div class="col me-2">
+							<div class="text-uppercase text-primary fw-bold text-xs mb-1">
+								<span style="
+										font-size: 12px;
+										color: var(--bs-primary);
+									">Engagement</span>
+							</div>
+							<div class="text-dark fw-bold h5 mb-0" style="margin-top: -6px">
+								<span style="font-size: 14px"><i class="fas fa-caret-up" style="
+											margin-right: 6px;
+											color: var(--bs-success);
+											font-size: 16px;
+										"></i></span><span style="font-size: 14px">64 %</span><span style="
+										font-size: 10px;
+										margin-left: 12px;
+										color: var(--bs-gray-600);
+									">12/21 validés</span>
+							</div>
+						</div>
+						<div class="col-auto">
+							<i class="fas fa-check fa-2x" data-bs-toggle="tooltip" data-bss-tooltip="" style="
+									color: var(--bs-primary);
+									font-size: 28px;
+									margin-top: 4px;
+								" title="Ceci est votre taux de réussite moyen calculé sur la base des 30 derniers jours"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6 col-xl-3 mb-4">
+			<div class="card border rounded shadow border-start-primary py-2" style="margin: 10px">
+				<div class="card-body" style="padding-bottom: 0px; padding-top: 0px">
+					<div class="row align-items-center no-gutters">
+						<div class="col me-2">
+							<div class="text-uppercase text-primary fw-bold text-xs mb-1">
+								<span style="
+										font-size: 12px;
+										color: var(--bs-primary);
+									">Skills</span>
+							</div>
+							<div class="text-dark fw-bold h5 mb-0" style="margin-top: -6px">
+								<span style="font-size: 14px">12 000</span><a href="#" style="
+										font-size: 10px;
+										margin-left: 12px;
+										text-decoration: none;
+									"><i class="fas fa-arrow-right"></i>&nbsp;Faire un dépôt</a>
+							</div>
+						</div>
+						<div class="col-auto">
+							<i class="fas fa-money-bill fa-2x" data-bs-toggle="tooltip" data-bss-tooltip="" style="
+									color: var(--bs-green);
+									font-size: 28px;
+									margin-top: 4px;
+								" title="Ceci est votre solde de CV que vous pouvez à tout moment déposer sur votre compte et utiliser pour acheter les pronostics de votre choix"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6 col-xl-3 mb-4">
+			<div class="card border rounded shadow border-start-primary py-2" style="margin: 10px">
+				<div class="card-body" style="padding-bottom: 0px; padding-top: 0px">
+					<div class="row align-items-center no-gutters">
+						<div class="col me-2">
+							<div class="text-uppercase text-primary fw-bold text-xs mb-1">
+								<span style="
+										font-size: 12px;
+										color: var(--bs-primary);
+									">Progress</span>
+							</div>
+							<div class="text-dark fw-bold h5 mb-0" style="margin-top: -6px">
+								<span style="font-size: 14px">32 600</span><a href="#" style="
+										font-size: 10px;
+										margin-left: 12px;
+										text-decoration: none;
+									"><i class="fas fa-arrow-right"></i>&nbsp;Faire un retrait</a>
+							</div>
+						</div>
+						<div class="col-auto">
+							<i class="fas fa-money-bill fa-2x" data-bs-toggle="tooltip" data-bss-tooltip="" style="
+									color: var(--bs-danger);
+									font-size: 28px;
+									margin-top: 4px;
+								" title="Ceci est votre solde de CR que vous pouvez retirer à tout moment de votre compte lorsque vous atteignez un plafond de retrait minimum de 20 €"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6">
+				<div style="padding: 10px">
+
+				</div>
+			</div>
+			<div class="col" style="padding: 10px">
+				<div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="text-white bg-primary border rounded border-0 border-primary d-flex flex-column justify-content-between flex-lg-row p-4 p-md-5"
+		style="margin: 0 10px 10px">
+		<div class="pb-2 pb-lg-1">
+			<h2 class="fw-bold mb-2">Events Calendar</h2>
+			<p class="mb-0"></p>
+		</div>
+		<div class="my-2">
+			<a class="btn btn-light fs-5 py-2 px-4" role="button" href="#">Generate Report</a>
+		</div>
+	</div>
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
+	<div class="page-content container note-has-grid">
+		<ul class="nav nav-pills p-3 bg-white mb-3 rounded-pill align-items-center">
+			<li class="nav-item">
+				<a href="javascript:void(0)"
+					class="nav-link rounded-pill note-link d-flex align-items-center px-2 px-md-3 mr-0 mr-md-2 active"
+					id="all-category">
+					<i class="icon-layers mr-1"></i><span class="d-none d-md-block">All Notes</span>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a href="javascript:void(0)"
+					class="nav-link rounded-pill note-link d-flex align-items-center px-2 px-md-3 mr-0 mr-md-2"
+					id="note-business">
+					<i class="icon-briefcase mr-1"></i><span class="d-none d-md-block">Business</span></a>
+			</li>
+			<li class="nav-item">
+				<a href="javascript:void(0)"
+					class="nav-link rounded-pill note-link d-flex align-items-center px-2 px-md-3 mr-0 mr-md-2"
+					id="note-social">
+					<i class="icon-share-alt mr-1"></i><span class="d-none d-md-block">Social</span></a>
+			</li>
+			<li class="nav-item">
+				<a href="javascript:void(0)"
+					class="nav-link rounded-pill note-link d-flex align-items-center px-2 px-md-3 mr-0 mr-md-2"
+					id="note-important">
+					<i class="icon-tag mr-1"></i><span class="d-none d-md-block">Important</span></a>
+			</li>
+			<li class="nav-item ml-auto">
+				<a href="javascript:void(0)" class="nav-link btn-primary rounded-pill d-flex align-items-center px-3"
+					id="add-notes">
+					<i class="icon-note m-1"></i><span class="d-none d-md-block font-14">Add Notes</span></a>
+			</li>
+		</ul>
+		<div class="tab-content bg-transparent">
+			<div id="note-full-container" class="note-has-grid row">
+				<div class="col-md-4 single-note-item all-category">
+					<div class="card card-body">
+						<span class="side-stick"></span>
+						<h5 class="note-title text-truncate w-75 mb-0" data-noteheading="Book a Ticket for Movie">
+							Book a Ticket for Movie
+							<i class="point fa fa-circle ml-1 font-10"></i>
+						</h5>
+						<p class="note-date font-12 text-muted">
+							11 March 2009
+						</p>
+						<div class="note-content">
+							<p class="note-inner-content text-muted"
+								data-notecontent="Blandit tempus porttitor aasfs. Integer posuere erat a ante venenatis.">
+								Blandit tempus porttitor aasfs. Integer posuere
+								erat a ante venenatis.
+							</p>
+						</div>
+						<div class="d-flex align-items-center">
+							<span class="mr-1"><i class="fa fa-star favourite-note"></i></span>
+							<span class="mr-1"><i class="fa fa-trash remove-note"></i></span>
+							<div class="ml-auto">
+								<div class="category-selector btn-group">
+									<a class="nav-link dropdown-toggle category-dropdown label-group p-0"
+										data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+										aria-expanded="true">
+										<div class="category">
+											<div class="category-business"></div>
+											<div class="category-social"></div>
+											<div class="category-important"></div>
+											<span class="more-options text-dark"><i
+													class="icon-options-vertical"></i></span>
+										</div>
+									</a>
+									<div class="dropdown-menu dropdown-menu-right category-menu">
+										<a class="note-business badge-group-item badge-business dropdown-item position-relative category-business text-success"
+											href="javascript:void(0);">
+											<i class="mdi mdi-checkbox-blank-circle-outline mr-1"></i>Business
+										</a>
+										<a class="note-social badge-group-item badge-social dropdown-item position-relative category-social text-info"
+											href="javascript:void(0);">
+											<i class="mdi mdi-checkbox-blank-circle-outline mr-1"></i>
+											Social
+										</a>
+										<a class="note-important badge-group-item badge-important dropdown-item position-relative category-important text-danger"
+											href="javascript:void(0);">
+											<i class="mdi mdi-checkbox-blank-circle-outline mr-1"></i>
+											Important
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4 single-note-item all-category note-important">
+					<div class="card card-body">
+						<span class="side-stick"></span>
+						<h5 class="note-title text-truncate w-75 mb-0" data-noteheading="Go for lunch">
+							Go for lunch
+							<i class="point fa fa-circle ml-1 font-10"></i>
+						</h5>
+						<p class="note-date font-12 text-muted">
+							01 April 2002
+						</p>
+						<div class="note-content">
+							<p class="note-inner-content text-muted"
+								data-notecontent="Blandit tempus porttitor aasfs. Integer posuere erat a ante venenatis.">
+								Blandit tempus porttitor aasfs. Integer posuere
+								erat a ante venenatis.
+							</p>
+						</div>
+						<div class="d-flex align-items-center">
+							<span class="mr-1"><i class="fa fa-star favourite-note"></i></span>
+							<span class="mr-1"><i class="fa fa-trash remove-note"></i></span>
+							<div class="ml-auto">
+								<div class="category-selector btn-group">
+									<a class="nav-link dropdown-toggle category-dropdown label-group p-0"
+										data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+										aria-expanded="true">
+										<div class="category">
+											<div class="category-business"></div>
+											<div class="category-social"></div>
+											<div class="category-important"></div>
+											<span class="more-options text-dark"><i
+													class="icon-options-vertical"></i></span>
+										</div>
+									</a>
+									<div class="dropdown-menu dropdown-menu-right category-menu">
+										<a class="note-business badge-group-item badge-business dropdown-item position-relative category-business text-success"
+											href="javascript:void(0);">
+											<i class="mdi mdi-checkbox-blank-circle-outline mr-1"></i>Business
+										</a>
+										<a class="note-social badge-group-item badge-social dropdown-item position-relative category-social text-info"
+											href="javascript:void(0);">
+											<i class="mdi mdi-checkbox-blank-circle-outline mr-1"></i>
+											Social
+										</a>
+										<a class="note-important badge-group-item badge-important dropdown-item position-relative category-important text-danger"
+											href="javascript:void(0);">
+											<i class="mdi mdi-checkbox-blank-circle-outline mr-1"></i>
+											Important
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4 single-note-item all-category note-social">
+					<div class="card card-body">
+						<span class="side-stick"></span>
+						<h5 class="note-title text-truncate w-75 mb-0" data-noteheading="Meeting with Mr.Jojo">
+							Meeting with Mr.Jojo
+							<i class="point fa fa-circle ml-1 font-10"></i>
+						</h5>
+						<p class="note-date font-12 text-muted">
+							19 October 2020
+						</p>
+						<div class="note-content">
+							<p class="note-inner-content text-muted"
+								data-notecontent="Blandit tempus porttitor aasfs. Integer posuere erat a ante venenatis.">
+								Blandit tempus porttitor aasfs. Integer posuere
+								erat a ante venenatis.
+							</p>
+						</div>
+						<div class="d-flex align-items-center">
+							<span class="mr-1"><i class="fa fa-star favourite-note"></i></span>
+							<span class="mr-1"><i class="fa fa-trash remove-note"></i></span>
+							<div class="ml-auto">
+								<div class="category-selector btn-group">
+									<a class="nav-link dropdown-toggle category-dropdown label-group p-0"
+										data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+										aria-expanded="true">
+										<div class="category">
+											<div class="category-business"></div>
+											<div class="category-social"></div>
+											<div class="category-important"></div>
+											<span class="more-options text-dark"><i
+													class="icon-options-vertical"></i></span>
+										</div>
+									</a>
+									<div class="dropdown-menu dropdown-menu-right category-menu">
+										<a class="note-business badge-group-item badge-business dropdown-item position-relative category-business text-success"
+											href="javascript:void(0);">
+											<i class="mdi mdi-checkbox-blank-circle-outline mr-1"></i>Business
+										</a>
+										<a class="note-social badge-group-item badge-social dropdown-item position-relative category-social text-info"
+											href="javascript:void(0);">
+											<i class="mdi mdi-checkbox-blank-circle-outline mr-1"></i>
+											Social
+										</a>
+										<a class="note-important badge-group-item badge-important dropdown-item position-relative category-important text-danger"
+											href="javascript:void(0);">
+											<i class="mdi mdi-checkbox-blank-circle-outline mr-1"></i>
+											Important
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4 single-note-item all-category note-business">
+					<div class="card card-body">
+						<span class="side-stick"></span>
+						<h5 class="note-title text-truncate w-75 mb-0" data-noteheading="Give Review for design">
+							Give Review for design
+							<i class="point fa fa-circle ml-1 font-10"></i>
+						</h5>
+						<p class="note-date font-12 text-muted">
+							02 January 2000
+						</p>
+						<div class="note-content">
+							<p class="note-inner-content text-muted"
+								data-notecontent="Blandit tempus porttitor aasfs. Integer posuere erat a ante venenatis.">
+								Blandit tempus porttitor aasfs. Integer posuere
+								erat a ante venenatis.
+							</p>
+						</div>
+						<div class="d-flex align-items-center">
+							<span class="mr-1"><i class="fa fa-star favourite-note"></i></span>
+							<span class="mr-1"><i class="fa fa-trash remove-note"></i></span>
+							<div class="ml-auto">
+								<div class="category-selector btn-group">
+									<a class="nav-link dropdown-toggle category-dropdown label-group p-0"
+										data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+										aria-expanded="true">
+										<div class="category">
+											<div class="category-business"></div>
+											<div class="category-social"></div>
+											<div class="category-important"></div>
+											<span class="more-options text-dark"><i
+													class="icon-options-vertical"></i></span>
+										</div>
+									</a>
+									<div class="dropdown-menu dropdown-menu-right category-menu">
+										<a class="note-business badge-group-item badge-business dropdown-item position-relative category-business text-success"
+											href="javascript:void(0);">
+											<i class="mdi mdi-checkbox-blank-circle-outline mr-1"></i>Business
+										</a>
+										<a class="note-social badge-group-item badge-social dropdown-item position-relative category-social text-info"
+											href="javascript:void(0);">
+											<i class="mdi mdi-checkbox-blank-circle-outline mr-1"></i>
+											Social
+										</a>
+										<a class="note-important badge-group-item badge-important dropdown-item position-relative category-important text-danger"
+											href="javascript:void(0);">
+											<i class="mdi mdi-checkbox-blank-circle-outline mr-1"></i>
+											Important
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4 single-note-item all-category note-social">
+					<div class="card card-body">
+						<span class="side-stick"></span>
+						<h5 class="note-title text-truncate w-75 mb-0" data-noteheading="Nightout with friends">
+							Nightout with friends
+							<i class="point fa fa-circle ml-1 font-10"></i>
+						</h5>
+						<p class="note-date font-12 text-muted">
+							01 August 1999
+						</p>
+						<div class="note-content">
+							<p class="note-inner-content text-muted"
+								data-notecontent="Blandit tempus porttitor aasfs. Integer posuere erat a ante venenatis.">
+								Blandit tempus porttitor aasfs. Integer posuere
+								erat a ante venenatis.
+							</p>
+						</div>
+						<div class="d-flex align-items-center">
+							<span class="mr-1"><i class="fa fa-star favourite-note"></i></span>
+							<span class="mr-1"><i class="fa fa-trash remove-note"></i></span>
+							<div class="ml-auto">
+								<div class="category-selector btn-group">
+									<a class="nav-link dropdown-toggle category-dropdown label-group p-0"
+										data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+										aria-expanded="true">
+										<div class="category">
+											<div class="category-business"></div>
+											<div class="category-social"></div>
+											<div class="category-important"></div>
+											<span class="more-options text-dark"><i
+													class="icon-options-vertical"></i></span>
+										</div>
+									</a>
+									<div class="dropdown-menu dropdown-menu-right category-menu">
+										<a class="note-business badge-group-item badge-business dropdown-item position-relative category-business text-success"
+											href="javascript:void(0);">
+											<i class="mdi mdi-checkbox-blank-circle-outline mr-1"></i>Business
+										</a>
+										<a class="note-social badge-group-item badge-social dropdown-item position-relative category-social text-info"
+											href="javascript:void(0);">
+											<i class="mdi mdi-checkbox-blank-circle-outline mr-1"></i>
+											Social
+										</a>
+										<a class="note-important badge-group-item badge-important dropdown-item position-relative category-important text-danger"
+											href="javascript:void(0);">
+											<i class="mdi mdi-checkbox-blank-circle-outline mr-1"></i>
+											Important
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4 single-note-item all-category note-important">
+					<div class="card card-body">
+						<span class="side-stick"></span>
+						<h5 class="note-title text-truncate w-75 mb-0" data-noteheading="Launch new template">
+							Launch new template
+							<i class="point fa fa-circle ml-1 font-10"></i>
+						</h5>
+						<p class="note-date font-12 text-muted">
+							21 January 2015
+						</p>
+						<div class="note-content">
+							<p class="note-inner-content text-muted"
+								data-notecontent="Blandit tempus porttitor aasfs. Integer posuere erat a ante venenatis.">
+								Blandit tempus porttitor aasfs. Integer posuere
+								erat a ante venenatis.
+							</p>
+						</div>
+						<div class="d-flex align-items-center">
+							<span class="mr-1"><i class="fa fa-star favourite-note"></i></span>
+							<span class="mr-1"><i class="fa fa-trash remove-note"></i></span>
+							<div class="ml-auto">
+								<div class="category-selector btn-group">
+									<a class="nav-link dropdown-toggle category-dropdown label-group p-0"
+										data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+										aria-expanded="true">
+										<div class="category">
+											<div class="category-business"></div>
+											<div class="category-social"></div>
+											<div class="category-important"></div>
+											<span class="more-options text-dark"><i
+													class="icon-options-vertical"></i></span>
+										</div>
+									</a>
+									<div class="dropdown-menu dropdown-menu-right category-menu">
+										<a class="note-business badge-group-item badge-business dropdown-item position-relative category-business text-success"
+											href="javascript:void(0);">
+											<i class="mdi mdi-checkbox-blank-circle-outline mr-1"></i>Business
+										</a>
+										<a class="note-social badge-group-item badge-social dropdown-item position-relative category-social text-info"
+											href="javascript:void(0);">
+											<i class="mdi mdi-checkbox-blank-circle-outline mr-1"></i>
+											Social
+										</a>
+										<a class="note-important badge-group-item badge-important dropdown-item position-relative category-important text-danger"
+											href="javascript:void(0);">
+											<i class="mdi mdi-checkbox-blank-circle-outline mr-1"></i>
+											Important
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4 single-note-item all-category note-social">
+					<div class="card card-body">
+						<span class="side-stick"></span>
+						<h5 class="note-title text-truncate w-75 mb-0" data-noteheading="Change a Design">
+							Change a Design
+							<i class="point fa fa-circle ml-1 font-10"></i>
+						</h5>
+						<p class="note-date font-12 text-muted">
+							25 December 2016
+						</p>
+						<div class="note-content">
+							<p class="note-inner-content text-muted"
+								data-notecontent="Blandit tempus porttitor aasfs. Integer posuere erat a ante venenatis.">
+								Blandit tempus porttitor aasfs. Integer posuere
+								erat a ante venenatis.
+							</p>
+						</div>
+						<div class="d-flex align-items-center">
+							<span class="mr-1"><i class="fa fa-star favourite-note"></i></span>
+							<span class="mr-1"><i class="fa fa-trash remove-note"></i></span>
+							<div class="ml-auto">
+								<div class="category-selector btn-group">
+									<a class="nav-link dropdown-toggle category-dropdown label-group p-0"
+										data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+										aria-expanded="true">
+										<div class="category">
+											<div class="category-business"></div>
+											<div class="category-social"></div>
+											<div class="category-important"></div>
+											<span class="more-options text-dark"><i
+													class="icon-options-vertical"></i></span>
+										</div>
+									</a>
+									<div class="dropdown-menu dropdown-menu-right category-menu">
+										<a class="note-business badge-group-item badge-business dropdown-item position-relative category-business text-success"
+											href="javascript:void(0);">
+											<i class="mdi mdi-checkbox-blank-circle-outline mr-1"></i>Business
+										</a>
+										<a class="note-social badge-group-item badge-social dropdown-item position-relative category-social text-info"
+											href="javascript:void(0);">
+											<i class="mdi mdi-checkbox-blank-circle-outline mr-1"></i>
+											Social
+										</a>
+										<a class="note-important badge-group-item badge-important dropdown-item position-relative category-important text-danger"
+											href="javascript:void(0);">
+											<i class="mdi mdi-checkbox-blank-circle-outline mr-1"></i>
+											Important
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4 single-note-item all-category note-business">
+					<div class="card card-body">
+						<span class="side-stick"></span>
+						<h5 class="note-title text-truncate w-75 mb-0" data-noteheading="Give review for foods">
+							Give review for foods
+							<i class="point fa fa-circle ml-1 font-10"></i>
+						</h5>
+						<p class="note-date font-12 text-muted">
+							18 December 2020
+						</p>
+						<div class="note-content">
+							<p class="note-inner-content text-muted"
+								data-notecontent="Blandit tempus porttitor aasfs. Integer posuere erat a ante venenatis.">
+								Blandit tempus porttitor aasfs. Integer posuere
+								erat a ante venenatis.
+							</p>
+						</div>
+						<div class="d-flex align-items-center">
+							<span class="mr-1"><i class="fa fa-star favourite-note"></i></span>
+							<span class="mr-1"><i class="fa fa-trash remove-note"></i></span>
+							<div class="ml-auto">
+								<div class="category-selector btn-group">
+									<a class="nav-link dropdown-toggle category-dropdown label-group p-0"
+										data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+										aria-expanded="true">
+										<div class="category">
+											<div class="category-business"></div>
+											<div class="category-social"></div>
+											<div class="category-important"></div>
+											<span class="more-options text-dark"><i
+													class="icon-options-vertical"></i></span>
+										</div>
+									</a>
+									<div class="dropdown-menu dropdown-menu-right category-menu">
+										<a class="note-business badge-group-item badge-business dropdown-item position-relative category-business text-success"
+											href="javascript:void(0);">
+											<i class="mdi mdi-checkbox-blank-circle-outline mr-1"></i>Business
+										</a>
+										<a class="note-social badge-group-item badge-social dropdown-item position-relative category-social text-info"
+											href="javascript:void(0);">
+											<i class="mdi mdi-checkbox-blank-circle-outline mr-1"></i>
+											Social
+										</a>
+										<a class="note-important badge-group-item badge-important dropdown-item position-relative category-important text-danger"
+											href="javascript:void(0);">
+											<i class="mdi mdi-checkbox-blank-circle-outline mr-1"></i>
+											Important
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4 single-note-item all-category note-important">
+					<div class="card card-body">
+						<span class="side-stick"></span>
+						<h5 class="note-title text-truncate w-75 mb-0" data-noteheading="Give salary to employee">
+							Give salary to employee
+							<i class="point fa fa-circle ml-1 font-10"></i>
+						</h5>
+						<p class="note-date font-12 text-muted">
+							15 Fabruary 2020
+						</p>
+						<div class="note-content">
+							<p class="note-inner-content text-muted"
+								data-notecontent="Blandit tempus porttitor aasfs. Integer posuere erat a ante venenatis.">
+								Blandit tempus porttitor aasfs. Integer posuere
+								erat a ante venenatis.
+							</p>
+						</div>
+						<div class="d-flex align-items-center">
+							<span class="mr-1"><i class="fa fa-star favourite-note"></i></span>
+							<span class="mr-1"><i class="fa fa-trash remove-note"></i></span>
+							<div class="ml-auto">
+								<div class="category-selector btn-group">
+									<a class="nav-link dropdown-toggle category-dropdown label-group p-0"
+										data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+										aria-expanded="true">
+										<div class="category">
+											<div class="category-business"></div>
+											<div class="category-social"></div>
+											<div class="category-important"></div>
+											<span class="more-options text-dark"><i
+													class="icon-options-vertical"></i></span>
+										</div>
+									</a>
+									<div class="dropdown-menu dropdown-menu-right category-menu">
+										<a class="note-business badge-group-item badge-business dropdown-item position-relative category-business text-success"
+											href="javascript:void(0);">
+											<i class="mdi mdi-checkbox-blank-circle-outline mr-1"></i>Business
+										</a>
+										<a class="note-social badge-group-item badge-social dropdown-item position-relative category-social text-info"
+											href="javascript:void(0);">
+											<i class="mdi mdi-checkbox-blank-circle-outline mr-1"></i>
+											Social
+										</a>
+										<a class="note-important badge-group-item badge-important dropdown-item position-relative category-important text-danger"
+											href="javascript:void(0);">
+											<i class="mdi mdi-checkbox-blank-circle-outline mr-1"></i>
+											Important
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal Add notes -->
+		<div class="modal fade" id="addnotesmodal" tabindex="-1" role="dialog" aria-labelledby="addnotesmodalTitle"
+			style="display: none" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content border-0">
+					<div class="modal-header bg-info text-white">
+						<h5 class="modal-title text-white">Add Notes</h5>
+						<button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="notes-box">
+							<div class="notes-content">
+								<form action="javascript:void(0);" id="addnotesmodalTitle">
+									<div class="row">
+										<div class="col-md-12 mb-3">
+											<div class="note-title">
+												<label>Note Title</label>
+												<input type="text" id="note-has-title" class="form-control"
+													minlength="25" placeholder="Title" />
+											</div>
+										</div>
+
+										<div class="col-md-12">
+											<div class="note-description">
+												<label>Note Description</label>
+												<textarea id="note-has-description" class="form-control" minlength="60"
+													placeholder="Description" rows="3"></textarea>
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button id="btn-n-save" class="float-left btn btn-success" style="display: none">
+							Save
+						</button>
+						<button class="btn btn-danger" data-dismiss="modal">
+							Discard
+						</button>
+						<button id="btn-n-add" class="btn btn-info" disabled="disabled">
+							Add
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="text-white bg-primary border rounded border-0 border-primary d-flex flex-column justify-content-between flex-lg-row p-4 p-md-5"
+		style="margin: 0 10px 10px">
+		<div class="pb-2 pb-lg-1">
+			<h2 class="fw-bold mb-2">Attendance</h2>
+			<p class="mb-0"></p>
+		</div>
+		<div class="my-2"></div>
+	</div>
+	<div class="container-fluid" style="margin-bottom: 50px">
+		<div class="card" id="TableSorterCard-1" style="border-style: none; border-radius: 6.5px">
+			<div class="row">
+				<div class="col-12">
+					<div class="table-responsive border rounded" style="border-top-style: none; background: #171921">
+						<table class="table table-striped table tablesorter" id="ipi-table">
+							<thead class="thead-dark" style="
+									background: rgb(33, 37, 48);
+									border-width: 0px;
+									border-color: rgb(0, 0, 0);
+									border-bottom-color: #21252f;
+								">
+								<tr style="
+										border-style: none;
+										border-color: rgba(255, 255, 255, 0);
+										background: #21252f;
+									">
+									<th class="text-center">Name</th>
+									<th class="text-center">Department</th>
+									<th class="text-center filter-false sorter-false">
+										Actions
+									</th>
+								</tr>
+							</thead>
+							<tbody class="text-center" style="border-top-width: 0px">
+								<tr style="background: #262a38">
+									<td style="color: rgb(255, 255, 255)">
+										Ana Kendrick
+									</td>
+									<td style="color: rgb(255, 255, 255)">
+										Diseño
+									</td>
+									<td class="text-center align-middle" style="max-height: 60px; height: 60px">
+										<a class="btn btnMaterial btn-flat primary semicircle" role="button" href="#"
+											style="color: #00bdff"><i class="far fa-eye"></i></a><a
+											class="btn btnMaterial btn-flat success semicircle" role="button" href="#"
+											style="color: rgb(0, 197, 179)"><i class="fas fa-pen"></i></a><a
+											class="btn btnMaterial btn-flat accent btnNoBorders checkboxHover"
+											role="button" style="margin-left: 5px" data-bs-toggle="modal"
+											data-bs-target="#delete-modal" href="#"><i class="fas fa-trash btnNoBorders"
+												style="color: #dc3545"></i></a>
+									</td>
+								</tr>
+								<tr style="background: #212430">
+									<td style="color: rgb(255, 255, 255)">
+										FerJulla Jerry
+									</td>
+									<td style="color: rgb(255, 255, 255)">
+										Development
+									</td>
+									<td class="text-center align-middle" style="max-height: 60px; height: 60px">
+										<a class="btn btnMaterial btn-flat primary semicircle" role="button" href="#"
+											style="color: #00bdff"><i class="far fa-eye"></i></a><a
+											class="btn btnMaterial btn-flat success semicircle" role="button" href="#"
+											style="color: rgb(0, 197, 179)"><i class="fas fa-pen"></i></a><a
+											class="btn btnMaterial btn-flat accent btnNoBorders checkboxHover"
+											role="button" style="margin-left: 5px" data-bs-toggle="modal"
+											data-bs-target="#delete-modal" href="#"><i class="fas fa-trash btnNoBorders"
+												style="color: #dc3545"></i></a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock main %}
