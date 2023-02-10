@@ -24,6 +24,9 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+
+
+	{% block styles %}
 	<link rel="stylesheet" href="{% static 'assets/css/Articles-Cards-images.css' %}">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
@@ -35,10 +38,9 @@
 	<link rel="stylesheet" href="{% static 'assets/css/Responsive-UI-Card.css' %}">
 	<link rel="stylesheet" href="{% static 'assets/css/Sign-Up-Form---Gabriela-Carvalho.css' %}">
 	<link rel="stylesheet" href="{% static 'assets/css/Stats-icons.css' %}">
-	{% block styles %}
-
 	{% endblock styles %}
 	<link rel="stylesheet" href="{% static 'assets/css/styles.css' %}">
+
 
 </head>
 
@@ -145,17 +147,14 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 	<script src="{% static 'assets/js/bs-init.js' %}"></script>
 	<script src="{% static 'assets/js/bold-and-dark.js' %}"></script>
+	{% block scripts %}
 	<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 	<script src="{% static 'assets/js/Lightbox-Gallery-baguetteBox.min.js' %}"></script>
 	<script src="{% static 'assets/js/Lightbox-Gallery.js' %}"></script>
 	<script src="{% static 'assets/js/mini-card-items-theme.js' %}"></script>
 	<script src="{% static 'assets/js/OwlCarousel-2-OwlCarousel.js' %}"></script>
-
-	{% block scripts %}
-
 	{% endblock scripts %}
 
 </body>

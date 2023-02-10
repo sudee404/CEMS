@@ -1,0 +1,23 @@
+{% load static %}
+<div class="col-md-4 height-350" style="height:auto"  data-bss-hover-animate="tada">
+	<div class="blog-card blog-card-blog">
+		<div class="blog-card-image">
+			<a href="#"> <img class="img" src="{{event.poster.url}}" style="object-fit:cover;max-height:200px;"> </a>
+			<div class="ripple-cont"></div>
+		</div>
+		<div class="blog-table">
+			<h6 class="blog-category blog-text-success"><i class="far fa-newspaper"></i> {{event.category}}</h6>
+			<h4 class="blog-card-caption">
+				<a href="{{event.get_absolute_url}}">{{event.title}}</a>
+			</h4>
+			<p class="blog-card-description">{{event.description|truncatewords:6}}.</p>
+			<div class="ftr">
+				<div class="author">
+					<a href="{{event.host.get_absolute_url}}"> <img src="{{event.host.avatar.url}}" alt="..." class="avatar img-raised">
+						<span>{{event.host}}</span> </a>
+				</div>
+				<div class="stats"> <i class="far fa-clock"></i> {{event.guests}} </div>
+			</div>
+		</div>
+	</div>
+</div>

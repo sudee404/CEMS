@@ -1,6 +1,9 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth import get_user_model
 # Create your models here.
+
+User = get_user_model()
 
 
 class Event(models.Model):
@@ -13,7 +16,8 @@ class Event(models.Model):
     end_date = models.DateTimeField()
     guests = models.PositiveIntegerField(null=True)
     poster = models.ImageField(
-        upload_to='poster',default='default.png')
+        upload_to='poster', default='default.png')
+    host = models.ForeignKey(User(), on_delete=models.CASCADE,null=True)
 
     class Meta:
         """Meta definition for Event."""
@@ -23,7 +27,6 @@ class Event(models.Model):
 
     def get_absolute_url(self):
         return reverse("event-detail", kwargs={"pk": self.pk})
-    
 
     def __str__(self):
         """Unicode representation of Event."""
@@ -35,7 +38,7 @@ class Category(models.Model):
 
     name = models.CharField(max_length=250)
     image = models.ImageField(
-        upload_to='images',default='default.png')
+        upload_to='images', default='default.png')
     description = models.TextField()
 
     class Meta:

@@ -34,6 +34,7 @@ class MyUserManager(BaseUserManager):
 
 class MyUser(AbstractBaseUser):
     # This is a custom user model
+    avatar = models.ImageField(upload_to='avatars',default='default.png')
     first_name = models.CharField(max_length=30,null=True)
     last_name = models.CharField(max_length=30,null=True)
     username = models.CharField(max_length=30,unique=True)

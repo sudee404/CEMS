@@ -1,4 +1,12 @@
-{% extends 'base_generic.html' %} {% load static %} {% block main %}
+{% extends 'base_generic.html' %} {% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+<link rel="stylesheet" href="{% static 'assets/css/OwlCarousel-2.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/Responsive-UI-Card.css' %}">
+{% endblock styles %}
+
+{% block main %}
 
 <header class="bg-dark">
 	<div class="container py-4 py-xl-5">
@@ -105,7 +113,7 @@
 			<div class="container" style="min-width: 90vw">
 				<div data-aos="fade-up" data-aos-duration="400" data-aos-delay="200" data-aos-once="true"
 					class="owl-slider">
-					<div id="carousel" class="owl-carousel d-flex justify-content-center" style="padding: 10px">
+					<div id="carousel" class="owl-carousel" style="padding: 10px">
 
 
 						{% for upcoming_event in upcoming %}
@@ -226,3 +234,9 @@
 </section>
 
 {% endblock main %}
+
+
+{% block scripts %}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+	<script src="{% static 'assets/js/OwlCarousel-2-OwlCarousel.js' %}"></script>
+{% endblock scripts %}
