@@ -24,6 +24,7 @@ class Event(models.Model):
 
         verbose_name = 'Event'
         verbose_name_plural = 'Events'
+        ordering = ['start_date']
 
     def get_absolute_url(self):
         return reverse("event-detail", kwargs={"pk": self.pk})

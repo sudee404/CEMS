@@ -31,12 +31,18 @@
                     <div class="item height-350" style="height: auto;padding: 5px;">
                         <div class="text-start p-4 text-center shadow-lg m-5 rounded-5" id="cardEntrada-2"
                             style="background: linear-gradient(171deg, var(--bs-pink) 0%, var(--bs-indigo) 100%), var(--bs-purple);width: 280px;">
-                            <img class="pt-2 w-50 rounded" src="{{category.image.url}}">
-                            <h3 class="text-white text-center pt-2">{{category}}</h3>
-                            <p class="fw-bold pt-1 text-white p-0 m-0">Subtitle</p>
+                            <h3 class="text-white text-center pt-2 fw-bold">{{category}}</h3>
                             <p class="fw-light text-white m-0">{{category.description}}</p>
                             <hr class="text-white">
-                            <div class="col-12"><a class="btn btn-outline-primary" role="button">Filter</a></div>
+                            {% if select_category == category.name %}
+                            <div class="col-12"><a class="btn btn-primary" role="button"
+                                    href="?query={{query}}#events">In Use</a></div>
+
+                            {% else %}
+                            <div class="col-12"><a class="btn btn-outline-primary" role="button"
+                                    href="?query={{query}}&category={{category}}#events">Filter</a></div>
+
+                            {% endif %}
                         </div>
                     </div>
                     {% endfor %}
@@ -47,22 +53,22 @@
         </div>
     </section>
     {% endif %}
-    <div class="row mb-4 mb-lg-5" style="margin: 0;">
+    <div class="row mb-4 mb-lg-5" style="margin: 0;" id="events">
         <div class="col-md-8 col-xl-6 text-center mx-auto">
-            <form class="d-flex justify-content-center flex-wrap my-2 align-items-center" data-bs-toggle="tooltip"
-                data-bss-tooltip="" method="post" style="border-style: none;" title="Enter keyword to search for">
-                <div class="my-2"><input class="form-control form-control-sm" type="search" name="email"
-                        placeholder="Search" style="border-radius: 32px;"></div>
-                <div class="my-2"><button class="btn btn-primary btn-sm ms-sm-2" type="button">Search</button></div>
-                <div></div>
+            <form class="d-flex justify-content-center flex-wrap my-2 align-items-center"
+                action="?category={{select_category}}#events" method="get" style="border-style: none;">
+                <div class="my-2"><input class="form-control form-control-sm" type="search" name="query"
+                        placeholder="Search" value="{{query}}" style="border-radius: 32px;"></div>
+                <div class="my-2"><button class="btn btn-primary btn-sm ms-sm-2" type="submit">Search</button></div>
             </form>
+
         </div>
     </div>
     <div class="container py-4 py-xl-5">
         <div class="container">
             <div class="row">
 
-                {% for event in event_list %}
+                {% for event in page_obj %}
                 {% include "components/event_card.html" with event=event %}
                 {% endfor %}
 
@@ -72,17 +78,36 @@
     <div>
         <nav class="d-flex justify-content-center" style="text-align: center;">
             <ul class="pagination">
-                <li class="page-item"><a class="page-link" aria-label="Previous" href="#"><span
-                            aria-hidden="true">«</span></a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">4</a></li>
-                <li class="page-item"><a class="page-link" href="#">5</a></li>
-                <li class="page-item"><a class="page-link" aria-label="Next" href="#"><span
-                            aria-hidden="true">»</span></a></li>
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" aria-label="Previous"
+                        href="?page={{ page_obj.previous_page_number }}&query={{query}}&category={{select_category}}#events">
+                        <span aria-hidden="true">«</span>
+                    </a>
+                </li>
+                {% endif %}
+                {% for page_number in page_obj.paginator.page_range %}
+                {% if page_number == page_obj.number %}
+                <li class="page-item active">
+                    <a class="page-link" href="?page={{ page_number }}&query={{query}}&category={{select_category}}#events">{{ page_number }}</a>
+                </li>
+                {% else %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_number }}&query={{query}}&category={{select_category}}#events">{{ page_number }}</a>
+                </li>
+                {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" aria-label="Next"
+                        href="?page={{ page_obj.next_page_number }}&query={{query}}&category={{select_category}}#events">
+                        <span aria-hidden="true">»</span>
+                    </a>
+                </li>
+                {% endif %}
             </ul>
         </nav>
+
     </div>
 </section>
 {% endblock main %}

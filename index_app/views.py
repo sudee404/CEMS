@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, CreateView, DetailView
 from django.contrib.auth import get_user_model
+from django.db.models import Q
 from django.http import JsonResponse
 from .models import Event, Category
 
@@ -71,7 +72,31 @@ class EventListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["categories"] = Category.objects.all()
+
+        query = self.request.GET.get("query")
+        if query:
+            context['query'] = query
+
+        category = self.request.GET.get("category")
+        if category:
+            context['select_category'] = category
+
         return context
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        query = self.request.GET.get("query")
+        category = self.request.GET.get('category')
+        if query:
+            queryset = queryset.filter(
+                Q(title__icontains=query)
+            )
+        if category:
+            queryset = queryset.filter(
+                Q(category__name__iexact=category)
+            )
+
+        return queryset
 
 
 class EventDetailView(DetailView):

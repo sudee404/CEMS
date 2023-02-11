@@ -2,19 +2,19 @@
 {% load static %}
 {% block main %}
 <section class="py-5" style="padding: 10px;padding-top: 0px;">
-    <div class="container" style="margin: 10px 16.5px 0;margin-top: 100px;">
-        <div class="row">
+    <div class="container" style="margin-top: 100px;">
+        <div class="row mx-0 justify-content-center align-items-center">
             <div class="col-md-6">
                 <h1 class="text-break" style="font-size: 52.36px;font-weight: 900;margin-top: 58px;">{{event.title}}</h1>
-                <p style="font-weight: bold;font-size: 18px;margin-top: 12px;">{{event.description}}</p>
+                <p style="font-weight: bold;font-size: 18px;margin-top: 12px;color:white;">{{event.description}}</p>
                 <div class="btn-group" role="group"><button class="btn btn-primary" type="button">Attend</button><button
-                        class="btn btn-success" type="button">Set Reminder</button></div>
+                        class ="btn btn-success" type="button">Set Reminder</button></div>
                 <div style="margin-top: 44px;">
                     <p>Working with the best</p><img src="{% static 'assets/img/kickstarter.png' %}" style="margin-right: 19px;"><img
                         src="{% static 'assets/img/twitter.png' %}" style="margin-right: 19px;"><img src="{% static 'assets/img/pinterest.png' %}">
                 </div>
             </div>
-            <div class="col-md-6 col-lg-6 offset-lg-0"><img src="{{event.poster.url}}" class="rounded" style="width: 447px;"></div>
+            <div class="col-md-6 col-lg-6  d-none d-lg-block"><img src="{{event.poster.url}}" class="img-fluid rounded"></div>
         </div>
     </div>
     <div class="container py-5">
@@ -27,7 +27,7 @@
                                 <div class="text-uppercase text-primary fw-bold text-xs mb-1"><span
                                         style="font-size: 12px;color: var(--bs-primary);">Guests</span></div>
                                 <div class="text-dark fw-bold h5 mb-0" style="margin-top: -6px;"><span
-                                        style="font-size: 14px;"></span><span style="font-size: 14px;">12</span><span
+                                        style="font-size: 14px;"></span><span style="font-size: 14px;">{{event.guests}}</span><span
                                         style="font-size: 10px;margin-left: 12px;color: var(--bs-gray-600);">10
                                         left</span></div>
                             </div>
@@ -63,11 +63,31 @@
                         <div class="row align-items-center no-gutters">
                             <div class="col me-2">
                                 <div class="text-uppercase text-primary fw-bold text-xs mb-1"><span
-                                        style="font-size: 12px;color: var(--bs-primary);">Date</span></div>
+                                        style="font-size: 12px;color: var(--bs-primary);">Start</span></div>
                                 <div class="text-dark fw-bold h5 mb-0" style="margin-top: -6px;"><span
-                                        style="font-size: 14px;">11/02/22</span><a href="#"
+                                        style="font-size: 14px;">{{event.start_date|date}}</span><a href="#"
                                         style="font-size: 10px;margin-left: 12px;text-decoration: none;"><i
-                                            class="fas fa-arrow-right"></i>11:15 PM</a></div>
+                                            class="fas fa-arrow-right"></i>{{event.start_date|time}}</a></div>
+                            </div>
+                            <div class="col-auto"><i class="far fa-calendar fa-2x" data-bs-toggle="tooltip"
+                                    data-bss-tooltip="" style="color: var(--bs-danger);font-size: 28px;margin-top: 4px;"
+                                    title="Ceci est votre solde de CR que vous pouvez retirer à tout moment de votre compte lorsque vous atteignez un plafond de retrait minimum de 20 €"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-3 mb-4">
+                <div class="card border rounded shadow border-start-primary py-2">
+                    <div class="card-body" style="padding-bottom: 0px;padding-top: 0px;">
+                        <div class="row align-items-center no-gutters">
+                            <div class="col me-2">
+                                <div class="text-uppercase text-primary fw-bold text-xs mb-1"><span
+                                        style="font-size: 12px;color: var(--bs-primary);">End</span></div>
+                                <div class="text-dark fw-bold h5 mb-0" style="margin-top: -6px;"><span
+                                        style="font-size: 14px;">{{event.end_date|date}}</span><a href="#"
+                                        style="font-size: 10px;margin-left: 12px;text-decoration: none;"><i
+                                            class="fas fa-arrow-right"></i>{{event.end_date|time}}</a></div>
                             </div>
                             <div class="col-auto"><i class="far fa-calendar-times fa-2x" data-bs-toggle="tooltip"
                                     data-bss-tooltip="" style="color: var(--bs-danger);font-size: 28px;margin-top: 4px;"
@@ -88,42 +108,42 @@
         <div class="row row-cols-2 row-cols-md-3 mx-auto" style="max-width: 700px;">
             <div class="col mb-4">
                 <div class="text-center"><img class="rounded mb-3 fit-cover" width="150" height="150"
-                        src="assets/img/team/avatar4.jpg">
+                        src="{% static 'assets/img/team/avatar4.jpg' %}">
                     <h5 class="fw-bold mb-0"><strong>John Smith</strong></h5>
                     <p class="text-muted mb-2">Erat netus</p>
                 </div>
             </div>
             <div class="col mb-4">
                 <div class="text-center"><img class="rounded mb-3 fit-cover" width="150" height="150"
-                        src="assets/img/team/avatar6.jpg">
+                        src="{% static 'assets/img/team/avatar6.jpg' %}">
                     <h5 class="fw-bold mb-0"><strong>John Smith</strong></h5>
                     <p class="text-muted mb-2">Erat netus</p>
                 </div>
             </div>
             <div class="col mb-4">
                 <div class="text-center"><img class="rounded mb-3 fit-cover" width="150" height="150"
-                        src="assets/img/team/avatar5.jpg">
+                        src="{% static 'assets/img/team/avatar5.jpg' %}">
                     <h5 class="fw-bold mb-0"><strong>John Smith</strong></h5>
                     <p class="text-muted mb-2">Erat netus</p>
                 </div>
             </div>
             <div class="col mb-4">
                 <div class="text-center"><img class="rounded mb-3 fit-cover" width="150" height="150"
-                        src="assets/img/team/avatar3.jpg">
+                        src="{% static 'assets/img/team/avatar3.jpg' %}">
                     <h5 class="fw-bold mb-0"><strong>John Smith</strong></h5>
                     <p class="text-muted mb-2">Erat netus</p>
                 </div>
             </div>
             <div class="col mb-4">
                 <div class="text-center"><img class="rounded mb-3 fit-cover" width="150" height="150"
-                        src="assets/img/team/avatar1.jpg">
+                        src="{% static 'assets/img/team/avatar1.jpg' %}">
                     <h5 class="fw-bold mb-0"><strong>John Smith</strong></h5>
                     <p class="text-muted mb-2">Erat netus</p>
                 </div>
             </div>
             <div class="col mb-4">
                 <div class="text-center"><img class="rounded mb-3 fit-cover" width="150" height="150"
-                        src="assets/img/team/avatar2.jpg">
+                        src="{% static 'assets/img/team/avatar2.jpg' %}">
                     <h5 class="fw-bold mb-0"><strong>John Smith</strong></h5>
                     <p class="text-muted mb-2">Erat netus</p>
                 </div>
