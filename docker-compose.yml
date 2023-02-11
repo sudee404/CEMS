@@ -1,0 +1,12 @@
+version: '3.9'
+
+services:
+  web:
+    image: mash404/cems
+    env_file:
+      - core_settings/.env
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 8000:8000

@@ -1,0 +1,80 @@
+#ipi-table > thead > tr, #ipi-table > thead > tr > td {
+  font-size: .9em;
+  font-weight: 400;
+  background: #51596a;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+#ipi-table > tbody > tr > td {
+  max-height: 200px;
+  vertical-align: middle!important;
+}
+
+.checkboxHover:hover {
+  cursor: pointer;
+}
+
+.btnNoBorders, .btnNoBorders:focus, .btnNoBorders:active {
+  outline: none;
+  -moz-outline-style: none;
+}
+
+.btnMaterial {
+  overflow: hidden !important;
+  cursor: pointer !important;
+  position: relative !important;
+  z-index: 10 !important;
+  display: inline-block !important;
+  height: 36px !important;
+  line-height: 36px !important;
+  vertical-align: middle !important;
+  border: none !important;
+  padding: 0 16px !important;
+  white-space: nowrap !important;
+  letter-spacing: 1px !important;
+  text-transform: uppercase !important;
+  text-decoration: none !important;
+  text-align: center !important;
+  font-weight: 400 !important;
+  font-size: 14px !important;
+  color: #212121v !important;
+  background-image: none !important;
+  background-color: transparent !important;
+  -moz-border-radius: 2px !important;
+  border-radius: 2px !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important;
+  -moz-transition: all 0.2s ease !important;
+  -o-transition: all 0.2s ease !important;
+  transition: all 0.2s ease !important;
+  -ms-touch-action: manipulation !important;
+  touch-action: manipulation !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+  backface-visibility: hidden !important;
+}
+
+.btn-flat {
+  font-weight: 400;
+  color: #212121;
+  background-color: transparent;
+}
+
+.btn-flat:hover, .btn-flat:focus, .btn-flat.focus, .btn-flat:active, .btn-flat.active {
+  color: #212121;
+}
+
+.btn-flat.primary {
+  color: #3F51B5;
+}
+
+.btn-flat.accent {
+  color: #EC407A;
+}
+
+.btn-flat.success {
+  color: #009688;
+}
+

@@ -1,5 +1,6 @@
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser,Group,Permission
 from django.db import models
+from django.urls import reverse
 
 
 class MyUserManager(BaseUserManager):
@@ -33,6 +34,7 @@ class MyUserManager(BaseUserManager):
 
 class MyUser(AbstractBaseUser):
     # This is a custom user model
+    avatar = models.ImageField(upload_to='avatars',default='default.png')
     first_name = models.CharField(max_length=30,null=True)
     last_name = models.CharField(max_length=30,null=True)
     username = models.CharField(max_length=30,unique=True)
@@ -63,6 +65,12 @@ class MyUser(AbstractBaseUser):
 
     def get_full_name(self):
         return f'{self.first_name} {self.last_name}'
+    
+    def get_absolute_url(self):
+        return reverse("user-profile", kwargs={"pk": self.pk})
+
+    def get_to_dashboard(self):
+        return reverse("dashboard", kwargs={"pk": self.pk})
     
     def __str__(self):
         return self.username

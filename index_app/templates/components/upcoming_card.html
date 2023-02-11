@@ -1,0 +1,65 @@
+{% load static %}
+<div class="item height-350" style="height: auto" data-bss-hover-animate="pulse">
+	<div class="blog-card blog-card-blog">
+		<div class="blog-card-image">
+			<a href="{{event.get_absolute_url}}"
+				><img class="img-fluid img" src="{{event.poster.url}}"  style="object-fit:cover;max-height:200px;"
+			/></a>
+			<div class="ripple-cont"></div>
+		</div>
+		<div class="blog-table">
+			<h6
+				class="blog-category blog-text-success"
+				style="font-family: 'Playfair Display', serif"
+			>
+				<i class="fab fa-windows" style="font-size: 17px"></i
+				>&nbsp;{{event.category}}
+			</h6>
+			<p
+				class="blog-card-description"
+				style="font-family: 'Playfair Display', serif"
+			>
+				{{event.title}}
+			</p>
+			<div class="ftr">
+				<div class="author">
+					<a href="https://github.com/DesignofCp" target="_blank"
+						><i class="fas fa-cloud-download-alt"></i
+						><span style="font-family: 'Playfair Display', serif"
+							>&nbsp;Starts</span
+						></a
+					>
+				</div>
+				<div class="stats">
+					<span>{{event.start_date}}</span>
+				</div>
+			</div>
+			<div class="ftr">
+				<div class="author">
+					<a href="https://github.com/DesignofCp" target="_blank"
+						><i class="far fa-arrow-alt-circle-up"></i
+						><span style="font-family: 'Playfair Display', serif"
+							>&nbsp; Ends</span
+						></a
+					>
+				</div>
+				<div class="stats">
+					<span>{{event.end_date}}</span>
+				</div>
+			</div>
+			<div class="ftr">
+				<div class="author">
+					<a href="https://github.com/DesignofCp" target="_blank"
+						><i class="fas fa-list-ul"></i
+						><span style="font-family: 'Playfair Display', serif"
+							>&nbsp; Venue</span
+						></a
+					>
+				</div>
+				<div class="stats">
+					<span>MIT</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

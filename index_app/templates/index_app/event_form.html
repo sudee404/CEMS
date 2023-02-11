@@ -1,0 +1,155 @@
+{% extends "base_generic.html" %}
+{% load static %}
+{% block styles %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+<link rel="stylesheet" href="{% static 'assets/css/Notes-Dashboard.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/OwlCarousel-2.css' %}">
+{% endblock styles %}
+{% block main %}
+<section class="py-5">
+    <div class="row mb-5" style="width: auto;margin: 0;">
+        <div class="col-md-8 col-xl-6 text-center mx-auto">
+            <p class="fw-bold text-success mb-2">Add Event</p>
+            <h2 class="fw-bold">Fill in the details below</h2>
+        </div>
+    </div>
+    {% if categories %}
+    <section class="min-vh-100" style="padding-top: 30px;padding-bottom: 30px;min-height: 50vh !important;">
+        <div class="container" style="min-width: 90vw;">
+            <div data-aos="fade-up" data-aos-duration="400" data-aos-delay="200" data-aos-once="true"
+                class="owl-slider">
+                <div id="carousel" class="owl-carousel d-flex justify-content-center">
+
+                    {% for category in categories %}
+                    <div class="item height-350" style="height: auto;padding: 5px;">
+                        <div class="text-start p-4 text-center shadow-lg m-5 rounded-5" id="cardEntrada-2"
+                            style="background: linear-gradient(171deg, var(--bs-pink) 0%, var(--bs-indigo) 100%), var(--bs-white);width: 280px;">
+                            <h3 class="text-white text-center pt-2 fw-bold category-name">{{category}}</h3>
+                            <p class="fw-light text-white m-0">{{category.description}}</p>
+                            <hr class="text-white">
+                            <div class="col-12"><button class="btn btn-outline-primary cat-btn"
+                                    data-category="{{category.name}}" role="button">Select</button></div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="row mb-5" style="width: auto;margin: 0;">
+        <div class="col-md-8 col-xl-6 text-center mx-auto">
+            <p class="fw-bold text-success mb-2">Pick a category above or add one <a href="#" class="text-warning"
+                    data-bs-toggle="modal" data-bs-target="#categoryModal">here</a></p>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="categoryModal" tabindex="-1" aria-labelledby="categoryModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-md modal-fullscreen-sm-down">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="categoryModalLabel">Add Category</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="border-0" action="{% url 'add-category' %}" id="categoryform" method="post"
+                            enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="card border rounded shadow mb-3">
+                                <div class="card-body text-dark">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-8 col-lg-8">
+                                            <div class="mb-3"><label class="form-label" for="category_name"><strong>Name
+                                                        *</strong></label><input
+                                                    class="bg-light bg-gradient form-control" type="text"
+                                                    id="category_name" placeholder="Category name" name="name"
+                                                    required="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3"><label class="form-label"
+                                            for="category_description"><strong>Description
+                                                *</strong><br></label>
+                                        <textarea class="bg-light bg-gradient form-control" id="category_description"
+                                            rows="4" name="description" placeholder="Category description..."
+                                            required="">
+                                            </textarea>
+                                    </div>
+                                    <div class="mb-3"><label class="form-label"
+                                            for="category_image"><strong>Image*</strong></label><input class="bg-light bg-gradient form-control"
+                                            type="file" id="category_image" accept="image/*" name="image" required=""></div>
+
+                                </div>
+                            </div>
+                            <input type="hidden" id="category" name="category">
+                            <div class="text-end mb-3"><button class="btn btn-primary" type="submit">Save</button></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="row mb-5" style="width: auto;margin: 0;">
+        <div class="col-md-8 col-xl-6 text-center mx-auto">
+            <p class="fw-bold text-success mb-2">No categories added</p>
+            <h2 class="fw-bold">Add one <a href="http://" target="_blank" class="text-success">here</a></h2>
+        </div>
+    </div>
+    {% endif %}
+    <div class="container-fluid">
+        <form class="border-0" action="{% url 'add-event' %}" id="eventform" method="post"
+            enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="card border rounded shadow mb-3">
+                <div class="card-body text-dark">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-8 col-lg-8">
+                            <div class="mb-3"><label class="form-label" for="event_title"><strong>Title
+                                        *</strong></label><input class="bg-light bg-gradient form-control" type="text"
+                                    id="event_title" placeholder="Event title" name="title" required=""></div>
+                        </div>
+                        <div class="col-sm-12 col-md-4 col-lg-4">
+                            <div class="mb-3"><label class="form-label" for="event_guests"><strong>Max Guests
+                                        *</strong></label><input class="form-control" type="text" id="event_guests"
+                                    placeholder="10" name="guests" required=""></div>
+                        </div>
+                    </div>
+                    <div class="mb-3"><label class="form-label" for="event_description"><strong>Description
+                                *</strong><br></label><textarea class="bg-light bg-gradient form-control"
+                            id="event_description" rows="4" name="description" placeholder="Describe the event..."
+                            required=""></textarea></div>
+                    <div class="row mb-2">
+                        <div class="col">
+                            <div class="mb-3"><label class="form-label" for="event_start_date"><strong>Start
+                                        date *</strong></label><input class="form-control"
+                                    id="event_start_date" type="datetime-local" name="start_date" required="">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3"><label class="form-label" for="event_end_date"><strong>End date
+                                        *</strong><br></label><input class="form-control" id="event_end_date"
+                                    type="datetime-local" name="end_date" required=""></div>
+                        </div>
+                    </div>
+                    <div class="mb-3"><label class="form-label" for="service_client_payment_validated"><strong>Event
+                                Poster*</strong></label><input class="bg-light bg-gradient form-control" id="event_poster" type="file"
+                            accept="image/*" name="poster" required=""></div>
+                </div>
+            </div>
+            <input type="hidden" id="category" name="category">
+            <div class="text-end mb-3"><button class="btn btn-primary" type="submit">Save</button></div>
+        </form>
+    </div>
+</section>
+{% endblock main %}
+
+{% block scripts %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-toast-plugin@1.3.2/dist/jquery.toast.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/jquery-toast-plugin@1.3.2/dist/jquery.toast.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<script src="{% static 'assets/js/OwlCarousel-2-OwlCarousel.js' %}"></script>
+<script src="{% static 'assets/js/event_form.js' %}"></script>
+
+{% endblock scripts %}
