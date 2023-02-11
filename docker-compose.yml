@@ -1,8 +1,10 @@
-version: '3.4'
+version: '3.9'
 
 services:
-  cems:
-    image: cems
+  web:
+    image: mash404/cems
+    env_file:
+      - core_settings/.env
     build:
       context: .
       dockerfile: ./Dockerfile
