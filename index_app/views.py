@@ -41,14 +41,12 @@ class EventCreateView(CreateView):
         form = self.get_form()
         if form.is_valid():
             category_name = request.GET.get("category")
-            print(f'\nCat : {category_name}\n')
             category = Category.objects.get(name=category_name)
             event = form.save(commit=False)
             event.category = category
             event.host = request.user
             event.save()
             return JsonResponse({'status': 'success', 'url': event.get_absolute_url()})
-        print(f'Eheeeaaa')
 
         return JsonResponse({'status': 'error', 'errors': form.errors})
 
