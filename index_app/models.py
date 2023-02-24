@@ -21,6 +21,7 @@ class Event(models.Model):
     approved = models.BooleanField(default=False)
     draft = models.BooleanField(default=True)
 
+
     class Meta:
         """Meta definition for Event."""
 
