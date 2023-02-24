@@ -1,12 +1,14 @@
 from django.shortcuts import render, redirect
-from django.views.generic import ListView, CreateView, DetailView
+from django.views import generic
 from django.contrib.auth import get_user_model
 from django.db.models import Q
 from django.http import JsonResponse
 from .models import Event, Category
 
 
-# Create your views here.
+#################################################
+################ Global views ###################
+#################################################
 
 def index(request):
     context = {}
@@ -27,7 +29,14 @@ def contact(request):
     return render(request, 'contacts.html', {})
 
 
-class EventCreateView(CreateView):
+#################################################
+########### Event related views #################
+#################################################
+
+# Create
+class EventCreateView(generic.CreateView):
+    """Creates an event object
+    """
     model = Event
     fields = ('title', 'guests', 'description',
               'start_date', 'end_date', 'poster')
@@ -47,25 +56,17 @@ class EventCreateView(CreateView):
             event.category = category
             event.host = request.user
             event.save()
-            return JsonResponse({'status': 'success', 'url': event.get_absolute_url()})
-        print(f'Eheeeaaa')
+            return JsonResponse({'status': 'success', 'msg': 'Event added successfully', 'url': event.get_absolute_url()})
 
         return JsonResponse({'status': 'error', 'errors': form.errors})
 
-
-class CategoryCreateView(CreateView):
-    model = Category
-    fields = ('__all__')
-
-    def post(self, request, *args, **kwargs):
-        form = self.get_form()
-        if form.is_valid():
-            form.save()
-            return JsonResponse({'status': 'success'})
-        return JsonResponse({'status': 'error', 'errors': form.errors})
+# Read
 
 
-class EventListView(ListView):
+class EventListView(generic.ListView):
+    """Returns a list of available events 
+    """
+
     model = Event
     paginate_by = 9
 
@@ -99,10 +100,76 @@ class EventListView(ListView):
         return queryset
 
 
-class EventDetailView(DetailView):
+class EventDetailView(generic.DetailView):
+    """Returns a single event object
+    """
     model = Event
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.user:
+            context["owner"] = self.model.objects.filter(
+                id=self.kwargs['pk'], host=self.request.user)
 
-class UserDetailView(DetailView):
+        return context
+
+
+# Update
+class EventUpdateView(generic.UpdateView):
+    model = Event
+    fields = ('title', 'guests', 'description',
+              'start_date', 'end_date')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["categories"] = Category.objects.all().order_by('-pk')
+        context["event"] = self.model.objects.get(id=self.kwargs['pk'])
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        if form.is_valid():
+            event = form.save(commit=False)
+            event.category = Category.objects.get(
+                name=request.GET.get("category"))
+            event.host = request.user
+            event.save()
+            return JsonResponse({'status': 'success', 'msg': 'Event updated successfully', 'url': event.get_absolute_url()})
+        return JsonResponse({'status': 'error', 'errors': form.errors})
+
+
+# Delete
+class EventDeleteView(generic.DeleteView):
+    model = Event
+    success_url = 'event-list'
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.delete()
+        return redirect(self.success_url)
+
+#################################################
+########### Category related views ##############
+#################################################
+
+
+class CategoryCreateView(generic.CreateView):
+    model = Category
+    fields = ('__all__')
+
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        if form.is_valid():
+            form.save()
+            return JsonResponse({'status': 'success'})
+        return JsonResponse({'status': 'error', 'errors': form.errors})
+
+
+#################################################
+########### User related views #################
+#################################################
+
+class UserDetailView(generic.DetailView):
     model = get_user_model()
     template_name = "index_app/profile.html"
