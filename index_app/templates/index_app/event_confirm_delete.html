@@ -1,0 +1,23 @@
+{% extends "base_generic.html" %}
+{% load static %}
+{% block main %}
+<section class="row mx-0 justify-content-center align-items-center" style="height: 100vh;">
+	<div class="col">
+		<div class="p-2 p-lg-5 mb-4 text-center">
+			<div class="container-fluid py-5">
+				<h1 class="display-5 fw-bold">Confirm Delete</h1>
+				<p class="col-md-8 mx-auto fs-4 text-light">You are about to delete the event <span
+						class="text-warning">{{event}}</span></p>
+
+				<form method="post" class="border-0" id="delete-form">
+					{% csrf_token %}
+					<a class="btn btn-danger btn-md" href="#"
+						onclick="event.preventDefault(); document.getElementById('delete-form').submit();">Proceed</a>
+
+					<a href="{% url 'event-detail' event.pk %}" class="btn btn-secondary">Cancel</a>
+				</form>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock main %}

@@ -9,8 +9,15 @@
 <section class="py-5">
     <div class="row mb-5" style="width: auto;margin: 0;">
         <div class="col-md-8 col-xl-6 text-center mx-auto">
-            <p class="fw-bold text-success mb-2">Add Event</p>
+            {% if event %}
+            <p class="fw-bold text-success mb-2"> Update Event Details</p>
+            <h2 class="fw-bold">Update details below</h2>
+            {% else %}
+            <p class="fw-bold text-success mb-2"> Add Event </p>
             <h2 class="fw-bold">Fill in the details below</h2>
+            {% endif %}
+
+
         </div>
     </div>
     {% if categories %}
@@ -27,8 +34,18 @@
                             <h3 class="text-white text-center pt-2 fw-bold category-name">{{category}}</h3>
                             <p class="fw-light text-white m-0">{{category.description}}</p>
                             <hr class="text-white">
-                            <div class="col-12"><button class="btn btn-outline-primary cat-btn"
-                                    data-category="{{category.name}}" role="button">Select</button></div>
+                            <div class="col-12">
+
+
+                                {% if event and category == event.category %}
+                                <button class="btn btn-primary cat-btn" data-category="{{category.name}}"
+                                    role="button">Selected</button>
+                                {% else %}
+                                <button class="btn btn-outline-primary cat-btn" data-category="{{category.name}}"
+                                    role="button">Select</button>
+                                {% endif %}
+
+                            </div>
                         </div>
                     </div>
                     {% endfor %}
@@ -77,12 +94,12 @@
                                             </textarea>
                                     </div>
                                     <div class="mb-3"><label class="form-label"
-                                            for="category_image"><strong>Image*</strong></label><input class="bg-light bg-gradient form-control"
-                                            type="file" id="category_image" accept="image/*" name="image" required=""></div>
+                                            for="category_image"><strong>Image*</strong></label><input
+                                            class="bg-light bg-gradient form-control" type="file" id="category_image"
+                                            accept="image/*" name="image" required=""></div>
 
                                 </div>
                             </div>
-                            <input type="hidden" id="category" name="category">
                             <div class="text-end mb-3"><button class="btn btn-primary" type="submit">Save</button></div>
                         </form>
                     </div>
@@ -99,8 +116,9 @@
     </div>
     {% endif %}
     <div class="container-fluid">
-        <form class="border-0" action="{% url 'add-event' %}" id="eventform" method="post"
-            enctype="multipart/form-data">
+        <form class="border-0"
+            action="{% if event %}{% url 'update-event' pk=event.pk %}{% else %}{% url 'add-event' %}{%endif%}"
+            id="eventform" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="card border rounded shadow mb-3">
                 <div class="card-body text-dark">
@@ -108,38 +126,56 @@
                         <div class="col-sm-12 col-md-8 col-lg-8">
                             <div class="mb-3"><label class="form-label" for="event_title"><strong>Title
                                         *</strong></label><input class="bg-light bg-gradient form-control" type="text"
-                                    id="event_title" placeholder="Event title" name="title" required=""></div>
+                                    id="event_title" placeholder="Event title" name="title" required=""
+                                    value="{{event.title}}"></div>
                         </div>
                         <div class="col-sm-12 col-md-4 col-lg-4">
                             <div class="mb-3"><label class="form-label" for="event_guests"><strong>Max Guests
                                         *</strong></label><input class="form-control" type="text" id="event_guests"
-                                    placeholder="10" name="guests" required=""></div>
+                                    placeholder="10" name="guests" required="" value="{{event.guests}}"></div>
                         </div>
                     </div>
                     <div class="mb-3"><label class="form-label" for="event_description"><strong>Description
                                 *</strong><br></label><textarea class="bg-light bg-gradient form-control"
                             id="event_description" rows="4" name="description" placeholder="Describe the event..."
-                            required=""></textarea></div>
+                            required="">{{event.description}}</textarea>
+                    </div>
                     <div class="row mb-2">
                         <div class="col">
                             <div class="mb-3"><label class="form-label" for="event_start_date"><strong>Start
-                                        date *</strong></label><input class="form-control"
-                                    id="event_start_date" type="datetime-local" name="start_date" required="">
+                                        date *</strong></label><input class="form-control" id="event_start_date"
+                                    type="datetime-local" name="start_date" required=""
+                                    value="{{ event.start_date|date:'Y-m-d' }}T{{ event.start_date|time:'H:i' }}">
                             </div>
                         </div>
                         <div class="col">
                             <div class="mb-3"><label class="form-label" for="event_end_date"><strong>End date
                                         *</strong><br></label><input class="form-control" id="event_end_date"
-                                    type="datetime-local" name="end_date" required=""></div>
+                                    type="datetime-local" name="end_date" required=""
+                                    value="{{ event.end_date|date:'Y-m-d' }}T{{ event.end_date|time:'H:i' }}">
+                            </div>
+
                         </div>
                     </div>
+                    {% if not event %}
                     <div class="mb-3"><label class="form-label" for="service_client_payment_validated"><strong>Event
-                                Poster*</strong></label><input class="bg-light bg-gradient form-control" id="event_poster" type="file"
-                            accept="image/*" name="poster" required=""></div>
+                                Poster*</strong></label><input class="bg-light bg-gradient form-control"
+                            id="event_poster" type="file" accept="image/*" name="poster" required="">
+                    </div>
+                    {% endif %}
+                    <input type="hidden" id="category" name="category" value="{{event.category}}">
+
                 </div>
+
             </div>
-            <input type="hidden" id="category" name="category">
-            <div class="text-end mb-3"><button class="btn btn-primary" type="submit">Save</button></div>
+            <div class="text-end mb-3"><button class="btn btn-primary" type="submit">
+                    {% if event %}
+                    Update
+                    {% else %}
+                    Save
+                    {% endif %}
+                </button>
+            </div>
         </form>
     </div>
 </section>

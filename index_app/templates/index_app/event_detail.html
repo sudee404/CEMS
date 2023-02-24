@@ -5,16 +5,33 @@
     <div class="container" style="margin-top: 100px;">
         <div class="row mx-0 justify-content-center align-items-center">
             <div class="col-md-6">
-                <h1 class="text-break" style="font-size: 52.36px;font-weight: 900;margin-top: 58px;">{{event.title}}</h1>
+                <h1 class="text-break" style="font-size: 52.36px;font-weight: 900;margin-top: 58px;">{{event.title}}
+                </h1>
                 <p style="font-weight: bold;font-size: 18px;margin-top: 12px;color:white;">{{event.description}}</p>
+
+                {% if owner %}
+                <div class="btn-group" role="group">
+                    <a class="btn btn-primary" type="button">Post</a>
+                    <a href="{% url 'update-event' pk=event.pk %}" class="btn btn-success" type="button">Update
+                        details</a>
+                    <a href="{% url 'delete-event' pk=event.pk %}" type="button" class="btn btn-danger">Delete</a>
+                
+                </div>
+                {% else %}
                 <div class="btn-group" role="group"><button class="btn btn-primary" type="button">Attend</button><button
-                        class ="btn btn-success" type="button">Set Reminder</button></div>
+                        class="btn btn-success" type="button">Set Reminder</button></div>
+                          
+               
+                {% endif %}
+
                 <div style="margin-top: 44px;">
-                    <p>Working with the best</p><img src="{% static 'assets/img/kickstarter.png' %}" style="margin-right: 19px;"><img
-                        src="{% static 'assets/img/twitter.png' %}" style="margin-right: 19px;"><img src="{% static 'assets/img/pinterest.png' %}">
+                    <p>Working with the best</p><img src="{% static 'assets/img/kickstarter.png' %}"
+                        style="margin-right: 19px;"><img src="{% static 'assets/img/twitter.png' %}"
+                        style="margin-right: 19px;"><img src="{% static 'assets/img/pinterest.png' %}">
                 </div>
             </div>
-            <div class="col-md-6 col-lg-6  d-none d-lg-block"><img src="{{event.poster.url}}" class="img-fluid rounded"></div>
+            <div class="col-md-6 col-lg-6  d-none d-lg-block"><img src="{{event.poster.url}}" class="img-fluid rounded">
+            </div>
         </div>
     </div>
     <div class="container py-5">
@@ -27,7 +44,8 @@
                                 <div class="text-uppercase text-primary fw-bold text-xs mb-1"><span
                                         style="font-size: 12px;color: var(--bs-primary);">Guests</span></div>
                                 <div class="text-dark fw-bold h5 mb-0" style="margin-top: -6px;"><span
-                                        style="font-size: 14px;"></span><span style="font-size: 14px;">{{event.guests}}</span><span
+                                        style="font-size: 14px;"></span><span
+                                        style="font-size: 14px;">{{event.guests}}</span><span
                                         style="font-size: 10px;margin-left: 12px;color: var(--bs-gray-600);">10
                                         left</span></div>
                             </div>

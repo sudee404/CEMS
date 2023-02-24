@@ -1,5 +1,4 @@
 $(document).ready(function () {
-
 	$(".cat-btn").click(function (event) {
 		event.preventDefault();
 		var selectedButton = $(this);
@@ -25,12 +24,19 @@ $(document).ready(function () {
 
 	$("#eventform").submit(function (event) {
 		event.preventDefault();
-		if ($("#category").val()) {
+		var categoryValue = $("#category").val();
+
+		if (categoryValue) {
 			var formData = new FormData($(this)[0]);
 			var actionUrl = $(this).attr("action");
 			var fMethod = $(this).attr("method");
 			clearForm();
-			submitForm("eventform", formData, actionUrl+`?category=${$("#category").val()}`, fMethod);
+			submitForm(
+				"eventform",
+				formData,
+				actionUrl + `?category=${categoryValue}`,
+				fMethod
+			);
 		} else {
 			createToast(
 				"Error",
@@ -109,11 +115,7 @@ function submitForm(currId, formData, actionUrl, fMethod) {
 					);
 					window.location.reload();
 				} else {
-					createToast(
-						"Success",
-						"Event has been added successfully",
-						response.status
-					);
+					createToast("Success", response.msg, response.status);
 					redirectTo(response.url);
 				}
 			} else {

@@ -17,9 +17,10 @@ class Event(models.Model):
     guests = models.PositiveIntegerField(null=True)
     poster = models.ImageField(
         upload_to='poster', default='default.png')
-    draft = models.BooleanField(default=True)
+    host = models.ForeignKey(User(), on_delete=models.CASCADE,null=True)
     approved = models.BooleanField(default=False)
-    host = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    draft = models.BooleanField(default=True)
+
 
     class Meta:
         """Meta definition for Event."""
