@@ -15,13 +15,23 @@
                     <a href="{% url 'update-event' pk=event.pk %}" class="btn btn-success" type="button">Update
                         details</a>
                     <a href="{% url 'delete-event' pk=event.pk %}" type="button" class="btn btn-danger">Delete</a>
-                
+
                 </div>
                 {% else %}
-                <div class="btn-group" role="group"><button class="btn btn-primary" type="button">Attend</button><button
-                        class="btn btn-success" type="button">Set Reminder</button></div>
-                          
-               
+                <div class="btn-group" role="group">
+
+                    {% if attending %}
+                    <a class="btn btn-primary" type="button">Attending</a>
+
+                    {% else %}
+                    <a href="{% url 'add-guest' pk=event.pk%}" class="btn btn-primary" type="button">Attend</a>
+
+                    {% endif %}
+
+                    <a class="btn btn-success" type="button">Set Reminder</a>
+                </div>
+
+
                 {% endif %}
 
                 <div style="margin-top: 44px;">
@@ -45,8 +55,8 @@
                                         style="font-size: 12px;color: var(--bs-primary);">Guests</span></div>
                                 <div class="text-dark fw-bold h5 mb-0" style="margin-top: -6px;"><span
                                         style="font-size: 14px;"></span><span
-                                        style="font-size: 14px;">{{event.guests}}</span><span
-                                        style="font-size: 10px;margin-left: 12px;color: var(--bs-gray-600);">10
+                                        style="font-size: 14px;">{{event.guest_set.count}}</span><span
+                                        style="font-size: 10px;margin-left: 12px;color: var(--bs-gray-600);">{{event.guests}}
                                         left</span></div>
                             </div>
                             <div class="col-auto"><i class="fas fa-user-friends fa-2x" data-bs-toggle="tooltip"
@@ -167,6 +177,37 @@
                 </div>
             </div>
         </div>
+
+        {% if event.guest_set.all %}
+        <div class="row justify-content-center g-2">
+            <div class="row mb-2">
+                <div class="col-md-8 col-xl-6 text-center mx-auto">
+                    <h2 class="fw-bold">Other guests</h2>
+                    <p class="text-muted">The following are the attending guests&nbsp;</p>
+                </div>
+            </div>
+
+            {% for guest in event.guest_set.all %}
+            <div class="col-4">
+                <div class="card mb-3 rounded-3 shadow bg-secondary p-2">
+                    <div class="row justify-content-center align-items-center g-0">
+                        <div class="col-md-3 text-center">
+                            <img src="https://dummyimage.com/540x1024/919191/7a7a7a&text=image" class="img" alt="..."
+                                style="width:100px;height:100px;border-radius:50px;">
+                        </div>
+                        <div class="col-md-9">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">{{guest}}</h5>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
     </div>
 </section>
 {% endblock main %}

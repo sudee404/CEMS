@@ -3,7 +3,8 @@ from django.views import generic
 from django.contrib.auth import get_user_model
 from django.db.models import Q
 from django.http import JsonResponse
-from .models import Event, Category
+from .models import Event, Category,Guest
+from django.contrib.auth.decorators import login_required
 
 
 #################################################
@@ -107,7 +108,8 @@ class EventDetailView(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        if self.request.user:
+        if self.request.user.is_authenticated:
+            context['attending'] = Guest.objects.filter(user = self.request.user,event_id = self.kwargs['pk'] )
             context["owner"] = self.model.objects.filter(
                 id=self.kwargs['pk'], host=self.request.user)
 
@@ -173,3 +175,19 @@ class CategoryCreateView(generic.CreateView):
 class UserDetailView(generic.DetailView):
     model = get_user_model()
     template_name = "index_app/profile.html"
+
+
+#################################################
+########### Guest related views #################
+#################################################
+@login_required(login_url='login')
+def add_guest(request,pk):
+    event = Event.objects.get(id = pk)
+    user = request.user
+    try:
+        guest = Guest.objects.create(user=user, event=event)
+        guest.save()
+        return redirect('event-detail', pk=pk)
+    
+    except:
+        return redirect('event-detail',pk=pk,)

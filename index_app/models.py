@@ -54,3 +54,23 @@ class Category(models.Model):
     def __str__(self):
         """Unicode representation of Category."""
         return self.name
+
+
+class Guest(models.Model):
+    """Model definition for Guest."""
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    
+
+    class Meta:
+        """Meta definition for Guest."""
+
+        verbose_name = 'Guest'
+        verbose_name_plural = 'Guests'
+        unique_together = ('user', 'event')
+
+    def __str__(self):
+        """Unicode representation of Guest."""
+        return self.user.username
+      
