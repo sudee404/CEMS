@@ -3,8 +3,10 @@ from django.views import generic
 from django.contrib.auth import get_user_model
 from django.db.models import Q
 from django.http import JsonResponse
-from .models import Event, Category,Guest
+from .models import Event, Category, Guest
 from django.contrib.auth.decorators import login_required
+
+User = get_user_model()
 
 
 #################################################
@@ -17,9 +19,21 @@ def index(request):
 
     return render(request, 'index.html', context)
 
-
+@login_required(login_url='login')
 def dashboard(request, pk):
-    return render(request, 'dashboard.html', {})
+    context = {}
+    mode = request.GET.get('mode')
+    my_user = User.objects.get(id=pk)
+    if mode and mode == 'guest':
+        context['events'] = Event.objects.filter(
+            guest__user=my_user)
+
+        return render(request, 'dashboard_guest.html', context)
+    
+    context['events'] = Event.objects.filter(
+        host=my_user)
+    
+    return render(request, 'dashboard_host.html', context)
 
 
 def gallery(request):
@@ -57,7 +71,6 @@ class EventCreateView(generic.CreateView):
             event.host = request.user
             event.save()
             return JsonResponse({'status': 'success', 'msg': 'Event added successfully', 'url': event.get_absolute_url()})
-
 
         return JsonResponse({'status': 'error', 'errors': form.errors})
 
@@ -109,7 +122,8 @@ class EventDetailView(generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         if self.request.user.is_authenticated:
-            context['attending'] = Guest.objects.filter(user = self.request.user,event_id = self.kwargs['pk'] )
+            context['attending'] = Guest.objects.filter(
+                user=self.request.user, event_id=self.kwargs['pk'])
             context["owner"] = self.model.objects.filter(
                 id=self.kwargs['pk'], host=self.request.user)
 
@@ -181,13 +195,13 @@ class UserDetailView(generic.DetailView):
 ########### Guest related views #################
 #################################################
 @login_required(login_url='login')
-def add_guest(request,pk):
-    event = Event.objects.get(id = pk)
+def add_guest(request, pk):
+    event = Event.objects.get(id=pk)
     user = request.user
     try:
         guest = Guest.objects.create(user=user, event=event)
         guest.save()
         return redirect('event-detail', pk=pk)
-    
+
     except:
-        return redirect('event-detail',pk=pk,)
+        return redirect('event-detail', pk=pk,)

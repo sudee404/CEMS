@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Event, Category
+from .models import Event, Category,Guest
 
 
 class EventInline(admin.StackedInline):
@@ -16,4 +16,9 @@ class CategoryAdmin(admin.ModelAdmin):
 class EventAdmin(admin.ModelAdmin):
     list_display = ('category', 'title', 'start_date', 'end_date')
     list_filter = ('start_date',)
+    
+
+@admin.register(Guest)
+class GuestAdmin(admin.ModelAdmin):
+    list_display = ('user', 'event')
     
