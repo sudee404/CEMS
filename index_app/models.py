@@ -1,6 +1,12 @@
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth import get_user_model
+import uuid
+import qrcode
+from PIL import Image, ImageDraw
+from io import BytesIO
+from django.core.files import File
+
 # Create your models here.
 
 User = get_user_model()
@@ -61,7 +67,11 @@ class Guest(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
-    
+    ticket = models.UUIDField(
+        default=uuid.uuid4, help_text='Unique ID for this particular ticket')
+    scanned = models.BooleanField(default=False)
+    qr_code = models.ImageField(upload_to='qr/')
+
 
     class Meta:
         """Meta definition for Guest."""
@@ -69,8 +79,34 @@ class Guest(models.Model):
         verbose_name = 'Guest'
         verbose_name_plural = 'Guests'
         unique_together = ('user', 'event')
+        ordering = ['-event__start_date']
+
 
     def __str__(self):
         """Unicode representation of Guest."""
         return self.user.username
+    
+    #  We overide the save function to create a qr image
+    #  from the unique id assigned to every attendee object
+    def save(self, *args, **kwargs):
+        qr = qrcode.QRCode(
+            version=1,
+            error_correction=qrcode.constants.ERROR_CORRECT_L,
+            box_size=8,
+            border=4,
+        )
+        qr.add_data(self.ticket)
+        qr.make(fit=True)
+
+        img = qr.make_image(fill_color="black", back_color="white")
+
+        canvas = Image.new("RGB", (300, 300), "white")
+        draw = ImageDraw.Draw(canvas)
+        canvas.paste(img)
+        fname = f'{self.ticket}.png'
+        buffer = BytesIO()
+        canvas.save(buffer, "PNG")
+        self.qr_code.save(fname, File(buffer), save=False)
+        canvas.close()
+        super().save(*args, **kwargs)
       

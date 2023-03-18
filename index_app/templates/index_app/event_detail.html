@@ -21,7 +21,7 @@
                 <div class="btn-group" role="group">
 
                     {% if attending %}
-                    <a class="btn btn-primary" type="button">Attending</a>
+                    <a class="btn btn-primary" type="button" href="{% url 'get-ticket' pk=user.pk %}">Get ticket</a>
 
                     {% else %}
                     <a href="{% url 'add-guest' pk=event.pk%}" class="btn btn-primary" type="button">Attend</a>
