@@ -148,6 +148,29 @@
 			<a class="btn btn-light fs-5 py-2 px-4" role="button" href="#">Generate Report</a>
 		</div>
 	</div>
+	<ul class="nav nav-pills" id="eventTab" role="tablist">
+		{% for category, events in event_dict.items %}
+		<li class="nav-item" role="presentation">
+			<button class="nav-link {% if forloop.first %}active{% endif %}" id="{{category}}-tab" data-bs-toggle="tab"
+				data-bs-target="#{{category}}" type="button" role="tab" aria-controls="{{category}}"
+				aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">{{category}}</button>
+		</li>
+		{% endfor %}
+	</ul>
+
+	<!-- Tab panes -->
+	<div class="tab-content">
+		{% for category, events in event_dict.items %}
+		<div class="tab-pane {% if forloop.first %}active{% endif %}" id="{{category}}" role="tabpanel"
+			aria-labelledby="{{category}}-tab">
+			{% for event in events %}
+			{% include 'components/event_dash_card.html' with event=event %}
+			{% empty %}
+			<div class="no-events text-dark">No events in this category.</div>
+			{% endfor %}
+		</div>
+		{% endfor %}
+	</div>
 
 
 	{% if events %}
@@ -221,7 +244,6 @@
 		</div>
 	</div>
 	{% endif %}
-	
 
 	{% if attendance %}
 	<div class="text-white bg-primary border rounded border-0 border-primary d-flex flex-column justify-content-between flex-lg-row p-4 p-md-5"

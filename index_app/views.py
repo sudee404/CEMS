@@ -33,15 +33,31 @@ def dashboard(request, pk):
     context = {}
     mode = request.GET.get('mode')
     my_user = User.objects.get(id=pk)
+    # Retrieve categories
+    categories = Category.objects.all()
+    event_dict = {}
+
     if mode and mode == 'guest':
-        context['events'] = Event.objects.filter(
+        events = Event.objects.filter(
             guest__user=my_user)
+
+        for category in categories:
+            events = events.filter(category=category)
+            event_dict[category.name] = events
+
+        context['event_dict'] = event_dict
+
         context['attendance'] = Guest.objects.filter(user=my_user)
 
         return render(request, 'dashboard_guest.html', context)
 
-    context['events'] = Event.objects.filter(
-        host=my_user)
+    for category in categories:
+        events = Event.objects.filter(
+            host=my_user)
+        events = events.filter(category=category)
+        event_dict[category.name] = events
+
+    context['event_dict'] = event_dict
 
     return render(request, 'dashboard_host.html', context)
 

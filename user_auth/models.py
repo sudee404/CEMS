@@ -73,7 +73,7 @@ class MyUser(AbstractBaseUser):
         return reverse("dashboard", kwargs={"pk": self.pk})
     
     def __str__(self):
-        return self.username
+        return self.email
 
     def save(self, *args, **kwargs):
         self.email = self.email.lower()

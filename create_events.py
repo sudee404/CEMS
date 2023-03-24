@@ -31,7 +31,7 @@ def get_user():
     return random.choice(user)
 
 
-def genrate_category():
+def generate_category():
     cat = Category.objects.all()
     return random.choice(cat)
 
@@ -52,6 +52,7 @@ def create_event(category, host):
         start_date=start_date,
         end_date=end_date,
         guests=guests,
+        draft=False,
         host=host,
         venue=venue
     )[0]
@@ -66,7 +67,7 @@ def populate(N=5):
     '''
 
     for entry in range(N):
-        category = genrate_category()
+        category = generate_category()
         host = get_user()
         event = create_event(category,host)
         print(f"Created {event.title}")
