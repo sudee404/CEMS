@@ -1,14 +1,17 @@
-import io
-import os
+from django.urls import reverse_lazy
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.views import generic
 from django.contrib.auth import get_user_model
 from django.db.models import Q
 from django.http import FileResponse, JsonResponse
+from index_app.forms import VenueForm
 from .models import Event, Category, Guest, Venue, Location
 from django.contrib.auth.decorators import login_required
 from reportlab.pdfgen import canvas
 from reportlab.lib.utils import ImageReader
+import io
+import os
 
 User = get_user_model()
 script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -274,17 +277,37 @@ def add_guest(request, pk):
 
 # Create
 
+
 class VenueCreateView(generic.CreateView):
     model = Venue
-    fields = ('__all__')
+    form_class = VenueForm
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["locations"] =Location.objects.all()
+        context["locations"] = Location.objects.all()
         return context
 
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
 
-# Update
+        if form.is_valid():
+            response = super().form_valid(form)
+            messages.success(request, "Venue created successfully.")
+            return response
+        else:
+            messages.error(request, "There was an error creating the venue.")
+            return self.form_invalid(form)
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        messages.success(self.request, "Venue created successfully.")
+        return redirect('venue-detail', pk=self.object.pk)
+
+    def get_success_url(self):
+        return reverse_lazy('venue-detail', kwargs={'pk': self.object.pk})
+
+
+
 # Update
 
 

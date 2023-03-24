@@ -8,7 +8,7 @@ import django
 django.setup()
 
 import random
-from index_app.models import Location
+from index_app.models import Location,Venue
 from faker import Faker
 import random
 
@@ -28,17 +28,17 @@ def populate(N):
         # Now create location object
         loc_obj = Location.objects.get_or_create(city=city,country='Kenya')[0]
 
-        # # then create 3 venues per location
-        # for i in range(1):
-        #     venue_name = fakegen.company()
-        #     ven_obj = Venue.objects.get_or_create(
-        #         name=venue_name, location=loc_obj)[0]
-        #     print(f"created {venue_name}")
+        # then create N venues per location
+        for i in range(N):
+            venue_name = fakegen.company()
+            ven_obj = Venue.objects.get_or_create(
+                name=venue_name, location=loc_obj)[0]
+            print(f"created {venue_name}")
             
 
 def get_value():
     try:
-        parties = int(input("Number of Venues : "))
+        parties = int(input("Number of Venues in each location: "))
     except:
         print("Can't take empty values")
         return get_value()

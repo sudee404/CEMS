@@ -37,7 +37,7 @@ class MyUser(AbstractBaseUser):
     avatar = models.ImageField(upload_to='avatars',default='default.png')
     first_name = models.CharField(max_length=30,null=True)
     last_name = models.CharField(max_length=30,null=True)
-    username = models.CharField(max_length=30,unique=True)
+    username = models.CharField(max_length=30,null=True)
     email = models.EmailField(unique=True)
     dob = models.DateField(verbose_name="date of birth",null=True)
     is_staff = models.BooleanField(default=False)

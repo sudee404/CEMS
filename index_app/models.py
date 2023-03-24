@@ -119,6 +119,7 @@ class Venue(models.Model):
     location = models.ForeignKey('Location',on_delete=models.SET_NULL,null=True)
     poster = models.ImageField(
         upload_to='poster', default='default.png')
+    capacity = models.PositiveSmallIntegerField(default=30)
     
     class Meta:
         """Meta definition for Venue."""
@@ -128,20 +129,22 @@ class Venue(models.Model):
 
     def __str__(self):
         """Unicode representation of Venue."""
-        self.name
+        return self.name
 
 class Location(models.Model):
     """Model definition for Location."""
 
     city = models.CharField(max_length=150)
     country = models.CharField(max_length=150)
-    
+
+    def __str__(self):
+        """Unicode representation of Location."""
+        return self.city
+        
     class Meta:
         """Meta definition for Location."""
 
         verbose_name = 'Location'
         verbose_name_plural = 'Locations'
 
-    def __str__(self):
-        """Unicode representation of Location."""
-        self.city
+    

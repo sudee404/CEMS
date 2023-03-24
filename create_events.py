@@ -10,7 +10,7 @@ import django
 django.setup()
 
 import random
-from index_app.models import Event,Category
+from index_app.models import Event,Category,Venue
 from user_auth.models import MyUser
 from faker import Faker
 import random
@@ -43,6 +43,8 @@ def create_event(category, host):
     end_date = fakegen.date_time_between_dates(
         start_date, start_date + timedelta(days=365))
     guests = fakegen.random_int(min=1, max=1000)
+    venue = random.choice(Venue.objects.all())
+    
     obj = Event.objects.get_or_create(
         category=category,
         title=title,
@@ -50,7 +52,8 @@ def create_event(category, host):
         start_date=start_date,
         end_date=end_date,
         guests=guests,
-        host=host
+        host=host,
+        venue=venue
     )[0]
     return obj
 
