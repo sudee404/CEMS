@@ -1,0 +1,92 @@
+{% extends "base_generic.html" %}
+{% load static %}
+{% block styles %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+<link rel="stylesheet" href="{% static 'assets/css/Notes-Dashboard.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/OwlCarousel-2.css' %}">
+{% endblock styles %}
+{% block main %}
+<section class="py-5">
+	<div class="row mb-5" style="width: auto;margin: 0;">
+		<div class="col-md-8 col-xl-6 text-center mx-auto">
+			{% if venue %}
+			<p class="fw-bold text-success mb-2"> Update Venue Details</p>
+			<h2 class="fw-bold">Update details below</h2>
+			{% else %}
+			<p class="fw-bold text-success mb-2"> Add Venue </p>
+			<h2 class="fw-bold">Fill in the details below</h2>
+			{% endif %}
+
+
+		</div>
+	</div>
+
+	<div class="container-fluid">
+		<form class="border-0"
+			action="{% if venue %}{% url 'update-venue' pk=venue.pk %}{% else %}{% url 'add-venue' %}{%endif%}"
+			id="venueform" method="post" enctype="multipart/form-data">
+			{% csrf_token %}
+			<div class="card border rounded shadow mb-3">
+				<div class="card-body text-dark">
+					<div class="row">
+						<div class="col-sm-12 col-md-8 col-lg-12">
+							<div class="mb-3"><label class="form-label" for="venue_title"><strong>Venue Name
+										*</strong></label><input class="bg-light bg-gradient form-control" type="text"
+									id="venue_title" placeholder="Venue Name" name="name" required
+									value="{{venue.name}}"></div>
+						</div>
+
+					</div>
+					<div class="row">
+						<div class="col-sm-12 col-md-8 col-lg-12">
+							<div class="select mb-3">
+								<label class="form-label" for="venue_location"><strong>Venue Location
+										*</strong>
+								</label>
+								<div class="input-group mb-3">
+									<select id="venue_location" name="location" required class="form-control form-select bg-light bg-gradient"
+										aria-label="Venue Location">
+										<option>Kisumu</option>
+										<option>Kajiado</option>
+									</select>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<div class="mb-3"><label class="form-label" for="venue_description"><strong>Venue Description
+								*</strong><br></label><textarea class="bg-light bg-gradient form-control"
+							id="venue_description" rows="4" name="description" placeholder="Describe the venue..."
+							required="">{{venue.description}}</textarea>
+					</div>
+
+					{% if not venue %}
+					<div class="mb-3"><label class="form-label" for="service_client_payment_validated"><strong>Venue
+								Poster*</strong></label><input class="bg-light bg-gradient form-control"
+							id="venue_poster" type="file" accept="image/*" name="poster" required="">
+					</div>
+					{% endif %}
+
+				</div>
+
+			</div>
+			<div class="text-end mb-3"><button class="btn btn-primary" type="submit">
+					{% if venue %}
+					Update
+					{% else %}
+					Save
+					{% endif %}
+				</button>
+			</div>
+		</form>
+	</div>
+</section>
+{% endblock main %}
+
+{% block scripts %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-toast-plugin@1.3.2/dist/jquery.toast.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/jquery-toast-plugin@1.3.2/dist/jquery.toast.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<script src="{% static 'assets/js/OwlCarousel-2-OwlCarousel.js' %}"></script>
+
+{% endblock scripts %}

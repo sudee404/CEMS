@@ -277,6 +277,15 @@ def add_guest(request, pk):
 
 class VenueCreateView(generic.CreateView):
     model = Venue
+    fields = ('__all__')
+    
+# Update
+# Update
+
+
+class VenueUpdateView(generic.UpdateView):
+    model = Venue
+
 
 # List
 

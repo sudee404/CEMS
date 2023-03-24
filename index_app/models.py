@@ -115,8 +115,11 @@ class Venue(models.Model):
     """Model definition for Venue."""
 
     name= models.CharField(max_length=250)
+    description = models.TextField(blank=True)
     location = models.ForeignKey('Location',on_delete=models.SET_NULL,null=True)
-
+    poster = models.ImageField(
+        upload_to='poster', default='default.png')
+    
     class Meta:
         """Meta definition for Venue."""
 
