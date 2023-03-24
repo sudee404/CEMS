@@ -1,0 +1,114 @@
+{% extends "base_generic.html" %}
+{% load static %}
+{% block scripts %}
+<script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/3.3.3/adapter.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js"></script>
+<script type="text/javascript" src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+<script src="{% static 'js/app.js' %}"></script>
+{% endblock scripts %}
+{% block main %}
+  <div class="p-lg-5">
+    <div class="pt-5"></div>
+    {% if validate %}
+    {% if exists %}
+    
+    {% if scanned %}
+    <div class="col-12">
+    
+        <div class="alert alert-warning card shadow m-3 mb-0 p-4 text-center" role="alert">
+            Ticket has been scanned
+        </div>
+    
+    </div>
+    {% else %}
+    <div class="col-12">
+    
+        <div class="alert alert-success card shadow m-3 mb-0 p-4 text-center" role="alert">
+            Valid Ticket, Enjoy your stay
+        </div>
+    
+    </div>  
+    {% endif %}
+        
+    {% else %}
+    <div class="col-12">
+    
+        <div class="alert alert-danger card shadow m-3 mb-0 p-4 text-center" role="alert">
+            Invalid Ticket
+        </div>
+    
+    </div>
+    {% endif %}
+    {% endif %}
+  </div>
+<div class="row mx-0 text-dark">
+    <div class="col-sm-12 col-lg-3">
+
+        <div class="card m-3 shadow">
+            <h5 class="card-header fw-bold text-dark">Event Details</h5>
+            <div class="card-body">
+                <h5 class="card-title lead  text-dark">Title : <span class="text-primary">{{event.title}}</span></h5>
+                <p class="lead">
+                    Venue : <span class="text-success">{{event.venue}}</span> <br />
+                    Start : <span class="text-success">{{event.start_date}}</span> <br />
+                    Stop : <span class="text-danger">{{event.end_date}}</span><br />
+                    Guests : <span class="text-primary">{{event.guest_set.count}}</span><br />
+                </p>
+                <form action="{% url 'validate-guest' pk=event.id %}" method="get" id="guest" class="d-none">
+                    <input type="text" name="text" id="text" placeholder="qr code" class="form-control">
+                    <button type="submit" id="submit" class="btn btn-primary m-auto">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-lg-6 ">
+        <div class="card m-3 shadow" id="findaevent">
+            <h5 class="card-header">Scan Ticket</h5>
+            <video id="preview" width="100%"></video>
+        </div>
+    </div>
+    <div class="col-sm-12 col-lg-3">
+    
+        <div class="card m-3 shadow">
+            <h5 class="card-header">Guest List</h5>
+            <div class="card-body">
+                {% if event.attendee_set.all %}
+                <table class="table table-striped table-inverse table-responsive">
+                    <thead class="thead-inverse">
+                        <tr>
+                            <th>Username</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+    
+    
+                        {% for attendee in event.attendee_set.all %}
+                        <tr>
+                            <td scope="row">{{attendee}}</td>
+    
+                            {% if attendee.scanned %}
+                            <td><span class="text-success">In</span></td>
+                            {% else %}
+                            <td><span class="text-danger">Out</span></td>
+                            {% endif %}
+    
+    
+                        </tr>
+                        {% endfor %}
+    
+    
+    
+    
+                    </tbody>
+                </table>
+                {% else %}
+                All tickets bought have been used
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main %}

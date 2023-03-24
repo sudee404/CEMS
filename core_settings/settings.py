@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'user_auth',
     'index_app',
+    'reader',
 ]
 
 MIDDLEWARE = [

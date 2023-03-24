@@ -11,52 +11,30 @@
 		style="background: url(&quot;{% static 'assets/img/blob.svg' %}&quot;) center / cover no-repeat, linear-gradient(-172deg, black, var(--bs-border-color-translucent) 37%), var(--bs-border-color-translucent);padding: 5px;height: auto;">
 		<div class="row mb-4 mb-lg-5" style="margin: 0;">
 			<div class="col-md-8 col-xl-6 text-center mx-auto">
-				<h2 class="fw-bold">Events</h2>
-				<p class="text-muted">Find an event suitable for you below, you can filter it as you please&nbsp;</p>
+				<h2 class="fw-bold">Locations</h2>
+				<p class="text-muted">Click on a location below to view parties &nbsp;</p>
 			</div>
 		</div>
 		<div class="d-lg-flex justify-content-lg-center align-items-lg-center"><a class="btn btn-success btn-sm"
 				role="button" data-bss-hover-animate="rubberBand" href="{% url 'add-event' %}" target="_blank">Host an
 				Event</a></div>
 	</div>
-	{% if categories %}
-	<section data-aos="fade-up" data-aos-duration="400" data-aos-once="true" class="min-vh-100"
-		style="padding-top: 30px;padding-bottom: 30px;min-height: 50vh !important;">
-		<div class="container" style="min-width: 90vw;">
-			<div data-aos="fade-up" data-aos-duration="400" data-aos-delay="200" data-aos-once="true"
-				class="owl-slider">
-				<div id="carousel" class="owl-carousel">
 
-					{% for category in categories %}
-					<div class="item height-350" style="height: auto;padding: 5px;">
-						<div class="text-start p-4 text-center shadow-lg m-5 rounded-5" id="cardEntrada-2"
-							style="background: linear-gradient(171deg, var(--bs-pink) 0%, var(--bs-indigo) 100%), var(--bs-purple);width: 280px;">
-							<h3 class="text-white text-center pt-2 fw-bold">{{category}}</h3>
-							<p class="fw-light text-white m-0">{{category.description}}</p>
-							<hr class="text-white">
-							{% if select_category == category.name %}
-							<div class="col-12"><a class="btn btn-primary" role="button"
-									href="?query={{query}}#events">In Use</a></div>
-
-							{% else %}
-							<div class="col-12"><a class="btn btn-outline-primary" role="button"
-									href="?query={{query}}&category={{category}}#events">Filter</a></div>
-
-							{% endif %}
-						</div>
-					</div>
-					{% endfor %}
-
-
-				</div>
-			</div>
+	<div class="row justify-content-center mx-0 g-2">
+		<div class="col-12 text-center mx-auto">
+			<p class="text-muted mt-3">view events by&nbsp;</p>
 		</div>
-	</section>
-	{% endif %}
+		<div class="col-md-8 d-flex row justify-content-center">
+			<a type="button" href="{% url 'event-list' %}" class="btn btn-success col mx-2">All</a>
+
+			<a type="button" href="{% url 'location-list' %}" class="btn btn-primary col mx-2">Location</a>
+
+		</div>
+	</div>
 	<div class="row mb-4 mb-lg-5" style="margin: 0;" id="events">
 		<div class="col-md-8 col-xl-6 text-center mx-auto">
 			<form class="d-flex justify-content-center flex-wrap my-2 align-items-center"
-				action="?category={{select_category}}#events" method="get" style="border-style: none;">
+				action="?location={{select_location}}#events" method="get" style="border-style: none;">
 				<div class="my-2"><input class="form-control form-control-sm" type="search" name="query"
 						placeholder="Search" value="{{query}}" style="border-radius: 32px;"></div>
 				<div class="my-2"><button class="btn btn-primary btn-sm ms-sm-2" type="submit">Search</button></div>
@@ -64,55 +42,73 @@
 
 		</div>
 	</div>
+
+	{% if location_list %}
 	<div class="container py-4 py-xl-5">
 		<div class="container">
-			<div class="row">
+			<div class="row justify-content-center g-3">
 
-				{% for event in page_obj %}
-				{% include "components/event_card.html" with event=event %}
+				{% for location in page_obj %}
+				{% include "components/location_card.html" %}
 				{% endfor %}
 
 			</div>
 		</div>
 	</div>
-	<div>
-		<nav class="d-flex justify-content-center" style="text-align: center;">
-			<ul class="pagination">
-				{% if page_obj.has_previous %}
-				<li class="page-item">
-					<a class="page-link" aria-label="Previous"
-						href="?page={{ page_obj.previous_page_number }}&query={{query}}&category={{select_category}}#events">
-						<span aria-hidden="true">«</span>
-					</a>
-				</li>
-				{% endif %}
-				{% for page_number in page_obj.paginator.page_range %}
-				{% if page_number == page_obj.number %}
-				<li class="page-item active">
-					<a class="page-link"
-						href="?page={{ page_number }}&query={{query}}&category={{select_category}}#events">{{
-						page_number }}</a>
-				</li>
-				{% else %}
-				<li class="page-item">
-					<a class="page-link"
-						href="?page={{ page_number }}&query={{query}}&category={{select_category}}#events">{{
-						page_number }}</a>
+	{% else %}
+	<div class="p-5 mb-4 rounded-3">
+		<div class="container-fluid py-5">
+			<h1 class="display-5 fw-bold">No locations in the system</h1>
+		</div>
+	</div>
+	{% endif %}
+
+	<nav class="d-flex justify-content-center" style="text-align: center;">
+		<ul class="pagination">
+			{% if page_obj.has_previous %}
+			<li class="page-item">
+				<a class="page-link" aria-label="First"
+					href="?page=1&query={{query}}&location={{select_location}}#events">
+					<span aria-hidden="true">««</span>
+				</a>
+			</li>
+			<li class="page-item">
+				<a class="page-link" aria-label="Previous"
+					href="?page={{ page_obj.previous_page_number }}&query={{query}}&location={{select_location}}#events">
+					<span aria-hidden="true">«</span>
+				</a>
+			</li>
+			{% endif %}
+			{% for page_number in page_obj.paginator.page_range %}
+			{% if page_obj.number == page_number %}
+			<li class="page-item active">
+				<a class="page-link"
+					href="?page={{ page_number }}&query={{query}}&location={{select_location}}#events">{{page_number}}</a>
+			</li>
+			{% elif page_number > page_obj.number|add:'-3' and page_number < page_obj.number|add:'3' %} <li
+				class="page-item">
+				<a class="page-link"
+					href="?page={{ page_number }}&query={{query}}&location={{select_location}}#events">{{page_number}}</a>
 				</li>
 				{% endif %}
 				{% endfor %}
 				{% if page_obj.has_next %}
 				<li class="page-item">
 					<a class="page-link" aria-label="Next"
-						href="?page={{ page_obj.next_page_number }}&query={{query}}&category={{select_category}}#events">
+						href="?page={{ page_obj.next_page_number }}&query={{query}}&location={{select_location}}#events">
 						<span aria-hidden="true">»</span>
 					</a>
 				</li>
+				<li class="page-item">
+					<a class="page-link" aria-label="Last"
+						href="?page={{ page_obj.paginator.num_pages }}&query={{query}}&location={{select_location}}#events">
+						<span aria-hidden="true">»»</span>
+					</a>
+				</li>
 				{% endif %}
-			</ul>
-		</nav>
+		</ul>
+	</nav>
 
-	</div>
 </section>
 {% endblock main %}
 {% block scripts %}

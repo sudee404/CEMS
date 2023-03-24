@@ -67,7 +67,7 @@
 		</div>
 		
 		{% if venue.event_set.all %}
-			<div class="row row-cols-2 row-cols-md-3 mx-auto">
+			<div class="row row-cols-2 row-cols-md-3 mx-auto justify-content-center">
 				
 			{% for event in venue.event_set.all %}
 			{% include '../components/event_card.html' %}

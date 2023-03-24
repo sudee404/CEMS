@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('user_auth/', include('user_auth.urls')),
     path('', include('index_app.urls')),
+    path('reader/', include('reader.urls')),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

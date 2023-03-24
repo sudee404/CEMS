@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth import get_user_model
+from django.shortcuts import reverse
 import uuid
 import qrcode
 from PIL import Image, ImageDraw
@@ -42,6 +43,7 @@ class Event(models.Model):
     def __str__(self):
         """Unicode representation of Event."""
         return self.title
+
 
 
 class Category(models.Model):
@@ -130,6 +132,9 @@ class Venue(models.Model):
     def __str__(self):
         """Unicode representation of Venue."""
         return self.name
+    
+    def get_absolute_url(self):
+        return reverse('venue-detail', kwargs={'pk': self.pk})
 
 class Location(models.Model):
     """Model definition for Location."""
@@ -140,10 +145,13 @@ class Location(models.Model):
     def __str__(self):
         """Unicode representation of Location."""
         return self.city
+    
+    def get_absolute_url(self):
+        return reverse('location-detail', kwargs={'pk': self.pk})
         
     class Meta:
         """Meta definition for Location."""
-
+        ordering = ['city']
         verbose_name = 'Location'
         verbose_name_plural = 'Locations'
 

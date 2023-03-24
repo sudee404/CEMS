@@ -11,7 +11,13 @@
 
                 {% if owner %}
                 <div class="btn-group" role="group">
-                    <a class="btn btn-primary" type="button">Post</a>
+                    
+                    {% if event.draft %}
+                        <a class="btn btn-primary" href="{% url 'post-event' pk=event.pk %}" type="button">Post</a>
+                    {% else %}
+                        <a class="btn btn-primary" href="{% url 'reader' pk=event.pk %}" type="button">Scan tickets</a>
+                    {% endif %}
+                        
                     <a href="{% url 'update-event' pk=event.pk %}" class="btn btn-success" type="button">Update
                         details</a>
                     <a href="{% url 'delete-event' pk=event.pk %}" type="button" class="btn btn-danger">Delete</a>

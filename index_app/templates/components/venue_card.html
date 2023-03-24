@@ -1,0 +1,16 @@
+{% load static %}
+<div class="col-md-4 height-350" style="height:auto">
+	<div class="blog-card blog-card-blog">
+		<div class="blog-card-image">
+			<a href="{{venue.get_absolute_url}}"> <img class="img" src="{{venue.poster.url}}"
+					style="object-fit:cover;max-height:200px;"> </a>
+			<div class="ripple-cont"></div>
+		</div>
+		<div class="blog-table text-center">
+			<h4 class="blog-card-caption">
+				<a href="{{venue.get_absolute_url}}">{{venue.name}}</a>
+			</h4>
+			<div class="stats text-center"> <i class="far fa-clock"></i> {{venue.capacity}} Guests</div>
+		</div>
+	</div>
+</div>

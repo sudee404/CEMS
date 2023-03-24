@@ -1,0 +1,20 @@
+<a href="{{location.get_absolute_url}}" class="col-lg-4 col-md-6 col-sm-12 p-2">
+	<div class="card border-primary bg-info mb-3 rounded">
+		<div class="card-header text-dark">{{location.country}}</div>
+		<div class="card-body text-success">
+			<h4 class="card-title  fw-bold">{{location.city}}</h4>
+			<p class="card-text">
+				<ul class="list-group list-group-flush rounded">
+					<li class="list-group-item d-flex mx-0 justify-content-between">
+						<span class="col-6  text-dark fw-bold">
+							Venues
+						</span>
+						<span class="col-6">
+							{{location.venue_set.count}} Venues
+						</span>
+					</li>
+				</ul>
+			</p>
+		</div>
+	</div>
+</a>

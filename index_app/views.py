@@ -109,7 +109,7 @@ class EventListView(generic.ListView):
         return context
 
     def get_queryset(self):
-        queryset = super().get_queryset()
+        queryset = super().get_queryset().filter(draft=False)
         query = self.request.GET.get("query")
         category = self.request.GET.get('category')
         if query:
@@ -307,7 +307,6 @@ class VenueCreateView(generic.CreateView):
         return reverse_lazy('venue-detail', kwargs={'pk': self.object.pk})
 
 
-
 # Update
 
 
@@ -339,7 +338,16 @@ class LocationCreateView(generic.CreateView):
 
 class LocationListView(generic.ListView):
     model = Location
+    paginate_by = 9
 
 
 class LocationDetailView(generic.DetailView):
     model = Location
+
+
+@login_required(login_url='login')
+def post_event(request, pk):
+    event = Event.objects.get(id=pk)
+    event.draft = False
+    event.save()
+    return redirect('event-detail', pk=pk,)
