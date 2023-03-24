@@ -5,7 +5,7 @@ from django.views import generic
 from django.contrib.auth import get_user_model
 from django.db.models import Q
 from django.http import FileResponse, JsonResponse
-from .models import Event, Category, Guest,Venue,Location
+from .models import Event, Category, Guest, Venue, Location
 from django.contrib.auth.decorators import login_required
 from reportlab.pdfgen import canvas
 from reportlab.lib.utils import ImageReader
@@ -24,6 +24,7 @@ def index(request):
 
     return render(request, 'index.html', context)
 
+
 @login_required(login_url='login')
 def dashboard(request, pk):
     context = {}
@@ -32,13 +33,13 @@ def dashboard(request, pk):
     if mode and mode == 'guest':
         context['events'] = Event.objects.filter(
             guest__user=my_user)
-        context['attendance'] = Guest.objects.filter(user = my_user)
+        context['attendance'] = Guest.objects.filter(user=my_user)
 
         return render(request, 'dashboard_guest.html', context)
-    
+
     context['events'] = Event.objects.filter(
         host=my_user)
-    
+
     return render(request, 'dashboard_host.html', context)
 
 
@@ -170,7 +171,7 @@ class EventDeleteView(generic.DeleteView):
         self.object = self.get_object()
         self.object.delete()
         return redirect(self.success_url)
-    
+
 # Tickets
 
 
@@ -191,7 +192,7 @@ def get_ticket(request, pk):
     # Add a border
     p.setLineWidth(2)
     p.rect(0, 0, 400, 570)
-    
+
     # Add the title
     p.setFont("Times-Bold", 24)
     p.setFillColorRGB(0.1, 0, 1)
@@ -210,12 +211,10 @@ def get_ticket(request, pk):
     p.setFillColorRGB(0.8, 12.8, 0.8)
     p.drawString(40, 440, f'Date : {guest.event.start_date}')
 
-
     # Lets add qr_code image to pdf
     my_image = ImageReader(guest.qr_code)
     p.drawImage(my_image, x=25, y=60, width=350, height=350,
                 preserveAspectRatio=True, mask='auto')
-    
 
     # Close the PDF object cleanly, and we're done.
     p.showPage()
@@ -278,7 +277,13 @@ def add_guest(request, pk):
 class VenueCreateView(generic.CreateView):
     model = Venue
     fields = ('__all__')
-    
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["locations"] =Location.objects.all()
+        return context
+
+
 # Update
 # Update
 
@@ -294,6 +299,7 @@ class VenueListView(generic.ListView):
     model = Venue
 
 # Detail
+
 
 class VenueDetailView(generic.DetailView):
     model = Venue

@@ -133,8 +133,8 @@ class Venue(models.Model):
 class Location(models.Model):
     """Model definition for Location."""
 
-    city = models.CharField(max_length=250)
-    country = models.CharField(max_length=250)
+    city = models.CharField(max_length=150)
+    country = models.CharField(max_length=150)
     
     class Meta:
         """Meta definition for Location."""

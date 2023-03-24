@@ -44,10 +44,19 @@
 										*</strong>
 								</label>
 								<div class="input-group mb-3">
-									<select id="venue_location" name="location" required class="form-control form-select bg-light bg-gradient"
+									<select id="venue_location" name="location" required
+										class="form-control form-select bg-light bg-gradient"
 										aria-label="Venue Location">
-										<option>Kisumu</option>
-										<option>Kajiado</option>
+
+										{% if locations %}
+
+										{% for location in locations %}
+										<option value="{{location}}">{{location}}</option>
+
+										{% endfor %}
+
+										{% endif %}
+
 									</select>
 								</div>
 							</div>
