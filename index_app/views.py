@@ -1,15 +1,17 @@
 import io
+import os
 from django.shortcuts import render, redirect
 from django.views import generic
 from django.contrib.auth import get_user_model
 from django.db.models import Q
 from django.http import FileResponse, JsonResponse
-from .models import Event, Category, Guest
+from .models import Event, Category, Guest,Venue,Location
 from django.contrib.auth.decorators import login_required
 from reportlab.pdfgen import canvas
 from reportlab.lib.utils import ImageReader
 
 User = get_user_model()
+script_dir = os.path.dirname(os.path.abspath(__file__))
 
 
 #################################################
@@ -181,33 +183,39 @@ def get_ticket(request, pk):
     # Create the PDF object, using the buffer as its "file."
     p = canvas.Canvas(buffer)
     p.setPageSize((400, 570))
-    # Draw things on the PDF. Here's where the PDF generation happens.
-    # See the ReportLab documentation for the full list of functionality.
 
-    p.setTitle('Entry Ticket')
+    # Add a background color
+    p.setFillColorRGB(0.95, 0.95, 0.95)
+    p.rect(0, 0, 400, 570, fill=True)
 
-    p.setFont("Helvetica", 16)
+    # Add a border
+    p.setLineWidth(2)
+    p.rect(0, 0, 400, 570)
+    
+    # Add the title
+    p.setFont("Times-Bold", 24)
     p.setFillColorRGB(0.1, 0, 1)
-    p.drawString(150, 540, 'Event Ticket')
+    p.drawString(140, 530, 'Event Ticket')
 
-    p.setFont("Helvetica", 13)
-    p.setFillColorRGB(0, 0.5, 1)
-    p.drawString(40, 520, f'Ticket No : #{guest.ticket}')
+    # Add the ticket information
+    p.setFont("Helvetica", 18)
+    p.setFillColorRGB(0.4, 0.4, 0.4)
     p.drawString(40, 500, f'Event : {guest.event}')
-    p.drawString(40, 480, f"Guest's username : {guest.user.email}")
-    p.drawString(40, 460, f'Date : {guest.event.start_date}')
+
+    p.setFont("Helvetica", 18)
+    p.setFillColorRGB(10.6, 0.6, 0.6)
+    p.drawString(40, 470, f"Guest : {guest.user.email}")
+
+    p.setFont("Helvetica", 18)
+    p.setFillColorRGB(0.8, 12.8, 0.8)
+    p.drawString(40, 440, f'Date : {guest.event.start_date}')
+
 
     # Lets add qr_code image to pdf
     my_image = ImageReader(guest.qr_code)
-    p.drawImage(my_image, x=25, y=100, width=350, height=350,
+    p.drawImage(my_image, x=25, y=60, width=350, height=350,
                 preserveAspectRatio=True, mask='auto')
-    # Add text below image
-    textobject = p.beginText()
-    textobject.setTextOrigin(50, 70)
-    textobject.setFont("Helvetica-Oblique", 12)
-    textobject.setFillColorRGB(1, 0, 0)
-    textobject.textLines(f'''Kindly present this ticket to {guest.event.host}, in {guest.event}. You will not be granted entry without it''')
-    p.drawText(textobject)
+    
 
     # Close the PDF object cleanly, and we're done.
     p.showPage()
@@ -259,3 +267,41 @@ def add_guest(request, pk):
 
     except:
         return redirect('event-detail', pk=pk,)
+
+
+#################################################
+########### Venue related views #################
+#################################################
+
+# Create
+
+class VenueCreateView(generic.CreateView):
+    model = Venue
+
+# List
+
+
+class VenueListView(generic.ListView):
+    model = Venue
+
+# Detail
+
+class VenueDetailView(generic.DetailView):
+    model = Venue
+
+
+#################################################
+########### Venue related views #################
+#################################################
+
+
+class LocationCreateView(generic.CreateView):
+    model = Location
+
+
+class LocationListView(generic.ListView):
+    model = Location
+
+
+class LocationDetailView(generic.DetailView):
+    model = Location

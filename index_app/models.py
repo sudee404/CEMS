@@ -26,6 +26,7 @@ class Event(models.Model):
     host = models.ForeignKey(User(), on_delete=models.CASCADE,null=True)
     approved = models.BooleanField(default=False)
     draft = models.BooleanField(default=True)
+    venue = models.ForeignKey('venue',on_delete=models.SET_NULL,null=True)
 
 
     class Meta:
@@ -110,3 +111,34 @@ class Guest(models.Model):
         canvas.close()
         super().save(*args, **kwargs)
       
+class Venue(models.Model):
+    """Model definition for Venue."""
+
+    name= models.CharField(max_length=250)
+    location = models.ForeignKey('Location',on_delete=models.SET_NULL,null=True)
+
+    class Meta:
+        """Meta definition for Venue."""
+
+        verbose_name = 'Venue'
+        verbose_name_plural = 'Venues'
+
+    def __str__(self):
+        """Unicode representation of Venue."""
+        self.name
+
+class Location(models.Model):
+    """Model definition for Location."""
+
+    city = models.CharField(max_length=250)
+    country = models.CharField(max_length=250)
+    
+    class Meta:
+        """Meta definition for Location."""
+
+        verbose_name = 'Location'
+        verbose_name_plural = 'Locations'
+
+    def __str__(self):
+        """Unicode representation of Location."""
+        self.city
