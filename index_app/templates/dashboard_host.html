@@ -148,102 +148,47 @@
 			<a class="btn btn-light fs-5 py-2 px-4" role="button" href="#">Generate Report</a>
 		</div>
 	</div>
-	<ul class="nav nav-pills" id="eventTab" role="tablist">
-		{% for category, events in event_dict.items %}
-		<li class="nav-item" role="presentation">
-			<button class="nav-link {% if forloop.first %}active{% endif %}" id="{{category}}-tab" data-bs-toggle="tab"
-				data-bs-target="#{{category}}" type="button" role="tab" aria-controls="{{category}}"
-				aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">{{category}}</button>
-		</li>
-		{% endfor %}
-	</ul>
-
-	<!-- Tab panes -->
-	<div class="tab-content">
-		{% for category, events in event_dict.items %}
-		<div class="tab-pane {% if forloop.first %}active{% endif %}" id="{{category}}" role="tabpanel"
-			aria-labelledby="{{category}}-tab">
-			{% for event in events %}
-			{% include 'components/event_dash_card.html' with event=event %}
-			{% empty %}
-			<div class="no-events text-dark">No events in this category.</div>
-			{% endfor %}
-		</div>
-		{% endfor %}
-	</div>
-
-
-	{% if events %}
 	<div class="page-content container note-has-grid my-3">
-		{% regroup events by category as event_list %}
-
-
-		<!-- Nav tabs -->
-		<ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+		<ul class="nav nav-pills" id="eventTab" role="tablist">
+			{% for category, events in event_dict.items %}
+			{% with category_id=category|slugify %}
 			<li class="nav-item" role="presentation">
-				<button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button"
-					role="tab" aria-controls="home" aria-selected="true">All</button>
+				<button class="nav-link {% if forloop.first %}active{% endif %}" id="{{category_id}}-tab"
+					data-bs-toggle="tab" data-bs-target="#{{category_id}}" type="button" role="tab"
+					aria-controls="{{category_id}}"
+					aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">{{category}}</button>
 			</li>
-
-			{% for category in event_list %}
-			<li class="nav-item" role="presentation">
-				<button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#{{category.grouper}}"
-					type="button" role="tab" aria-controls="{{category.grouper}}"
-					aria-selected="false">{{category.grouper}}</button>
-			</li>
+			{% endwith %}
 			{% endfor %}
-
 		</ul>
-
+	
 		<!-- Tab panes -->
-		<div class="tab-content bg-transparent">
-			<div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
+		<div class="tab-content">
+			{% for category, events in event_dict.items %}
+			{% with category_id=category|slugify %}
+			<div class="tab-pane {% if forloop.first %}active{% endif %}" id="{{category_id}}" role="tabpanel"
+				aria-labelledby="{{category_id}}-tab">
 				<div id="note-full-container" class="note-has-grid row justify-content-center">
-
-					{% for event1 in events %}
-					{% include 'components/event_dash_card.html' with event=event1 %}
+	
+					{% for event in events %}
+					{% include 'components/event_dash_card.html' with event=event %}
+	
+					{% empty %}
+					<div class="p-5 mb-4 rounded-3 text-dark">
+						<div class="container-fluid py-5">
+							<h1 class="display-5 fw-bold">No Events created yet</h1>
+						</div>
+					</div>
 					{% endfor %}
-
+	
 				</div>
 			</div>
-			{% for category in event_list %}
-
-			{% if category.list %}
-			<div class="tab-pane" id="{{category.grouper}}" role="tabpanel" aria-labelledby="{{category.grouper}}-tab">
-				<div id="note-full-container" class="note-has-grid row justify-content-center">
-
-					{% for event2 in category.list %}
-					{% include 'components/event_dash_card.html' with event=event2 %}
-					{% endfor %}
-
-				</div>
-			</div>
-			{% else %}
-			<div class="mt-2 mb-4 bg-light rounded-3">
-				<div class="container-fluid py-5">
-					<h1 class="display-5 fw-bold">No event Found</h1>
-					<p class="col-md-8 fs-4">Using a series of utilities, you can create this jumbotron, just like the
-						one in previous versions of Bootstrap.</p>
-					<button class="btn btn-primary btn-lg" type="button">Example button</button>
-				</div>
-			</div>
-
-			{% endif %}
-
-
+			{% endwith %}
 			{% endfor %}
-
-		</div>
-
-
-	</div>
-	{% else %}
-	<div class="p-5 mb-4 rounded-3 text-dark">
-		<div class="container-fluid py-5">
-			<h1 class="display-5 fw-bold">No Events created yet</h1>
+	
 		</div>
 	</div>
-	{% endif %}
+
 
 	{% if attendance %}
 	<div class="text-white bg-primary border rounded border-0 border-primary d-flex flex-column justify-content-between flex-lg-row p-4 p-md-5"

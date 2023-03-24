@@ -55,7 +55,8 @@ def dashboard(request, pk):
         events = Event.objects.filter(
             host=my_user)
         events = events.filter(category=category)
-        event_dict[category.name] = events
+        if events:
+            event_dict[category.name] = events
 
     context['event_dict'] = event_dict
 
