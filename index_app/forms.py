@@ -22,7 +22,7 @@ class SpeakerForm(forms.ModelForm):
         """Meta definition for Speakerform."""
 
         model = Speaker
-        exclude = ('event',)
+        fields = ('__all__')
         
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control form-select bg-light bg-gradient'}),

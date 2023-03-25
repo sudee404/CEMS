@@ -1,3 +1,4 @@
+from django.shortcuts import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.shortcuts import render, redirect
@@ -197,8 +198,8 @@ class EventDeleteView(generic.DeleteView):
 
 
 @login_required(login_url='signin')
-def get_ticket(request, pk,pke):
-    guest = Guest.objects.get(user_id=pk,event__id=pke)
+def get_ticket(request, pk, pke):
+    guest = Guest.objects.get(user_id=pk, event__id=pke)
     # Create a file-like buffer to receive PDF data.
     buffer = io.BytesIO()
 
@@ -371,9 +372,16 @@ def post_event(request, pk):
     event.save()
     return redirect('event-detail', pk=pk,)
 
+
 @login_required(login_url='login')
-def add_speaker(request,pk):
+def add_speaker(request, pk):
+    event = Event.objects.get(id=pk)
+
     if request.method == 'POST':
-        form = SpeakerForm(request.POST,request.FILES)
+        form = SpeakerForm(request.POST)
         if form.is_valid():
-            event = Event.objects.get(id=pk)
+            form.instance.event = event
+            form.save()
+            return HttpResponseRedirect(event.get_absolute_url())
+        else:
+            return HttpResponseRedirect(event.get_absolute_url(),{'errors':form.errors})
