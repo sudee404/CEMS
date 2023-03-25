@@ -1,4 +1,4 @@
-from django.db.models.signals import post_delete,pre_save
+from django.db.models.signals import post_delete
 from django.dispatch import receiver
 from django.conf import settings
 from .models import Event,Category,Guest, Speaker, Venue
@@ -7,19 +7,10 @@ import os
 DEFAULT_IMAGE_PATH = os.path.join(settings.MEDIA_ROOT, "default.png")
 
 # events
-
-
 @receiver(post_delete, sender=Event)
-@receiver(pre_save, sender=Event)
-def event_poster_handler(sender, instance, **kwargs):
-    if instance.pk:
-        # instance exists, check if poster has changed
-        old_event = Event.objects.get(pk=instance.pk)
-        if old_event.poster != instance.poster and old_event.poster.path != DEFAULT_IMAGE_PATH:
-            old_event.poster.delete(save=False)
-    elif instance.poster and instance.poster.path != DEFAULT_IMAGE_PATH:
+def event_delete_handler(sender, instance, **kwargs):
+    if instance.poster and instance.poster.path != DEFAULT_IMAGE_PATH:
         instance.poster.delete(save=False)
-
         
 # venue
 @receiver(post_delete, sender=Venue)
