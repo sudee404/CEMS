@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.db import IntegrityError
 from reportlab.lib.units import inch
 from reportlab.lib.enums import TA_CENTER, TA_LEFT, TA_RIGHT
 from reportlab.lib.pagesizes import letter, landscape
@@ -49,7 +50,7 @@ def dashboard(request, pk):
     event_dict = {}
 
     if mode and mode == 'guest':
-        events = Event.objects.filter(
+        events = Event.objects.filter(draft=False,
             guest__user=my_user)
 
         for category in categories:
@@ -73,9 +74,6 @@ def dashboard(request, pk):
 
     return render(request, 'dashboard_host.html', context)
 
-
-def gallery(request):
-    return render(request, 'gallery.html', {})
 
 
 def contact(request):
@@ -280,10 +278,36 @@ class CategoryCreateView(generic.CreateView):
 ########### User related views #################
 #################################################
 
-@login_required(login_url='login')
+
+@login_required
 def profile(request):
     context = {}
+    if request.method == 'POST':
+        query = request.POST.get('query')
+        try:
+            user = User.objects.get(id=request.user.id)
+            if query == 'image':
+                # Update user's profile image
+                image_file = request.FILES.get('profile')
+                user.avatar = image_file
+                user.save()
+                return redirect('user-profile')
+            elif query == 'details':
+                # Update user's other details
+                username = request.POST.get('username')
+                first_name = request.POST.get('first_name')
+                last_name = request.POST.get('last_name')
+                user.username = username
+                user.first_name = first_name
+                user.last_name = last_name
+                user.save()
+                return redirect('user-profile')
+        except Exception as e:
+            print(e)
+            context['error'] = e
+    
     return render(request, 'index_app/profile.html', context)
+
 
 #################################################
 ########### Guest related views #################

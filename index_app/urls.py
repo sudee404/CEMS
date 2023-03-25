@@ -5,7 +5,6 @@ urlpatterns = [
     # General routes
 	path('',views.index,name='index'),
     path('dashboard/<int:pk>/', views.dashboard, name='dashboard'),
-    path('gallery/', views.gallery, name='gallery'),
     path('contact/', views.contact, name='contact'),
     # Event urls
     path("events/", views.EventListView.as_view(), name="event-list"),

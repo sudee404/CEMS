@@ -165,7 +165,7 @@ class Speaker(models.Model):
 
     name = models.CharField(max_length=150)
     role = models.CharField(max_length=150)
-    avatar = models.ImageField( upload_to='avatars')
+    avatar = models.ImageField(upload_to='avatars',default='default.png')
     event = models.ForeignKey("Event", on_delete=models.CASCADE)
 
     class Meta:

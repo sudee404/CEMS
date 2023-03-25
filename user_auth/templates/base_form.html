@@ -30,7 +30,7 @@
 	<main>
 		{% if user.is_authenticated %}
 		<div id="login-check" data-authenticated='true'></div>
-		<div id="home-url" data-url="{% url 'index' %}"></div>
+		<div id="home-url" data-url="{% url 'user-profile' %}"></div>
 
 		{% endif %}
 		<div class="section">
