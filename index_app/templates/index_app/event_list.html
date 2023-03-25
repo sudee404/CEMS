@@ -36,7 +36,7 @@
                 <p class="text-muted">Find an event suitable for you below, you can filter it as you please&nbsp;</p>
             </div>
         </div>
-        <div class="d-lg-flex justify-content-lg-center align-items-lg-center"><a class="btn btn-success btn-sm"
+        <div class="d-flex justify-content-center align-items-lg-center"><a class="btn btn-success btn-sm"
                 role="button" data-bss-hover-animate="rubberBand" href="{% url 'add-event' %}" target="_blank">Host an
                 Event</a></div>
     </div>
@@ -49,7 +49,7 @@
                 <div id="carousel" class="owl-carousel">
 
                     {% for category in categories %}
-                    <div class="item height-350" style="height: auto;padding: 5px;">
+                    <div class="item height-350 mx-auto" style="height: auto;padding: 5px;">
                         <div class="text-start p-4 text-center shadow-lg m-5 rounded-5" id="cardEntrada-2"
                             style="background: linear-gradient(171deg, var(--bs-pink) 0%, var(--bs-indigo) 100%), var(--bs-purple);width: 280px;">
                             <h3 class="text-white text-center pt-2 fw-bold">{{category}}</h3>
