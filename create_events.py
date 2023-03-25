@@ -1,5 +1,4 @@
 from datetime import datetime, timedelta
-from datetime import datetime
 import os
 # Configure settings for project
 # Need to run this before calling models from application!
@@ -18,6 +17,8 @@ import random
 fakegen = Faker()
 
 
+import random
+
 def generate_date():
     current_date = datetime.now()
     year_from_now = current_date + timedelta(days=365)
@@ -26,19 +27,14 @@ def generate_date():
         random_date = year_from_now
     return random_date
 
+
 def get_user():
     user = MyUser.objects.all()
     return random.choice(user)
 
-categories = ['Science','Technology','Media','Mathematics','Social']
 
 def generate_category():
-    cat = Category.objects.all()
-    cat_obj = Category.objects.get_or_create(
-        name=random.choice(categories),
-        description=fakegen.text()
-    )
-    return random.choice(cat)
+    return random.choice(Category.objects.all())
 
 
 def create_event(category, host):
@@ -47,7 +43,7 @@ def create_event(category, host):
     start_date = fakegen.date_time_this_year(before_now=True, after_now=False)
     end_date = fakegen.date_time_between_dates(
         start_date, start_date + timedelta(days=365))
-    guests = fakegen.random_int(min=1, max=1000)
+    guests = fakegen.random_int(min=1, max=100)
     venue = random.choice(Venue.objects.all())
     
     obj = Event.objects.get_or_create(

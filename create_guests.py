@@ -30,8 +30,8 @@ def populate(N):
 
     for i in range(N):
         # Create N guests for random events
-        user = get_user(),
-        event = get_event(),
+        user = get_user()
+        event = get_event()
         if user is not event.host:
                     guest_obj = Guest.objects.get_or_create(
             user=user,

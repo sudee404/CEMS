@@ -196,8 +196,8 @@ class EventDeleteView(generic.DeleteView):
 
 
 @login_required(login_url='signin')
-def get_ticket(request, pk):
-    guest = Guest.objects.get(user_id=pk)
+def get_ticket(request, pk,pke):
+    guest = Guest.objects.get(user_id=pk,event__id=pke)
     # Create a file-like buffer to receive PDF data.
     buffer = io.BytesIO()
 
@@ -221,7 +221,8 @@ def get_ticket(request, pk):
     # Add the ticket information
     p.setFont("Helvetica", 18)
     p.setFillColorRGB(0.4, 0.4, 0.4)
-    p.drawString(40, 500, f'Event : {guest.event}')
+    p.drawString(
+        40, 500, f'{guest.event.title[:30] if len(guest.event.title) > 30 else guest.event}...')
 
     p.setFont("Helvetica", 18)
     p.setFillColorRGB(10.6, 0.6, 0.6)

@@ -81,6 +81,12 @@
 
                 {% for event in page_obj %}
                 {% include "components/event_card.html" with event=event %}
+                {% empty %}
+                <div class="p-5 mb-4 rounded-3">
+                    <div class="container-fluid py-5">
+                      <h1 class="display-5 fw-bold">No Events in the system</h1>
+                    </div>
+                  </div>
                 {% endfor %}
 
             </div>

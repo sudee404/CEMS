@@ -133,3 +133,5 @@ create_users.py
 create_venues.py
 
 /media
+create_guests.py
+create_categories.py

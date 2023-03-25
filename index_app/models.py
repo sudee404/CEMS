@@ -39,6 +39,9 @@ class Event(models.Model):
 
     def get_absolute_url(self):
         return reverse("event-detail", kwargs={"pk": self.pk})
+    
+    def get_tickets_left(self):
+        return self.guests - self.guest_set.count()
 
     def __str__(self):
         """Unicode representation of Event."""
