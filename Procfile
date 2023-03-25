@@ -1,1 +1,1 @@
-web: gunicorn project_qr.wsgi
+web: gunicorn core_settings.wsgi
