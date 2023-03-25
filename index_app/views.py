@@ -1,14 +1,12 @@
-from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph
+from django.conf import settings
 from reportlab.lib.units import inch
-from reportlab.lib.styles import ParagraphStyle
+from reportlab.lib.enums import TA_CENTER, TA_LEFT, TA_RIGHT
 from reportlab.lib.pagesizes import letter, landscape
+from reportlab.pdfbase.pdfdoc import PDFInfo
 from io import BytesIO
-from reportlab.lib.pagesizes import letter
-from django.http import HttpResponse
-from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer, Image, PageBreak
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib import colors
-from django.http import JsonResponse
 from django.shortcuts import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.contrib import messages
@@ -16,7 +14,7 @@ from django.shortcuts import render, redirect
 from django.views import generic
 from django.contrib.auth import get_user_model
 from django.db.models import Q
-from django.http import FileResponse, JsonResponse
+from django.http import FileResponse, JsonResponse, HttpResponse
 from index_app.forms import SpeakerForm, VenueForm
 from .models import Event, Category, Guest, Venue, Location
 from django.contrib.auth.decorators import login_required
@@ -27,6 +25,7 @@ import os
 
 User = get_user_model()
 script_dir = os.path.dirname(os.path.abspath(__file__))
+media_root = settings.MEDIA_ROOT
 
 
 #################################################
@@ -117,7 +116,7 @@ class EventCreateView(generic.CreateView):
 
 
 class EventListView(generic.ListView):
-    """Returns a list of available events 
+    """Returns a list of available events
     """
 
     model = Event
@@ -404,8 +403,8 @@ def add_speaker(request, pk):
 
 
 def generate_report(request, pk):
-    event = Event.objects.get(id=pk)
 
+    event = Event.objects.get(id=pk)
     return generate_report_file(event)
 
 
@@ -415,44 +414,128 @@ def generate_report_file(event):
 
     # Set up the document
     doc = SimpleDocTemplate(buffer, pagesize=landscape(letter))
-    styles = getSampleStyleSheet()
-    style = ParagraphStyle('Custom')
-    style.fontName = 'Helvetica-Bold'
-    style.fontSize = 20
-    style.leading = 5
+    info = PDFInfo()
+    info.title = 'My Report'
+    doc._savedInfo = info
 
-    # Create the table data and style
-    table_data = [['Username', 'Email', 'Attended']]
-    for guest in event.guest_set.all():
-        user = guest.user
-        table_data.append([user.username, user.email, guest.scanned])
+    # Define a centered heading style
+    centered_heading1 = ParagraphStyle('Centered', alignment=TA_CENTER)
+    centered_heading1.fontName = 'Helvetica-Bold'
+    centered_heading1.fontSize = 20
+    centered_heading1.leading = 20
 
+    # Define a centered heading style
+    heading2 = ParagraphStyle('Centered', alignment=TA_LEFT)
+    heading2.fontName = 'Helvetica-Bold'
+    heading2.fontSize = 16
+    heading2.leading = 20
+
+    # Define a event description style
+    desc_style = ParagraphStyle('Description', alignment=TA_LEFT)
+    desc_style.fontName = 'Helvetica'
+    desc_style.fontSize = 14
+    desc_style.leading = 20
+
+    # Create the table style
     table_style = TableStyle([
         ('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey),
         ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
-        ('ALIGN', (0, 0), (-1, 0), 'CENTER'),
+        ('ALIGN', (0, 0), (-1, 0), 'LEFT'),
         ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
         ('FONTSIZE', (0, 0), (-1, 0), 14),
         ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
         ('BACKGROUND', (0, 1), (-1, -1), colors.white),
         ('TEXTCOLOR', (0, 1), (-1, -1), colors.black),
-        ('ALIGN', (0, 1), (-1, -1), 'CENTER'),
+        ('ALIGN', (0, 1), (-1, -1), 'LEFT'),
         ('FONTNAME', (0, 1), (-1, -1), 'Helvetica'),
         ('FONTSIZE', (0, 1), (-1, -1), 12),
         ('BOTTOMPADDING', (0, 1), (-1, -1), 8),
         ('GRID', (0, 0), (-1, -1), 1, colors.black),
     ])
 
-    # Add the table to the document and save it
-    table = Table(table_data, colWidths=[2*inch, 3*inch, 1.5*inch, 1.5*inch])
-    table.setStyle(table_style)
+    # Create table data
+    # Speakers
+    speaker_data = [['Name', 'Role']]
+    for speaker in event.speaker_set.all():
+        speaker_data.append([speaker.name, speaker.role])
+
+    # Guests
+    guest_data = [['Username', 'Email', 'Attended']]
+    for guest in event.guest_set.all():
+        user = guest.user
+        guest_data.append([user.username, user.email, guest.scanned])
+
+    # Add the tables to the document and save it
+    # Speakers
+    speaker_table = Table(speaker_data, colWidths=[
+                          2*inch, 3*inch, 1.5*inch, 1.5*inch])
+    speaker_table.setStyle(table_style)
+
+    # Guests
+    guest_table = Table(guest_data, colWidths=[
+                        2*inch, 3*inch, 1.5*inch, 1.5*inch])
+    guest_table.setStyle(table_style)
+
+    # Load logo and event poster
+    logo_reader = os.path.join(media_root, 'default.png')
+    poster_reader = event.poster
+
+    # Add elements to the page
     elements = []
-    elements.append(Paragraph(event.title, style))
+
+    # Title
+    elements.append(Paragraph("Event Report", centered_heading1))
     elements.append(Spacer(1, 0.5*inch))
-    elements.append(table)
+
+    elements.append(Paragraph(f'Title : {event.title}', heading2))
+    elements.append(Spacer(1, 0.3*inch))
+    elements.append(Paragraph(f"Host : {event.host}", heading2))
+    elements.append(Spacer(1, 0.3*inch))
+    elements.append(Paragraph(f"Start Date : {event.start_date}", heading2))
+    elements.append(Spacer(1, 0.3*inch))
+    elements.append(Paragraph(f"End Date : {event.end_date}", heading2))
     elements.append(Spacer(1, 0.5*inch))
+
+    # Add event poster
+    # Add a page break to move to the second page
+    elements.append(PageBreak())
+    elements.append(Paragraph('Event poster', centered_heading1))
+    elements.append(Spacer(1, 0.5*inch))
+    elements.append(Image(poster_reader, width=500, height=300))
+    elements.append(PageBreak())
+
+    # Description
+    if event.description:
+        elements.append(Paragraph("Event Description", heading2))
+        elements.append(Spacer(1, 0.3*inch))
+        elements.append(Paragraph(event.description, desc_style))
+        elements.append(Spacer(1, 0.5*inch))
+
+    if event.speaker_set.all:
+        # Speakers Table
+        elements.append(Paragraph("Event Speakers", heading2))
+        elements.append(Paragraph(
+            'Event was graced with the presence of the following speakers', desc_style))
+        elements.append(Spacer(1, 0.3*inch))
+        elements.append(speaker_table)
+        elements.append(Spacer(1, 0.5*inch))
+
+    if event.guest_set.all:
+        # Guest Table
+        elements.append(Paragraph("Event Guests", heading2))
+        elements.append(Paragraph(
+            'Event was attended by the following', desc_style))
+        elements.append(Spacer(1, 0.3*inch))
+        elements.append(guest_table)
+        elements.append(Spacer(1, 0.5*inch))
+
+    # Build document
     doc.build(elements)
 
     # Seek to the beginning and return the buffer as the PDF file
     buffer.seek(0)
-    return HttpResponse(buffer.read(), content_type='application/pdf')
+
+    response = HttpResponse(buffer.read(), content_type='application/pdf')
+    response['Content-Disposition'] = 'inline; filename="event_report.pdf"'
+
+    return response
