@@ -65,31 +65,31 @@
     </div>
     <div class="col-sm-12 col-lg-6 ">
         <div class="card m-3 shadow" id="findaevent">
-            <h5 class="card-header">Scan Ticket</h5>
+            <h5 class="card-header  fw-bold">Scan Ticket</h5>
             <video id="preview" width="100%"></video>
         </div>
     </div>
     <div class="col-sm-12 col-lg-3">
     
         <div class="card m-3 shadow">
-            <h5 class="card-header">Guest List</h5>
+            <h5 class="card-header fw-bold">Guest List</h5>
             <div class="card-body">
-                {% if event.attendee_set.all %}
-                <table class="table table-striped table-inverse table-responsive">
+                {% if event.guest_set.all %}
+                <table class="table table-inverse table-responsive text-dark">
                     <thead class="thead-inverse">
                         <tr>
-                            <th>Username</th>
+                            <th>Guest</th>
                             <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
     
     
-                        {% for attendee in event.attendee_set.all %}
+                        {% for guest in event.guest_set.all %}
                         <tr>
-                            <td scope="row">{{attendee}}</td>
+                            <td scope="row">{{guest}}</td>
     
-                            {% if attendee.scanned %}
+                            {% if guest.scanned %}
                             <td><span class="text-success">In</span></td>
                             {% else %}
                             <td><span class="text-danger">Out</span></td>

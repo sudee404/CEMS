@@ -5,6 +5,26 @@
 <link rel="stylesheet" href="{% static 'assets/css/Notes-Dashboard.css' %}">
 <link rel="stylesheet" href="{% static 'assets/css/OwlCarousel-2.css' %}">
 {% endblock styles %}
+{% block nav %}
+<div class="collapse navbar-collapse" id="navcol-1" data-bs-spy="scroll" data-bs-smooth-scroll="true">
+	<ul class="navbar-nav mx-auto">
+		<li class="nav-item"><a class="nav-link" data-bss-hover-animate="pulse" href="{% url 'index' %}">Home</a>
+		</li>
+		<li class="nav-item"><a class="nav-link active" data-bss-hover-animate="pulse"
+				href="{% url 'event-list' %}">Events</a>
+		</li>
+		<li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
+		{% if user.is_authenticated %}
+		<li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
+		{% endif %}
+	</ul>
+	{% if user.is_authenticated %}
+	<a class="btn btn-success shadow" role="button" href="{{user.get_to_dashboard}}">Dashboard</a>
+	{% else %}
+	<a class="btn btn-primary shadow" role="button" href="{% url 'login' %}">Sign In</a>
+	{% endif %}
+</div>
+{% endblock nav %}
 {% block main %}
 <section class="py-5">
 	<div class="row mb-5" style="width: auto;margin: 0;">

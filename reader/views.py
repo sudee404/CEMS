@@ -18,7 +18,7 @@ def validate_guest(request, pk):
     exists = Guest.objects.filter(ticket__iexact=code, event_id=pk).exists()
     scanned = False
     if exists:
-        guest = Guest.objects.get(ticket__iexact=code, Event_id=pk)
+        guest = Guest.objects.get(ticket__iexact=code, event_id=pk)
         if guest.scanned:
             scanned = True
         else:

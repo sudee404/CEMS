@@ -1,4 +1,24 @@
-{% extends "base_generic.html" %} {% load static %} {% block main %}
+{% extends "base_generic.html" %} {% load static %}
+{% block nav %}
+<div class="collapse navbar-collapse" id="navcol-1" data-bs-spy="scroll" data-bs-smooth-scroll="true">
+	<ul class="navbar-nav mx-auto">
+		<li class="nav-item"><a class="nav-link" data-bss-hover-animate="pulse" href="{% url 'index' %}">Home</a>
+		</li>
+		<li class="nav-item"><a class="nav-link" data-bss-hover-animate="pulse" href="{% url 'event-list' %}">Events</a>
+		</li>
+		<li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
+		{% if user.is_authenticated %}
+		<li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
+		{% endif %}
+	</ul>
+	{% if user.is_authenticated %}
+	<a class="btn btn-success shadow active" role="button" href="{{user.get_to_dashboard}}">Dashboard</a>
+	{% else %}
+	<a class="btn btn-primary shadow" role="button" href="{% url 'login' %}">Sign In</a>
+	{% endif %}
+</div>
+{% endblock nav %}
+{% block main %}
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
 <section class="text-light bg-light py-5">
 	<div class="container-fluid">
@@ -7,136 +27,7 @@
 			<a type="button" class="btn btn-primary" href="?mode=guest">Host Mode</a>
 		</div>
 	</div>
-	<div class="row" style="margin: 10px">
-		<div class="col-md-6 col-xl-3 mb-4">
-			<div class="card border rounded shadow border-start-primary py-2" style="margin: 10px">
-				<div class="card-body" style="padding-bottom: 0px; padding-top: 0px">
-					<div class="row align-items-center no-gutters">
-						<div class="col me-2">
-							<div class="text-uppercase text-primary fw-bold text-xs mb-1">
-								<span style="
-										font-size: 12px;
-										color: var(--bs-primary);
-									">Attendance</span>
-							</div>
-							<div class="text-dark fw-bold h5 mb-0" style="margin-top: -6px">
-								<span style="font-size: 14px"><i class="fas fa-caret-up" style="
-											margin-right: 6px;
-											color: var(--bs-success);
-											font-size: 16px;
-										"></i></span><span style="font-size: 14px">221 ème</span><span style="
-										font-size: 10px;
-										margin-left: 12px;
-										color: var(--bs-gray-600);
-									">1325 points</span>
-							</div>
-						</div>
-						<div class="col-auto">
-							<i class="fas fa-trophy fa-2x" data-bs-toggle="tooltip" data-bss-tooltip="" style="
-									color: var(--bs-yellow);
-									font-size: 28px;
-									margin-top: 4px;
-								" title="Votre position dans le classement général est définie en fonction de vos statistiques de pronostiqueur"></i>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col-md-6 col-xl-3 mb-4">
-			<div class="card border rounded shadow border-start-primary py-2" style="margin: 10px">
-				<div class="card-body" style="padding-bottom: 0px; padding-top: 0px">
-					<div class="row align-items-center no-gutters">
-						<div class="col me-2">
-							<div class="text-uppercase text-primary fw-bold text-xs mb-1">
-								<span style="
-										font-size: 12px;
-										color: var(--bs-primary);
-									">Engagement</span>
-							</div>
-							<div class="text-dark fw-bold h5 mb-0" style="margin-top: -6px">
-								<span style="font-size: 14px"><i class="fas fa-caret-up" style="
-											margin-right: 6px;
-											color: var(--bs-success);
-											font-size: 16px;
-										"></i></span><span style="font-size: 14px">64 %</span><span style="
-										font-size: 10px;
-										margin-left: 12px;
-										color: var(--bs-gray-600);
-									">12/21 validés</span>
-							</div>
-						</div>
-						<div class="col-auto">
-							<i class="fas fa-check fa-2x" data-bs-toggle="tooltip" data-bss-tooltip="" style="
-									color: var(--bs-primary);
-									font-size: 28px;
-									margin-top: 4px;
-								" title="Ceci est votre taux de réussite moyen calculé sur la base des 30 derniers jours"></i>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col-md-6 col-xl-3 mb-4">
-			<div class="card border rounded shadow border-start-primary py-2" style="margin: 10px">
-				<div class="card-body" style="padding-bottom: 0px; padding-top: 0px">
-					<div class="row align-items-center no-gutters">
-						<div class="col me-2">
-							<div class="text-uppercase text-primary fw-bold text-xs mb-1">
-								<span style="
-										font-size: 12px;
-										color: var(--bs-primary);
-									">Skills</span>
-							</div>
-							<div class="text-dark fw-bold h5 mb-0" style="margin-top: -6px">
-								<span style="font-size: 14px">12 000</span><a href="#" style="
-										font-size: 10px;
-										margin-left: 12px;
-										text-decoration: none;
-									"><i class="fas fa-arrow-right"></i>&nbsp;Faire un dépôt</a>
-							</div>
-						</div>
-						<div class="col-auto">
-							<i class="fas fa-money-bill fa-2x" data-bs-toggle="tooltip" data-bss-tooltip="" style="
-									color: var(--bs-green);
-									font-size: 28px;
-									margin-top: 4px;
-								" title="Ceci est votre solde de CV que vous pouvez à tout moment déposer sur votre compte et utiliser pour acheter les pronostics de votre choix"></i>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col-md-6 col-xl-3 mb-4">
-			<div class="card border rounded shadow border-start-primary py-2" style="margin: 10px">
-				<div class="card-body" style="padding-bottom: 0px; padding-top: 0px">
-					<div class="row align-items-center no-gutters">
-						<div class="col me-2">
-							<div class="text-uppercase text-primary fw-bold text-xs mb-1">
-								<span style="
-										font-size: 12px;
-										color: var(--bs-primary);
-									">Progress</span>
-							</div>
-							<div class="text-dark fw-bold h5 mb-0" style="margin-top: -6px">
-								<span style="font-size: 14px">32 600</span><a href="#" style="
-										font-size: 10px;
-										margin-left: 12px;
-										text-decoration: none;
-									"><i class="fas fa-arrow-right"></i>&nbsp;Faire un retrait</a>
-							</div>
-						</div>
-						<div class="col-auto">
-							<i class="fas fa-money-bill fa-2x" data-bs-toggle="tooltip" data-bss-tooltip="" style="
-									color: var(--bs-danger);
-									font-size: 28px;
-									margin-top: 4px;
-								" title="Ceci est votre solde de CR que vous pouvez retirer à tout moment de votre compte lorsque vous atteignez un plafond de retrait minimum de 20 €"></i>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+
 
 	<div class="text-white bg-primary border rounded border-0 border-primary d-flex flex-column justify-content-between flex-lg-row p-4 p-md-5"
 		style="margin: 0 10px 10px">
@@ -145,7 +36,42 @@
 			<p class="mb-0"></p>
 		</div>
 		<div class="my-2">
-			<a class="btn btn-light fs-5 py-2 px-4" role="button" href="#">Generate Report</a>
+			<a class="btn btn-light fs-5 py-2 px-4" role="button" href="#" data-bs-toggle="modal"
+				data-bs-target="#reportModal">Generate Report</a>
+
+			<!-- Modal -->
+			<div class="modal fade modal-centered" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel"
+				aria-hidden="true">
+				<div class="modal-dialog        ">
+					<div class="modal-content text-dark">
+						<div class="modal-header">
+							<h5 class="modal-title fw-bold text-center" id="reportModalLabel">Generate Report</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<div class="lead text-center text-success">Pick event to generate report for below</div>
+							<ul class="list-group list-group-flush my-2 rounded">
+
+								{% for event in user.event_set.all%}
+								<li class="list-group-item row justify-content-between">
+									<span class="col">{{event}}</span>
+									<span class="col">
+										<a href="{% url 'report' event.pk %}">
+											<i class="point fa fa-download ml-1 font-10"></i>
+										</a>
+									</span>
+								</li>
+
+								{% empty %}
+								<li class="list-group-item">No events</li>
+								{% endfor %}
+
+							</ul>
+						</div>
+
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 	<div class="page-content container note-has-grid my-3">
@@ -161,7 +87,7 @@
 			{% endwith %}
 			{% endfor %}
 		</ul>
-	
+
 		<!-- Tab panes -->
 		<div class="tab-content">
 			{% for category, events in event_dict.items %}
@@ -169,17 +95,17 @@
 			<div class="tab-pane {% if forloop.first %}active{% endif %}" id="{{category_id}}" role="tabpanel"
 				aria-labelledby="{{category_id}}-tab">
 				<div id="note-full-container" class="note-has-grid row justify-content-center">
-	
+
 					{% for event in events %}
 					{% include 'components/event_dash_card.html' with event=event %}
 
 					{% endfor %}
-	
+
 				</div>
 			</div>
 			{% endwith %}
 			{% endfor %}
-	
+
 		</div>
 	</div>
 
