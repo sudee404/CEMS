@@ -414,19 +414,34 @@ def generate_report_file(event):
 
     # Set up the document
     doc = SimpleDocTemplate(buffer, pagesize=landscape(letter))
-    info = PDFInfo()
-    info.title = 'My Report'
-    doc._savedInfo = info
+    doc.title = 'Event Report'
+
 
     # Define a centered heading style
     centered_heading1 = ParagraphStyle('Centered', alignment=TA_CENTER)
     centered_heading1.fontName = 'Helvetica-Bold'
     centered_heading1.fontSize = 20
     centered_heading1.leading = 20
+    centered_heading1.underline = 1
 
-    # Define a centered heading style
-    heading2 = ParagraphStyle('Centered', alignment=TA_LEFT)
+    # Define a centered heading2 style
+    centered_heading2 = ParagraphStyle('Centered H2', alignment=TA_CENTER)
+    centered_heading2.fontName = 'Helvetica-Bold'
+    centered_heading2.textColor = 'blue'
+    centered_heading2.fontSize = 16
+    centered_heading2.leading = 20
+    
+    # Define a centered heading3 style
+    centered_heading3 = ParagraphStyle('H#', alignment=TA_LEFT)
+    centered_heading3.fontName = 'Helvetica-Bold'
+    centered_heading3.textColor = 'black'
+    centered_heading3.fontSize = 16
+    centered_heading3.leading = 20
+
+    # Define a  heading2 style
+    heading2 = ParagraphStyle('H2', alignment=TA_LEFT)
     heading2.fontName = 'Helvetica-Bold'
+    heading2.textColor = 'red'
     heading2.fontSize = 16
     heading2.leading = 20
 
@@ -487,22 +502,21 @@ def generate_report_file(event):
     elements.append(Paragraph("Event Report", centered_heading1))
     elements.append(Spacer(1, 0.5*inch))
 
-    elements.append(Paragraph(f'Title : {event.title}', heading2))
+    elements.append(Paragraph(f'Title : {event.title}', centered_heading2))
     elements.append(Spacer(1, 0.3*inch))
-    elements.append(Paragraph(f"Host : {event.host}", heading2))
+    elements.append(Paragraph(f'Venue : {event.venue}', centered_heading2))
     elements.append(Spacer(1, 0.3*inch))
-    elements.append(Paragraph(f"Start Date : {event.start_date}", heading2))
+    elements.append(
+        Paragraph(f"Start Date : {event.start_date}", centered_heading2))
     elements.append(Spacer(1, 0.3*inch))
-    elements.append(Paragraph(f"End Date : {event.end_date}", heading2))
+    elements.append(
+        Paragraph(f"End Date : {event.end_date}", centered_heading2))
     elements.append(Spacer(1, 0.5*inch))
-
-    # Add event poster
-    # Add a page break to move to the second page
-    elements.append(PageBreak())
-    elements.append(Paragraph('Event poster', centered_heading1))
-    elements.append(Spacer(1, 0.5*inch))
-    elements.append(Image(poster_reader, width=500, height=300))
-    elements.append(PageBreak())
+    elements.append(Paragraph(f"Host Name: {event.host.get_full_name()}", centered_heading3))
+    elements.append(Spacer(1, 0.3*inch))
+    elements.append(
+        Paragraph(f"Host Email: {event.host.email}", centered_heading3))
+    elements.append(Spacer(1, 0.3*inch))
 
     # Description
     if event.description:
@@ -511,8 +525,16 @@ def generate_report_file(event):
         elements.append(Paragraph(event.description, desc_style))
         elements.append(Spacer(1, 0.5*inch))
 
+    # Add event poster
+    # Add a page break to move to the second page
+    elements.append(PageBreak())
+    elements.append(Paragraph('Event poster', centered_heading1))
+    elements.append(Spacer(1, 0.5*inch))
+    elements.append(Image(poster_reader, width=500, height=300))
+
     if event.speaker_set.all:
         # Speakers Table
+        elements.append(PageBreak())
         elements.append(Paragraph("Event Speakers", heading2))
         elements.append(Paragraph(
             'Event was graced with the presence of the following speakers', desc_style))
@@ -520,14 +542,18 @@ def generate_report_file(event):
         elements.append(speaker_table)
         elements.append(Spacer(1, 0.5*inch))
 
+
     if event.guest_set.all:
         # Guest Table
+        elements.append(PageBreak())
         elements.append(Paragraph("Event Guests", heading2))
+        elements.append(Spacer(1, 0.3*inch))
         elements.append(Paragraph(
             'Event was attended by the following', desc_style))
         elements.append(Spacer(1, 0.3*inch))
         elements.append(guest_table)
         elements.append(Spacer(1, 0.5*inch))
+
 
     # Build document
     doc.build(elements)
