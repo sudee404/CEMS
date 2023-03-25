@@ -1,3 +1,13 @@
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph
+from reportlab.lib.units import inch
+from reportlab.lib.styles import ParagraphStyle
+from reportlab.lib.pagesizes import letter, landscape
+from io import BytesIO
+from reportlab.lib.pagesizes import letter
+from django.http import HttpResponse
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.lib import colors
 from django.http import JsonResponse
 from django.shortcuts import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
@@ -379,7 +389,7 @@ def add_speaker(request, pk):
     event = Event.objects.get(id=pk)
 
     if request.method == 'POST':
-        form = SpeakerForm(request.POST,request.FILES)
+        form = SpeakerForm(request.POST, request.FILES)
         form.instance.event = event
 
         if form.is_valid():
@@ -391,3 +401,58 @@ def add_speaker(request, pk):
 
     # Handle GET requests
     return HttpResponseRedirect(reverse('event-detail', args=(pk,)))
+
+
+def generate_report(request, pk):
+    event = Event.objects.get(id=pk)
+
+    return generate_report_file(event)
+
+
+def generate_report_file(event):
+    # Create a file-like buffer to receive PDF data.
+    buffer = BytesIO()
+
+    # Set up the document
+    doc = SimpleDocTemplate(buffer, pagesize=landscape(letter))
+    styles = getSampleStyleSheet()
+    style = ParagraphStyle('Custom')
+    style.fontName = 'Helvetica-Bold'
+    style.fontSize = 20
+    style.leading = 5
+
+    # Create the table data and style
+    table_data = [['Username', 'Email', 'Attended']]
+    for guest in event.guest_set.all():
+        user = guest.user
+        table_data.append([user.username, user.email, guest.scanned])
+
+    table_style = TableStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
+        ('ALIGN', (0, 0), (-1, 0), 'CENTER'),
+        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+        ('FONTSIZE', (0, 0), (-1, 0), 14),
+        ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+        ('BACKGROUND', (0, 1), (-1, -1), colors.white),
+        ('TEXTCOLOR', (0, 1), (-1, -1), colors.black),
+        ('ALIGN', (0, 1), (-1, -1), 'CENTER'),
+        ('FONTNAME', (0, 1), (-1, -1), 'Helvetica'),
+        ('FONTSIZE', (0, 1), (-1, -1), 12),
+        ('BOTTOMPADDING', (0, 1), (-1, -1), 8),
+        ('GRID', (0, 0), (-1, -1), 1, colors.black),
+    ])
+
+    # Add the table to the document and save it
+    table = Table(table_data, colWidths=[2*inch, 3*inch, 1.5*inch, 1.5*inch])
+    table.setStyle(table_style)
+    elements = []
+    elements.append(Paragraph(event.title, style))
+    elements.append(Spacer(1, 0.5*inch))
+    elements.append(table)
+    elements.append(Spacer(1, 0.5*inch))
+    doc.build(elements)
+
+    # Seek to the beginning and return the buffer as the PDF file
+    buffer.seek(0)
+    return HttpResponse(buffer.read(), content_type='application/pdf')

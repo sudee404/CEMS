@@ -30,5 +30,6 @@ urlpatterns = [
     path('venues/<int:pk>/', views.VenueDetailView.as_view(),
          name='venue-detail'),   
     path('add-speaker/<int:pk>/',views.add_speaker,name='add-speaker'), 
+    path('generate-report/<int:pk>/',views.generate_report,name='report'),
 
 ]
