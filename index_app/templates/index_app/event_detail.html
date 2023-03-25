@@ -40,7 +40,8 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="{% url 'add-speaker' event.id%}" class=" border-0 p-2" method="post">
+                                    <form action="{% url 'add-speaker' event.id%}" class=" border-0 p-2" method="post"
+                                        enctype="multipart/form-data" id="speakerForm">
                                         {% csrf_token %}
                                         <div class="card border rounded shadow mb-3">
                                             <div class="card-body text-dark">
@@ -114,7 +115,7 @@
                                         style="font-size: 14px;"></span><span
                                         style="font-size: 14px;">{{event.guest_set.count}}</span><span
                                         style="font-size: 10px;margin-left: 12px;color: var(--bs-gray-600);">{{event.get_tickets_left}}
-                                        tickets</span></div>
+                                        tickets left</span></div>
                             </div>
                             <div class="col-auto"><i class="fas fa-user-friends fa-2x" data-bs-toggle="tooltip"
                                     data-bss-tooltip="" style="color: var(--bs-yellow);font-size: 28px;margin-top: 4px;"
@@ -132,7 +133,7 @@
                                 <div class="text-uppercase text-primary fw-bold text-xs mb-1"><span
                                         style="font-size: 12px;color: var(--bs-primary);">Venue</span></div>
                                 <div class="text-dark fw-bold h5 mb-0" style="margin-top: -6px;"><span
-                                        style="font-size: 14px;">Lab B7</span></div>
+                                        style="font-size: 14px;">{{event.venue}}</span></div>
                             </div>
                             <div class="col-auto"><i class="fas fa-search-location fa-2x" data-bs-toggle="tooltip"
                                     data-bss-tooltip="" style="color: var(--bs-green);font-size: 28px;margin-top: 4px;"
@@ -190,50 +191,28 @@
                 <p class="text-muted">The following are the speakers for various topics&nbsp;</p>
             </div>
         </div>
-        <div class="row row-cols-2 row-cols-md-3 mx-auto" style="max-width: 700px;">
+
+
+        {% for speaker in event.speaker_set.all %}
+        <div class="row row-cols-2 row-cols-md-3 mx-auto justify-content-center" style="max-width: 700px;">
+
             <div class="col mb-4">
                 <div class="text-center"><img class="rounded mb-3 fit-cover" width="150" height="150"
-                        src="{% static 'assets/img/team/avatar4.jpg' %}">
-                    <h5 class="fw-bold mb-0"><strong>John Smith</strong></h5>
-                    <p class="text-muted mb-2">Erat netus</p>
-                </div>
-            </div>
-            <div class="col mb-4">
-                <div class="text-center"><img class="rounded mb-3 fit-cover" width="150" height="150"
-                        src="{% static 'assets/img/team/avatar6.jpg' %}">
-                    <h5 class="fw-bold mb-0"><strong>John Smith</strong></h5>
-                    <p class="text-muted mb-2">Erat netus</p>
-                </div>
-            </div>
-            <div class="col mb-4">
-                <div class="text-center"><img class="rounded mb-3 fit-cover" width="150" height="150"
-                        src="{% static 'assets/img/team/avatar5.jpg' %}">
-                    <h5 class="fw-bold mb-0"><strong>John Smith</strong></h5>
-                    <p class="text-muted mb-2">Erat netus</p>
-                </div>
-            </div>
-            <div class="col mb-4">
-                <div class="text-center"><img class="rounded mb-3 fit-cover" width="150" height="150"
-                        src="{% static 'assets/img/team/avatar3.jpg' %}">
-                    <h5 class="fw-bold mb-0"><strong>John Smith</strong></h5>
-                    <p class="text-muted mb-2">Erat netus</p>
-                </div>
-            </div>
-            <div class="col mb-4">
-                <div class="text-center"><img class="rounded mb-3 fit-cover" width="150" height="150"
-                        src="{% static 'assets/img/team/avatar1.jpg' %}">
-                    <h5 class="fw-bold mb-0"><strong>John Smith</strong></h5>
-                    <p class="text-muted mb-2">Erat netus</p>
-                </div>
-            </div>
-            <div class="col mb-4">
-                <div class="text-center"><img class="rounded mb-3 fit-cover" width="150" height="150"
-                        src="{% static 'assets/img/team/avatar2.jpg' %}">
-                    <h5 class="fw-bold mb-0"><strong>John Smith</strong></h5>
-                    <p class="text-muted mb-2">Erat netus</p>
+                        src="{{speaker.avatar.url}}">
+                    <h5 class="fw-bold mb-0"><strong>{{speaker.name}}</strong></h5>
+                    <p class="text-muted mb-2">{{speaker.role}}</p>
                 </div>
             </div>
         </div>
+
+        {% empty %}
+        <div class="p-5 mb-4 rounded-3">
+            <div class="container-fluid py-5">
+                <h1 class="display-5 fw-bold">No Speakers defined yet</h1>
+            </div>
+        </div>
+        {% endfor %}
+
 
         {% if event.guest_set.all and owner %}
         <div class="row justify-content-center g-2">
@@ -340,4 +319,37 @@
 
     </div>
 </section>
+<script>
+    // Add this to your JavaScript code
+    const form = document.querySelector('#speakerForm');
+
+    form.addEventListener('submit', (event) => {
+        event.preventDefault(); // Prevent the default form submission behavior
+
+        const formData = new FormData(form); // Get the form data
+        const url = form.action; // Get the form action URL
+
+        // Send an AJAX request
+        fetch(url, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}' // Include the CSRF token in the headers
+            }
+        })
+            .then(response => response.json()) // Parse the response as JSON
+            .then(data => {
+                // Handle the response data as needed
+                window.location.reload()
+            })
+            .catch(errors => {
+                // Handle errors as needed
+                $.each(errors, function (name, errorList) {
+                    var field = form.find(':input[name="' + name + '"]');
+                    var fieldError = $('<div>').addClass('text-danger').html(errorList.join('<br>'));
+                    field.after(fieldError);
+                });
+            });
+    });
+</script>
 {% endblock main %}

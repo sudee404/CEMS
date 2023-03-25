@@ -1,9 +1,14 @@
 from django.contrib import admin
-from .models import Event, Category,Guest,Location,Venue
+from .models import Event, Category,Guest,Location,Venue,Speaker
 
 
 class EventInline(admin.StackedInline):
     model = Event
+    extra = 1
+    
+
+class SpeakerInline(admin.StackedInline):
+    model = Speaker
     extra = 1
 
 
@@ -16,6 +21,7 @@ class CategoryAdmin(admin.ModelAdmin):
 class EventAdmin(admin.ModelAdmin):
     list_display = ('category', 'title', 'start_date', 'end_date')
     list_filter = ('start_date',)
+    inlines = [SpeakerInline]
     
 
 @admin.register(Guest)
@@ -31,3 +37,7 @@ class LocationAdmin(admin.ModelAdmin):
 @admin.register(Venue)
 class LocationAdmin(admin.ModelAdmin):
     list_display = ('name', 'location')
+
+@admin.register(Speaker)
+class SpeakerAdmin(admin.ModelAdmin):
+    list_display = ('name','role', 'event')

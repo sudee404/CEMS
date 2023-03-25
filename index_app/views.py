@@ -1,5 +1,6 @@
+from django.http import JsonResponse
 from django.shortcuts import HttpResponseRedirect
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.views import generic
@@ -378,10 +379,15 @@ def add_speaker(request, pk):
     event = Event.objects.get(id=pk)
 
     if request.method == 'POST':
-        form = SpeakerForm(request.POST)
+        form = SpeakerForm(request.POST,request.FILES)
+        form.instance.event = event
+
         if form.is_valid():
-            form.instance.event = event
             form.save()
-            return HttpResponseRedirect(event.get_absolute_url())
+            return JsonResponse({'success': True, 'redirect': event.get_absolute_url()})
         else:
-            return HttpResponseRedirect(event.get_absolute_url(),{'errors':form.errors})
+            errors = {'errors': form.errors}
+            return JsonResponse(errors, status=400)
+
+    # Handle GET requests
+    return HttpResponseRedirect(reverse('event-detail', args=(pk,)))
