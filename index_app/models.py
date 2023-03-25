@@ -159,3 +159,21 @@ class Location(models.Model):
         verbose_name_plural = 'Locations'
 
     
+
+class Speaker(models.Model):
+    """Model definition for Speaker."""
+
+    name = models.CharField(max_length=150)
+    role = models.CharField(max_length=150)
+    avatar = models.ImageField( upload_to='avatars')
+    event = models.ForeignKey("Event", on_delete=models.CASCADE)
+
+    class Meta:
+        """Meta definition for Speaker."""
+
+        verbose_name = 'Speaker'
+        verbose_name_plural = 'Speakers'
+
+    def __str__(self):
+        """Unicode representation of Speaker."""
+        return self.name

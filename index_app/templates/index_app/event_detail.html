@@ -23,11 +23,40 @@
                     <a href="{% url 'delete-event' pk=event.pk %}" type="button" class="btn btn-danger">Delete</a>
 
                 </div>
+                <div class="my-2">
+                    <a class="btn btn-warning" href="#" data-bs-toggle="modal" data-bs-target="#speakerModal"
+                        type="button">Add speaker</a>
+
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="speakerModal" tabindex="-1" aria-labelledby="speakerModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered   modal-lg modal-fullscreen-sm-down">
+                            <div class="modal-content text-dark">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="speakerModalLabel">Modal title</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="{% url 'add-speaker' event.id%}" method="post">
+                                        {{speaker_form}}
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+
+                                    <a type="button" class="btn btn-primary">Save</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 {% else %}
                 <div class="btn-group" role="group">
 
                     {% if attending %}
-                    <a class="btn btn-primary" type="button" href="{% url 'get-ticket' pk=user.pk pke=event.pk%}">Get ticket</a>
+                    <a class="btn btn-primary" type="button" href="{% url 'get-ticket' pk=user.pk pke=event.pk%}">Get
+                        ticket</a>
 
                     {% else %}
                     <a href="{% url 'add-guest' pk=event.pk%}" class="btn btn-primary" type="button">Attend</a>
@@ -235,14 +264,7 @@
                                                     role="button" href="#" style="color: #00bdff"><i
                                                         class="far fa-eye"></i>
                                                 </a>
-                                                <a class="btn btnMaterial btn-flat success semicircle" role="button"
-                                                    href="#" style="color: rgb(0, 197, 179)"><i class="fas fa-pen"></i>
-                                                </a>
-                                                <a class="btn btnMaterial btn-flat accent btnNoBorders checkboxHover"
-                                                    role="button" style="margin-left: 5px" data-bs-toggle="modal"
-                                                    data-bs-target="#delete-modal" href="#"><i
-                                                        class="fas fa-trash btnNoBorders" style="color: #dc3545"></i>
-                                                </a>
+
                                             </td>
 
                                         </tr>

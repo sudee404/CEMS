@@ -5,7 +5,7 @@ from django.views import generic
 from django.contrib.auth import get_user_model
 from django.db.models import Q
 from django.http import FileResponse, JsonResponse
-from index_app.forms import VenueForm
+from index_app.forms import SpeakerForm, VenueForm
 from .models import Event, Category, Guest, Venue, Location
 from django.contrib.auth.decorators import login_required
 from reportlab.pdfgen import canvas
@@ -153,6 +153,7 @@ class EventDetailView(generic.DetailView):
                 user=self.request.user, event_id=self.kwargs['pk'])
             context["owner"] = self.model.objects.filter(
                 id=self.kwargs['pk'], host=self.request.user)
+            context['speaker_form'] = SpeakerForm()
 
         return context
 
@@ -369,3 +370,10 @@ def post_event(request, pk):
     event.draft = False
     event.save()
     return redirect('event-detail', pk=pk,)
+
+@login_required(login_url='login')
+def add_speaker(request,pk):
+    if request.method == 'POST':
+        form = SpeakerForm(request.POST,request.FILES)
+        if form.is_valid():
+            event = Event.objects.get(id=pk)

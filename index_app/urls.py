@@ -28,6 +28,7 @@ urlpatterns = [
     path('venues/add/', views.VenueCreateView.as_view(), name='add-venue'),
     path('venues/<int:pk>/update/', views.VenueUpdateView.as_view(), name='add-venue'),
     path('venues/<int:pk>/', views.VenueDetailView.as_view(),
-         name='venue-detail'),    
+         name='venue-detail'),   
+    path('add-speaker/<int:pk>/',views.add_speaker,name='add-speaker'), 
 
 ]
