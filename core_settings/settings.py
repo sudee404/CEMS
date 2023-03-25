@@ -109,6 +109,7 @@ AUTH_USER_MODEL = 'user_auth.MyUser'
 
 AUTHENTICATION_BACKENDS = [
     'user_auth.backends.MyUserBackend',
+    'django.contrib.auth.backends.ModelBackend',
 ]
 # Password recovery settings
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

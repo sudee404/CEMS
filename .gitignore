@@ -128,4 +128,8 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+create_events.py
+create_users.py
+create_venues.py
 
+/media

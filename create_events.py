@@ -30,9 +30,14 @@ def get_user():
     user = MyUser.objects.all()
     return random.choice(user)
 
+categories = ['Science','Technology','Media','Mathematics','Social']
 
 def generate_category():
     cat = Category.objects.all()
+    cat_obj = Category.objects.get_or_create(
+        name=random.choice(categories),
+        description=fakegen.text()
+    )
     return random.choice(cat)
 
 

@@ -8,7 +8,7 @@ class MyUserAdmin(UserAdmin):
         (None, {'fields': ('email', 'password')}),
         ('Personal info', {'fields': ('first_name', 'last_name','username','dob')}),
         ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser')}),
-        ('data',{'fields':('avatar',)}),
+        ('Data',{'fields':('avatar',)}),
     )
     add_fieldsets = (
         (None, {
