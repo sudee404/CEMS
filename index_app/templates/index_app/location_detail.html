@@ -10,6 +10,7 @@
 		</li>
 		<li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
 		{% if user.is_authenticated %}
+		<li class="nav-item"><a class="nav-link" href="{% url 'user-profile' %}">Profile</a></li>
 		<li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
 		{% endif %}
 	</ul>
@@ -42,7 +43,8 @@
 								<div class="text-dark fw-bold h5 mb-0" style="margin-top: -6px;"><span
 										style="font-size: 14px;"></span><span
 										style="font-size: 14px;">{{venue.capacity}}</span><span
-										style="font-size: 10px;margin-left: 12px;color: var(--bs-gray-600);">{{location.venue_set.count}} venues
+										style="font-size: 10px;margin-left: 12px;color: var(--bs-gray-600);">{{location.venue_set.count}}
+										venues
 									</span></div>
 							</div>
 							<div class="col-auto"><i class="fas fa-user-friends fa-2x" data-bs-toggle="tooltip"

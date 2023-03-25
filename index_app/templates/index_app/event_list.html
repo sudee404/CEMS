@@ -10,10 +10,12 @@
     <ul class="navbar-nav mx-auto">
         <li class="nav-item"><a class="nav-link" data-bss-hover-animate="pulse" href="{% url 'index' %}">Home</a>
         </li>
-        <li class="nav-item"><a class="nav-link active" data-bss-hover-animate="pulse" href="{% url 'event-list' %}">Events</a>
+        <li class="nav-item"><a class="nav-link active" data-bss-hover-animate="pulse"
+                href="{% url 'event-list' %}">Events</a>
         </li>
         <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
         {% if user.is_authenticated %}
+        <li class="nav-item"><a class="nav-link" href="{% url 'user-profile' %}">Profile</a></li>
         <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
         {% endif %}
     </ul>
@@ -103,9 +105,9 @@
                 {% empty %}
                 <div class="p-5 mb-4 rounded-3">
                     <div class="container-fluid py-5">
-                      <h1 class="display-5 fw-bold">No Events in the system</h1>
+                        <h1 class="display-5 fw-bold">No Events in the system</h1>
                     </div>
-                  </div>
+                </div>
                 {% endfor %}
 
             </div>

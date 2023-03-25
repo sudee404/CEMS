@@ -280,14 +280,16 @@ class CategoryCreateView(generic.CreateView):
 ########### User related views #################
 #################################################
 
-class UserDetailView(generic.DetailView):
-    model = get_user_model()
-    template_name = "index_app/profile.html"
-
+@login_required(login_url='login')
+def profile(request):
+    context = {}
+    return render(request, 'index_app/profile.html', context)
 
 #################################################
 ########### Guest related views #################
 #################################################
+
+
 @login_required(login_url='login')
 def add_guest(request, pk):
     event = Event.objects.get(id=pk)
@@ -344,15 +346,7 @@ class VenueUpdateView(generic.UpdateView):
     model = Venue
 
 
-# List
-
-
-class VenueListView(generic.ListView):
-    model = Venue
-
 # Detail
-
-
 class VenueDetailView(generic.DetailView):
     model = Venue
 
@@ -360,10 +354,6 @@ class VenueDetailView(generic.DetailView):
 #################################################
 ########### Venue related views #################
 #################################################
-
-
-class LocationCreateView(generic.CreateView):
-    model = Location
 
 
 class LocationListView(generic.ListView):
@@ -416,7 +406,6 @@ def generate_report_file(event):
     doc = SimpleDocTemplate(buffer, pagesize=landscape(letter))
     doc.title = 'Event Report'
 
-
     # Define a centered heading style
     centered_heading1 = ParagraphStyle('Centered', alignment=TA_CENTER)
     centered_heading1.fontName = 'Helvetica-Bold'
@@ -430,7 +419,7 @@ def generate_report_file(event):
     centered_heading2.textColor = 'blue'
     centered_heading2.fontSize = 16
     centered_heading2.leading = 20
-    
+
     # Define a centered heading3 style
     centered_heading3 = ParagraphStyle('H#', alignment=TA_LEFT)
     centered_heading3.fontName = 'Helvetica-Bold'
@@ -512,7 +501,8 @@ def generate_report_file(event):
     elements.append(
         Paragraph(f"End Date : {event.end_date}", centered_heading2))
     elements.append(Spacer(1, 0.5*inch))
-    elements.append(Paragraph(f"Host Name: {event.host.get_full_name()}", centered_heading3))
+    elements.append(
+        Paragraph(f"Host Name: {event.host.get_full_name()}", centered_heading3))
     elements.append(Spacer(1, 0.3*inch))
     elements.append(
         Paragraph(f"Host Email: {event.host.email}", centered_heading3))
@@ -542,7 +532,6 @@ def generate_report_file(event):
         elements.append(speaker_table)
         elements.append(Spacer(1, 0.5*inch))
 
-
     if event.guest_set.all:
         # Guest Table
         elements.append(PageBreak())
@@ -553,7 +542,6 @@ def generate_report_file(event):
         elements.append(Spacer(1, 0.3*inch))
         elements.append(guest_table)
         elements.append(Spacer(1, 0.5*inch))
-
 
     # Build document
     doc.build(elements)

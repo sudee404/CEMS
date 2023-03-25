@@ -65,9 +65,7 @@ class MyUser(AbstractBaseUser):
 
     def get_full_name(self):
         return f'{self.first_name} {self.last_name}'
-    
-    def get_absolute_url(self):
-        return reverse("user-profile", kwargs={"pk": self.pk})
+
 
     def get_to_dashboard(self):
         return reverse("dashboard", kwargs={"pk": self.pk})

@@ -15,6 +15,7 @@
 		</li>
 		<li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
 		{% if user.is_authenticated %}
+		<li class="nav-item"><a class="nav-link" href="{% url 'user-profile' %}">Profile</a></li>
 		<li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
 		{% endif %}
 	</ul>
@@ -60,10 +61,11 @@
 					<div class="row">
 						<div class="col-sm-12 col-md-8 col-lg-12">
 							<div class="mb-3"><label class="form-label" for="venue_capacity"><strong>Venue Capacity
-										*</strong></label><input class="bg-light bg-gradient form-control" type="number" id="venue_capacity"
-									placeholder="Venue Capacity" name="capacity" required value="{{venue.capacity}}"></div>
+										*</strong></label><input class="bg-light bg-gradient form-control" type="number"
+									id="venue_capacity" placeholder="Venue Capacity" name="capacity" required
+									value="{{venue.capacity}}"></div>
 						</div>
-					
+
 					</div>
 					<div class="row">
 						<div class="col-sm-12 col-md-8 col-lg-12">

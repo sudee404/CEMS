@@ -50,27 +50,30 @@
 				data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"
 				style="margin: 0;width: 60px;"><span class="visually-hidden">Toggle navigation</span><span
 					class="navbar-toggler-icon"></span></button>
-			
+
 			{% block nav %}
-				<div class="collapse navbar-collapse" id="navcol-1" data-bs-spy="scroll" data-bs-smooth-scroll="true">
-					<ul class="navbar-nav mx-auto">
-						<li class="nav-item"><a class="nav-link active" data-bss-hover-animate="pulse" href="{% url 'index' %}">Home</a>
-						</li>
-						<li class="nav-item"><a class="nav-link" data-bss-hover-animate="pulse" href="{% url 'event-list' %}">Events</a>
-						</li>
-						<li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
-						{% if user.is_authenticated %}
-						<li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
-						{% endif %}
-					</ul>
+			<div class="collapse navbar-collapse" id="navcol-1" data-bs-spy="scroll" data-bs-smooth-scroll="true">
+				<ul class="navbar-nav mx-auto">
+					<li class="nav-item"><a class="nav-link active" data-bss-hover-animate="pulse"
+							href="{% url 'index' %}">Home</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" data-bss-hover-animate="pulse"
+							href="{% url 'event-list' %}">Events</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
 					{% if user.is_authenticated %}
-					<a class="btn btn-success shadow" role="button" href="{{user.get_to_dashboard}}">Dashboard</a>
-					{% else %}
-					<a class="btn btn-primary shadow" role="button" href="{% url 'login' %}">Sign In</a>
+					<li class="nav-item"><a class="nav-link" href="{% url 'user-profile' %}">Profile</a></li>
+					<li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
 					{% endif %}
-				</div>
+				</ul>
+				{% if user.is_authenticated %}
+				<a class="btn btn-success shadow" role="button" href="{{user.get_to_dashboard}}">Dashboard</a>
+				{% else %}
+				<a class="btn btn-primary shadow" role="button" href="{% url 'login' %}">Sign In</a>
+				{% endif %}
+			</div>
 			{% endblock nav %}
-				
+
 		</div>
 	</nav>
 	{% block main %}

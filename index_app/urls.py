@@ -18,13 +18,11 @@ urlpatterns = [
     path("events/<int:pk>/ticket/<int:pke>/",views.get_ticket, name='get-ticket'),
     # Category urls
     path("category/add/", views.CategoryCreateView.as_view(), name="add-category"),
-    path('profile/<int:pk>/', views.UserDetailView.as_view(), name='user-profile'),
+    path('profile/', views.profile, name='user-profile'),
     # Location urls
     path('locations/',views.LocationListView.as_view(),name='location-list'),
-    path('locations/add/',views.LocationCreateView.as_view(),name='add-location'),
     path('locations/<int:pk>/',views.LocationDetailView.as_view(),name='location-detail'),
     # Location urls
-    path('venues/', views.VenueListView.as_view(), name='venue-list'),
     path('venues/add/', views.VenueCreateView.as_view(), name='add-venue'),
     path('venues/<int:pk>/update/', views.VenueUpdateView.as_view(), name='add-venue'),
     path('venues/<int:pk>/', views.VenueDetailView.as_view(),

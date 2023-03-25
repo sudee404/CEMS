@@ -5,10 +5,12 @@
     <ul class="navbar-nav mx-auto">
         <li class="nav-item"><a class="nav-link" data-bss-hover-animate="pulse" href="{% url 'index' %}">Home</a>
         </li>
-        <li class="nav-item"><a class="nav-link active" data-bss-hover-animate="pulse" href="{% url 'event-list' %}">Events</a>
+        <li class="nav-item"><a class="nav-link active" data-bss-hover-animate="pulse"
+                href="{% url 'event-list' %}">Events</a>
         </li>
         <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
         {% if user.is_authenticated %}
+        <li class="nav-item"><a class="nav-link" href="{% url 'user-profile' %}">Profile</a></li>
         <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
         {% endif %}
     </ul>
@@ -211,9 +213,11 @@
             </div>
         </div>
 
+
+        {% if event.speaker_set.all %}
         <div class="row row-cols-2 row-cols-md-3 mx-auto justify-content-center" style="max-width: 700px;">
 
-        {% for speaker in event.speaker_set.all %}
+            {% for speaker in event.speaker_set.all %}
             <div class="col mb-4">
                 <div class="text-center"><img class="rounded mb-3 fit-cover" width="150" height="150"
                         src="{{speaker.avatar.url}}">
@@ -221,16 +225,20 @@
                     <p class="text-muted mb-2">{{speaker.role}}</p>
                 </div>
             </div>
-        
 
-        {% empty %}
+
+
+            {% endfor %}
+        </div>
+        {% else %}
         <div class="col mb-4 rounded-3">
             <div class="container-fluid py-5">
                 <h1 class="display-5 fw-bold">No Speakers defined yet</h1>
             </div>
         </div>
-        {% endfor %}
-        </div>
+        {% endif %}
+
+
 
 
         {% if event.guest_set.all and owner %}

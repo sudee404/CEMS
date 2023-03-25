@@ -1,14 +1,14 @@
-{% extends "base_generic.html" %} {% load static %} 
+{% extends "base_generic.html" %} {% load static %}
 {% block nav %}
 <div class="collapse navbar-collapse" id="navcol-1" data-bs-spy="scroll" data-bs-smooth-scroll="true">
 	<ul class="navbar-nav mx-auto">
 		<li class="nav-item"><a class="nav-link" data-bss-hover-animate="pulse" href="{% url 'index' %}">Home</a>
 		</li>
-		<li class="nav-item"><a class="nav-link" data-bss-hover-animate="pulse"
-				href="{% url 'event-list' %}">Events</a>
+		<li class="nav-item"><a class="nav-link" data-bss-hover-animate="pulse" href="{% url 'event-list' %}">Events</a>
 		</li>
 		<li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
 		{% if user.is_authenticated %}
+		<li class="nav-item"><a class="nav-link" href="{% url 'user-profile' %}">Profile</a></li>
 		<li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
 		{% endif %}
 	</ul>
@@ -28,8 +28,8 @@
 			<a type="button" class="btn btn-primary" href="?mode=host">Guest Mode</a>
 		</div>
 	</div>
-	
-		
+
+
 	<div class="text-white bg-primary border rounded border-0 border-primary d-flex flex-column justify-content-between flex-lg-row p-4 p-md-5"
 		style="margin: 0 10px 10px">
 		<div class="pb-2 pb-lg-1">
@@ -80,13 +80,15 @@
 											data-bs-target="#guest{{guest.id}}" role="button" href="#"
 											style="color: #00bdff"><i class="far fa-eye"></i>
 										</a>
-										<a class="btn btnMaterial btn-flat success semicircle" role="button" href="{{guest.event.get_absolute_url}}"
-											style="color: rgb(0, 197, 179)"><i class="fas fa-edit"></i>
+										<a class="btn btnMaterial btn-flat success semicircle" role="button"
+											href="{{guest.event.get_absolute_url}}" style="color: rgb(0, 197, 179)"><i
+												class="fas fa-edit"></i>
 										</a>
-										
+
 										<a class="btn btnMaterial btn-flat accent btnNoBorders checkboxHover"
-											role="button" style="margin-left: 5px"  href="{% url 'get-ticket' pk=guest.user.pk pke=guest.event.pk%}"><i class="fas fa-download btnNoBorders"
-												style="color: #dc3545"></i>
+											role="button" style="margin-left: 5px"
+											href="{% url 'get-ticket' pk=guest.user.pk pke=guest.event.pk%}"><i
+												class="fas fa-download btnNoBorders" style="color: #dc3545"></i>
 										</a>
 									</td>
 								</tr>
@@ -109,10 +111,13 @@
 
 													</div>
 													<div class="col-md-6">
-														<div><span class="lead text-success">Event</span>: {{guest.event}}</div>
-														<div><span class="lead text-success">Ticket</span>: {{guest.ticket}}</div>
-														<div><span class="lead text-success">Host</span>: {{guest.event.host}}</div>
-														
+														<div><span class="lead text-success">Event</span>:
+															{{guest.event}}</div>
+														<div><span class="lead text-success">Ticket</span>:
+															{{guest.ticket}}</div>
+														<div><span class="lead text-success">Host</span>:
+															{{guest.event.host}}</div>
+
 													</div>
 												</div>
 											</div>

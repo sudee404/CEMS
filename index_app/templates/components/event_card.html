@@ -13,11 +13,12 @@
 			<p class="blog-card-description">{{event.description|truncatewords:6}}.</p>
 			<div class="ftr">
 				<div class="author">
-					<a href="{{event.host.get_absolute_url}}"> <img src="{{event.host.avatar.url}}" alt="..." class="avatar img-raised">
-						<span>{{event.host}}</span> </a>
+					<img src="{{event.host.avatar.url}}" alt="..." class="avatar img-raised">
+					<span>{{event.host.email}}</span>
 				</div>
-				<div class="stats"> <i class="far fa-clock"></i> {{event.guests}} </div>
 			</div>
+			<div class="stats mt-2">{{event.get_tickets_left}} Tickets left</div>
+
 		</div>
 	</div>
 </div>
