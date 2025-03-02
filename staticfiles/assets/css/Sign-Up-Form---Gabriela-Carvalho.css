@@ -1,0 +1,82 @@
+h1 {
+  font-size: 50px;
+  word-break: break-all;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+form {
+  border: 1px solid #ccc;
+}
+
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+input[type=email]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+.gc004-dodgerblue {
+  color: dodgerblue;
+}
+
+button, .gc-signupbtn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+button:hover {
+  opacity: 1;
+}
+
+.gc-cancelbtn {
+  padding: 14px 20px;
+  background-color: #f44336;
+}
+
+.gc-cancelbtn, .gc-signupbtn {
+  float: left;
+  width: 50%;
+}
+
+.gc004-container {
+  padding: 16px;
+}
+
+.gc-clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+@media screen and (max-width: 300px) {
+  .gc-cancelbtn, .gc-signupbtn {
+    width: 100%;
+  }
+}
+
