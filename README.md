@@ -38,7 +38,7 @@ pip install -r requirements.txt
 ```bash
 SECRET_KEY=yoursecretkey
 DEBUG=True
-ALLOWED_HOSTS=127.0.0.1, .localhost
+ALLOWED_HOSTS=127.0.0.1,localhost
 ```
 
 5. Run migrations
